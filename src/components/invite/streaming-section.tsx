@@ -38,7 +38,7 @@ export default function StreamingSection({
                 <rect x="2" y="7" width="14" height="11" rx="2" />
                 <circle cx="9" cy="12.5" r="3" />
                 <path d="M16 10l5-3v11l-5-3" />
-                <circle cx="21" cy="7" r="2" fill="currentColor" stroke="none" />
+                
               </svg>
             </motion.div>
 
