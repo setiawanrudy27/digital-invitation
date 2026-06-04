@@ -46,7 +46,7 @@ export default function CoverSection({ data, onOpen, isMobileFrame = false }: Co
       <motion.div
         className="w-full h-full flex flex-col items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: "url('/images/background invitation.png')",
+          backgroundImage: "url('/images/background-invitation.webp')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}

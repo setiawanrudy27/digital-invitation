@@ -146,7 +146,7 @@ export default function InvitationClient(data: InvitationPageData) {
         )}
         <main ref={mainRef} className="relative invitation-theme w-screen h-screen overflow-y-auto"
           style={{
-            backgroundImage: "url('/images/background invitation.png')",
+            backgroundImage: "url('/images/background-invitation.webp')",
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -225,7 +225,7 @@ export default function InvitationClient(data: InvitationPageData) {
         <div className="w-[clamp(360px,30%,540px)] flex items-stretch shrink-0 transition-[width] duration-300 ease-in-out">
           <div className="w-full h-full flex flex-col relative z-10 overflow-hidden"
             style={{
-              backgroundImage: "url('/images/background invitation.png')",
+              backgroundImage: "url('/images/background-invitation.webp')",
               backgroundSize: "cover",
               backgroundPosition: "center",
             }}
