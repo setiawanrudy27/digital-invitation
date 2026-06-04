@@ -1,26 +1,349 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Alex+Brush&family=Parisienne&family=Quicksand:wght@200..600&family=Italianno&family=Corinthia&family=MonteCarlo&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-script: 'Great Vibes', cursive;
+  --font-quicksand: 'Quicksand', sans-serif;
+  --font-corinthia: 'Corinthia', cursive;
+  --font-alexbrush: 'Alex Brush', cursive;
+  --font-parisienne: 'Parisienne', cursive;
+  --font-montecarlo: 'MonteCarlo', cursive;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-burgundy-50: #fef2f2;
+  --color-burgundy-100: #fde3e3;
+  --color-burgundy-200: #fbcdcd;
+  --color-burgundy-300: #f7a9a9;
+  --color-burgundy-400: #f17676;
+  --color-burgundy-500: #e64c4c;
+  --color-burgundy-600: #d32f2f;
+  --color-burgundy-700: #b02525;
+  --color-burgundy-800: #922323;
+  --color-burgundy-900: #792323;
+
+  --color-cream-50: #F8F1F9;
+  --color-cream-100: #F2E7F4;
+  --color-cream-200: #E9D6E8;
+  --color-cream-300: #DDC1DD;
+  --color-cream-400: #D0ADD2;
+  --color-cream-500: #C3ACD0;
+  --color-cream-600: #B191C0;
+  --color-cream-700: #8B6B9F;
+  --color-cream-800: #674188;
+  --color-cream-900: #462A5D;
+
+  --color-brand-50: #F5F0FA;
+  --color-brand-100: #EBE0F5;
+  --color-brand-200: #D7C0EB;
+  --color-brand-300: #B895D9;
+  --color-brand-400: #9665C4;
+  --color-brand-500: #773DB0;
+  --color-brand-600: #5D209C;
+  --color-brand-700: #49108B;
+  --color-brand-800: #3B0C72;
+  --color-brand-900: #2D0759;
+  --color-brand-950: #1D0337;
+
+  --color-accent-50: #FCE4FC;
+  --color-accent-100: #F9C8FA;
+  --color-accent-200: #F4A3F5;
+  --color-accent-300: #EE7EF0;
+  --color-accent-400: #E26EE5;
+  --color-accent-500: #D055D3;
+  --color-accent-600: #BE3CC1;
+  --color-accent-700: #A823AB;
+
+  --color-background: #F3F8FF;
+  --color-surface: #FFFFFF;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A1A2E;
+  --color-popover: #FFFFFF;
+  --color-popover-foreground: #1A1A2E;
+  --color-primary: #49108B;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F5F0FA;
+  --color-secondary-foreground: #49108B;
+  --color-muted: #6B6B80;
+  --color-muted-foreground: #6B6B80;
+  --color-accent: #E26EE5;
+  --color-accent-foreground: #FFFFFF;
+  --color-destructive: #E54545;
+  --color-destructive-foreground: #FFFFFF;
+  --color-success: #22A67E;
+  --color-success-foreground: #FFFFFF;
+  --color-warning: #E59845;
+  --color-warning-foreground: #FFFFFF;
+  --color-border: rgba(73,16,139,0.10);
+  --color-input: rgba(73,16,139,0.12);
+  --color-ring: #E26EE5;
+  --color-sidebar: #49108B;
+  --color-sidebar-foreground: rgba(255,255,255,0.85);
+  --color-sidebar-accent: rgba(226,110,229,0.25);
+  --color-sidebar-accent-foreground: #FFFFFF;
+  --color-sidebar-border: rgba(255,255,255,0.08);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 0.875rem;
+  --radius-2xl: 1.125rem;
+  --radius-3xl: 1.5rem;
+
+  --shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.1);
+  --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.12), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+  --shadow-md: 0 4px 10px -3px rgb(0 0 0 / 0.14), 0 2px 6px -2px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 10px 30px -8px rgb(0 0 0 / 0.18), 0 6px 18px -8px rgb(0 0 0 / 0.12);
+  --shadow-xl: 0 16px 40px -10px rgb(0 0 0 / 0.22), 0 10px 24px -10px rgb(0 0 0 / 0.14);
+  --shadow-2xl: 0 20px 60px -12px rgb(0 0 0 / 0.24);
+  --shadow-elevated: 0 8px 32px -10px rgb(0 0 0 / 0.24), 0 16px 48px -16px rgb(0 0 0 / 0.16);
+  --shadow-glass: 0 0 0 1px rgb(255 255 255 / 0.08), 0 10px 36px -10px rgb(0 0 0 / 0.25);
+  --shadow-glow: 0 0 30px -8px rgb(73 16 139 / 0.10), 0 6px 24px -10px rgb(0 0 0 / 0.10);
+
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-slide-up: slide-up 0.35s ease-out;
+  --animate-slide-down: slide-down 0.2s ease-out;
+  --animate-scale-in: scale-in 0.18s ease-out;
+  --animate-spin-slow: spin 2.5s linear infinite;
+  --animate-float: float 3.5s ease-in-out infinite;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes slide-down {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.96); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
   }
 }
 
+.font-quicksand {
+  font-family: var(--font-quicksand) !important;
+  font-weight: 300;
+}
+
+.font-corinthia {
+  font-family: var(--font-corinthia), cursive !important;
+  font-variant-ligatures: contextual;
+  font-feature-settings: "liga" 1, "calt" 1;
+}
+
+.font-parisienne {
+  font-family: var(--font-parisienne) !important;
+}
+
+.font-montecarlo {
+  font-family: var(--font-montecarlo), cursive !important;
+}
+
+.font-italianno {
+  font-family: var(--font-italianno), cursive !important;
+}
+
+.font-script {
+  font-family: var(--font-script), var(--font-alexbrush), cursive !important;
+  font-variant-ligatures: contextual;
+  font-feature-settings: "liga" 1, "calt" 1, "clig" 1;
+}
+
+/* Invitation theme: luxury botanical vintage palette */
+.invitation-theme {
+  --invite-primary: #8B3A42;
+  --invite-secondary: #C97A7E;
+  --invite-bg: #F5F0E8;
+  --invite-green: #7A8B6F;
+  --invite-gold: #C9A84C;
+  --invite-surface: #FAF6EF;
+  --invite-text: #3C2A2A;
+  --invite-muted: #8C7575;
+  --invite-cream: #FDF8F0;
+  --invite-blush: #E8C4C8;
+  --invite-sage: #A3B39A;
+  --invite-ivory: #F2ECE4;
+  --invite-charcoal: #2C1E1E;
+}
+
+.invitation-theme body {
+  background-color: var(--invite-bg);
+  color: var(--invite-text);
+}
+
+/* Vintage paper texture overlay */
+.invitation-theme .vintage-bg {
+  position: relative;
+}
+.invitation-theme .vintage-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,58,66,0.03) 2px, rgba(139,58,66,0.03) 4px),
+    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(60,42,42,0.02) 3px, rgba(60,42,42,0.02) 5px);
+  pointer-events: none;
+}
+
+/* Gold text gradient utility */
+.invitation-theme .text-gold-gradient {
+  background: linear-gradient(135deg, #C9A84C 0%, #E8D49A 30%, #C9A84C 50%, #D4B96A 70%, #C9A84C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Ornate section heading */
+.invitation-theme .section-heading {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+/* Gold border frame */
+.invitation-theme .gold-border {
+  border: 2px solid var(--invite-gold);
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.15), 0 0 20px rgba(201,168,76,0.08);
+}
+
+/* Subtle paper texture for sections */
+.invitation-theme .paper-texture {
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(60,42,42,0.015) 1px, rgba(60,42,42,0.015) 2px);
+}
+
+/* Watercolor overlay effect */
+.invitation-theme .watercolor-overlay {
+  position: relative;
+  overflow: hidden;
+}
+.invitation-theme .watercolor-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(139,58,66,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(122,139,111,0.04) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Admin-scoped theme: premium luxury palette for the dashboard only. */
+.admin-theme {
+  --color-background: #F3F8FF;
+  --color-surface: #FFFFFF;
+  --color-card: #FFFFFF;
+  --color-card-foreground: #1A1A2E;
+  --color-foreground: #2D2D44;
+  --color-muted-foreground: #6B6B80;
+  --color-secondary: #F5F0FA;
+  --color-secondary-foreground: #49108B;
+  --color-primary: #49108B;
+  --color-primary-foreground: #FFFFFF;
+  --color-border: rgba(73,16,139,0.10);
+  --color-input: rgba(73,16,139,0.12);
+  --color-ring: #E26EE5;
+  --color-accent: #E26EE5;
+  --color-sidebar: #49108B;
+  --color-sidebar-foreground: rgba(255,255,255,0.85);
+  --color-sidebar-border: rgba(255,255,255,0.08);
+  --color-sidebar-accent: rgba(226,110,229,0.25);
+}
+
+@utility glass {
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(73,16,139,0.08);
+  box-shadow: 0 12px 36px -14px rgba(73,16,139,0.10);
+}
+
+@utility glass-dark {
+  background: rgba(26,13,42,0.72);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(212,190,228,0.12);
+  box-shadow: 0 10px 36px -10px rgba(0,0,0,0.45);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+html {
+  background: #F3F8FF;
+  background-image:
+    radial-gradient(circle at 18% 82%, rgba(73,16,139,0.05) 0%, transparent 50%),
+    radial-gradient(circle at 82% 18%, rgba(226,110,229,0.04) 0%, transparent 50%);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background: transparent;
+  color: var(--color-foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: rgba(73,16,139,0.18);
+  color: #ffffff;
+}
+
+.tiptap {
+  outline: none;
+}
+
+.tiptap p.is-editor-empty:first-child::before {
+  color: var(--color-muted-foreground);
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+.tiptap ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.tiptap ol {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+}
+
+.tiptap li {
+  margin-bottom: 0.25rem;
 }
