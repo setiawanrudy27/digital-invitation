@@ -41,8 +41,8 @@ function ProfileContent({ person, label, alignRight = false }: { person: Couple;
           {label}
         </span>
         <h3
-          className="font-display text-lg md:text-xl lg:text-2xl italic mt-3 leading-tight"
-          style={{ color: themeColors.charcoal }}
+          className="font-italianno text-2xl md:text-3xl lg:text-4xl mt-3 leading-tight"
+          style={{ color: themeColors.primary }}
         >
           {person.full_name}
         </h3>
@@ -53,7 +53,7 @@ function ProfileContent({ person, label, alignRight = false }: { person: Couple;
         )}
       </div>
 
-      <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: themeColors.text }}>
+      <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: themeColors.primary }}>
         {person.person_type === "bride" ? "Putri" : "Putra"}
         {person.child_order ? ` ${person.child_order}` : ""} dari
         <br />
@@ -142,11 +142,9 @@ export default function CoupleSection({ groom, bride, showPhoto = true }: {
           whileInView={{ opacity: 1, scaleX: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex items-center justify-center gap-6 my-6 md:my-20 lg:my-24"
+          className="flex items-center justify-center my-6 md:my-20 lg:my-24"
         >
-          <span className="block h-px w-16 md:w-24" style={{ background: `linear-gradient(90deg, transparent, ${themeColors.gold}, transparent)` }} />
-          <span className="font-script text-3xl md:text-4xl lg:text-5xl" style={{ color: themeColors.gold }}>&amp;</span>
-          <span className="block h-px w-16 md:w-24" style={{ background: `linear-gradient(90deg, transparent, ${themeColors.gold}, transparent)` }} />
+          <span className="font-italianno text-4xl md:text-5xl lg:text-6xl" style={{ color: themeColors.primary }}>&amp;</span>
         </motion.div>
 
         {/* Groom: content left, image right */}
