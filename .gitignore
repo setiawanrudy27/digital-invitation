@@ -36,6 +36,17 @@ yarn-error.log*
 # vercel
 .vercel
 
+# netlify
+.netlify
+
+# backup files
+*.backup
+
+# dev logs
+dev-errors.txt
+dev-output.txt
+tmp-test.txt
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
