@@ -98,30 +98,36 @@ export function FloralCorner({ position = "top-left", className = "" }: { positi
   );
 }
 
+const leafPositions = [
+  { left: "5%", top: "15%", size: 28, delay: 0 },
+  { left: "92%", top: "10%", size: 22, delay: 0.5 },
+  { left: "8%", top: "80%", size: 24, delay: 1 },
+  { left: "88%", top: "85%", size: 20, delay: 1.5 },
+  { left: "50%", top: "5%", size: 18, delay: 0.8 },
+  { left: "3%", top: "50%", size: 16, delay: 2 },
+  { left: "95%", top: "55%", size: 16, delay: 2.5 },
+];
+
 export function FloatingLeaves({ count = 7, color }: { count?: number; color?: string }) {
   const c = color || themeColors.green;
-  const leafPositions = [
-    { left: "5%", top: "15%", size: 28, delay: 0 },
-    { left: "92%", top: "10%", size: 22, delay: 0.5 },
-    { left: "8%", top: "80%", size: 24, delay: 1 },
-    { left: "88%", top: "85%", size: 20, delay: 1.5 },
-    { left: "50%", top: "5%", size: 18, delay: 0.8 },
-    { left: "3%", top: "50%", size: 16, delay: 2 },
-    { left: "95%", top: "55%", size: 16, delay: 2.5 },
-  ];
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
       {leafPositions.slice(0, count).map((leaf, i) => (
-        <motion.div
+        <div
           key={i}
-          className="absolute"
-          style={{ left: leaf.left, top: leaf.top, color: c, opacity: 0.08 }}
-          animate={{ y: [0, -30, 0], rotate: [0, 12, -12, 0] }}
-          transition={{ duration: 10 + i, repeat: Infinity, ease: "easeInOut", delay: leaf.delay }}
+          className="absolute leaf-float"
+          style={{
+            left: leaf.left,
+            top: leaf.top,
+            color: c,
+            opacity: 0.08,
+            animationDelay: `${leaf.delay}s`,
+            animationDuration: `${10 + i}s`,
+          }}
         >
           <BotanicalLeaf size={leaf.size} />
-        </motion.div>
+        </div>
       ))}
     </div>
   );

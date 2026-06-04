@@ -239,6 +239,17 @@
   pointer-events: none;
 }
 
+/* Floating leaves animation (GPU-accelerated) */
+@keyframes leafFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(6deg); }
+  66% { transform: translateY(-10px) rotate(-6deg); }
+}
+.invitation-theme .leaf-float {
+  animation: leafFloat 10s ease-in-out infinite;
+  will-change: transform;
+}
+
 /* Admin-scoped theme: premium luxury palette for the dashboard only. */
 .admin-theme {
   --color-background: #F3F8FF;
