@@ -52,7 +52,7 @@ export default function StreamingSection({
           </div>
 
           <p className="mb-8 text-center text-sm leading-relaxed md:text-base relative z-10" style={{ color: themeColors.muted }}>
-            Moment kebahagiaan prosesi pernikahan akan kami tayangkan secara virtual melalui tautan berikut ini.
+            Momen kebahagiaan prosesi pernikahan akan kami tayangkan secara virtual melalui tautan berikut ini.
           </p>
 
           <div className="flex justify-center">
