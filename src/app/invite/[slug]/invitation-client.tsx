@@ -98,7 +98,9 @@ export default function InvitationClient(data: InvitationPageData) {
       )}
 
       {!isOpen ? (
-        <CoverSection data={data} onOpen={() => setIsOpen(true)} />
+        <div className="h-screen overflow-hidden">
+          <CoverSection data={data} onOpen={() => setIsOpen(true)} />
+        </div>
       ) : (
         <div className="lg:flex lg:h-screen lg:bg-black lg:overflow-hidden">
           <div className="hidden lg:flex lg:flex-1 lg:relative lg:overflow-hidden">
