@@ -40,7 +40,11 @@ export default function InvitationClient(data: InvitationPageData) {
   useEffect(() => {
     if (!isOpen || !scrollRef.current) return;
 
-    const sections = scrollRef.current.querySelectorAll("section");
+    const isDesktop = window.innerWidth >= 1024;
+    const scroller = isDesktop ? scrollRef.current : undefined;
+    const container = isDesktop ? scrollRef.current : document;
+
+    const sections = container.querySelectorAll("section");
     sections.forEach((section) => {
       gsap.fromTo(
         section,
@@ -52,7 +56,7 @@ export default function InvitationClient(data: InvitationPageData) {
           ease: "power2.out",
           scrollTrigger: {
             trigger: section,
-            scroller: scrollRef.current,
+            scroller: scroller,
             start: "top 85%",
             once: true,
           },
@@ -121,9 +125,8 @@ export default function InvitationClient(data: InvitationPageData) {
             </div>
           </div>
 
-          <div className="lg:w-[clamp(360px,30%,540px)] lg:flex lg:items-stretch lg:shrink-0">
-            <div
-              className="w-full h-screen flex flex-col relative overflow-hidden invitation-theme"
+          <div className="lg:w-[clamp(360px,30%,540px)] lg:h-screen">
+            <div className="relative w-full h-full lg:flex lg:flex-col invitation-theme"
               style={{
                 backgroundImage: "url('/images/background-invitation.webp')",
                 backgroundSize: "cover",
@@ -131,7 +134,7 @@ export default function InvitationClient(data: InvitationPageData) {
               }}
             >
               <div className="absolute inset-0 bg-[#F5ECE0]/20 pointer-events-none" />
-              <div ref={scrollRef} className="flex-1 overflow-y-auto">
+              <div ref={scrollRef} className="lg:flex-1 lg:overflow-y-auto max-lg:min-h-screen">
                 <InvitationSections data={data} containerRef={scrollRef} />
               </div>
               <div className="lg:hidden">
