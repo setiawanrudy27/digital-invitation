@@ -70,7 +70,7 @@ export default function CoverSection({ data, onOpen, isMobileFrame = false }: Co
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            The Wedding Of
+            Undangan Pernikahan
           </motion.p>
 
           {/* Names with gold ornament */}

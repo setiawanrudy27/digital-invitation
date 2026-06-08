@@ -1,12 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
-import { requireAuth, getInvitation } from "@/lib/auth";
+import { getInvitation } from "@/lib/auth";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Heart, CalendarDays, Users, Image, ArrowRight, Sparkles, ExternalLink, BookOpen, Lightbulb } from "lucide-react";
 import { StaggerGrid, StaggerItem } from "@/components/admin/stagger-grid";
 
 export default async function AdminDashboard() {
-  await requireAuth();
   const invitation = await getInvitation();
   const supabase = await createClient();
 

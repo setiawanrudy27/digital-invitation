@@ -110,7 +110,6 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ backgroundColor: "rgba(44,30,30,0.7)", backdropFilter: "blur(8px)" }}
             onClick={() => setShowModal(false)}
           >
             <motion.div
@@ -118,14 +117,15 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
-              className="relative w-full max-w-lg max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8"
+              className="relative w-full max-w-lg rounded-3xl"
               style={{
                 backgroundColor: themeColors.surface,
                 border: `1px solid rgba(201,168,76,0.2)`,
               }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-between mb-6">
+              <div className="max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8">
+                <div className="flex items-center justify-between mb-6">
                 <h3 className="font-display text-xl italic" style={{ color: themeColors.charcoal }}>
                   Tujuan Pengiriman
                 </h3>
@@ -199,11 +199,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.2 }}
-                    className="rounded-2xl p-6 text-center"
-                    style={{
-                      backgroundColor: themeColors.cream,
-                      border: `1px solid rgba(201,168,76,0.15)`,
-                    }}
+                    className="text-center"
                   >
                     <p className="mb-4 font-display text-lg italic" style={{ color: themeColors.charcoal }}>
                       Scan QRIS
@@ -214,15 +210,13 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
                       className="mx-auto h-48 w-48 rounded-xl object-cover shadow-sm sm:h-56 sm:w-56"
                       style={{ border: `1px solid rgba(201,168,76,0.15)` }}
                     />
-                    <p className="mt-4 text-xs" style={{ color: themeColors.muted }}>
-                      Scan menggunakan aplikasi perbankan atau e-wallet
-                    </p>
                   </motion.div>
                 )}
               </div>
-            </motion.div>
+            </div>
           </motion.div>
-        )}
+        </motion.div>
+      )}
       </AnimatePresence>
     </section>
   );

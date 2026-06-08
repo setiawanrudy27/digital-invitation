@@ -1,12 +1,8 @@
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, getUser } from "@/lib/supabase/server";
 
 export async function requireAuth() {
-  const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await getUser();
 
   if (!user) {
     redirect("/admin/login");
@@ -15,12 +11,9 @@ export async function requireAuth() {
   return user;
 }
 
-export async function getInvitation() {
+export async function getInvitation(existingUser?: Awaited<ReturnType<typeof getUser>>) {
   const supabase = await createClient();
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = existingUser ?? await getUser();
 
   if (!user) {
     redirect("/admin/login");

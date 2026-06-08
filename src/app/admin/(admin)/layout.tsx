@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { requireAuth } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/admin/sidebar";
 import { PageTransition } from "@/components/admin/page-transition";
 
@@ -15,12 +14,7 @@ export default async function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  await requireAuth();
-
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = await requireAuth();
 
   return (
     <div className="admin-theme min-h-screen bg-background text-foreground">
