@@ -12,7 +12,7 @@ export default function StreamingSection({
   if (!stream?.stream_url) return null;
 
   return (
-    <section className="relative px-4 pt-12 pb-20 md:px-8 md:pt-20 md:pb-28 overflow-hidden vintage-bg watercolor-overlay"
+    <section className="relative px-4 pt-12 pb-20 md:px-8 md:pt-20 md:pb-28 overflow-hidden bg-white"
     >
       <FloatingLeaves count={5} />
       <div className="mx-auto max-w-3xl relative z-10">

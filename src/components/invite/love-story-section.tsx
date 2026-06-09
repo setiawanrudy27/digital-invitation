@@ -25,7 +25,7 @@ export default function LoveStorySection({ stories }: LoveStorySectionProps) {
   );
 
   return (
-    <section className="relative pt-10 pb-20 md:pt-16 md:pb-28 px-4 overflow-hidden vintage-bg watercolor-overlay"
+    <section className="relative pt-10 pb-20 md:pt-16 md:pb-28 px-4 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="max-w-4xl mx-auto relative z-10">

@@ -118,7 +118,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
   };
 
   return (
-    <section id="rsvp" className="relative px-6 -mt-6 pb-20 sm:-mt-5 sm:pb-28 overflow-hidden vintage-bg watercolor-overlay"
+    <section id="rsvp" className="relative px-6 -mt-6 pb-20 sm:-mt-5 sm:pb-28 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="mx-auto max-w-2xl relative z-10">

@@ -54,7 +54,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
   };
 
   return (
-    <section id="gifts" className="relative px-6 pt-4 pb-20 sm:pt-6 sm:pb-28 overflow-hidden vintage-bg watercolor-overlay"
+    <section id="gifts" className="relative px-6 pt-4 pb-20 sm:pt-6 sm:pb-28 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="mx-auto max-w-2xl relative z-10">

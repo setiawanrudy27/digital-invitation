@@ -9,7 +9,7 @@ export default function QuoteSection({ quotes }: { quotes: Quote[] }) {
   if (!quote) return null;
 
   return (
-    <section className="relative pt-12 pb-24 md:pt-20 md:pb-32 px-4 overflow-hidden vintage-bg"
+    <section className="relative pt-12 pb-24 md:pt-20 md:pb-32 px-4 overflow-hidden bg-white"
     >
       <FloatingLeaves count={4} />
       <div className="max-w-3xl mx-auto relative z-10">

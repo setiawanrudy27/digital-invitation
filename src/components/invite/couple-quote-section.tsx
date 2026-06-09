@@ -9,7 +9,7 @@ export default function CoupleQuoteSection({ quotes }: { quotes: Quote[] }) {
   if (!quote) return null;
 
   return (
-    <section className="relative pt-6 pb-24 md:pt-8 md:pb-32 px-4 overflow-hidden vintage-bg"
+    <section className="relative pt-6 pb-24 md:pt-8 md:pb-32 px-4 overflow-hidden bg-white"
     >
       <FloatingLeaves count={4} />
       <div className="mx-auto max-w-3xl text-center relative z-10">

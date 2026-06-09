@@ -9,7 +9,7 @@ export default function OpeningSection({ data }: { data: InvitationPageData }) {
   const groomName = data.coupleGroom?.nickname || data.coupleGroom?.full_name || "";
 
   return (
-    <section id="opening" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-12 pb-24 overflow-hidden vintage-bg watercolor-overlay"
+    <section id="opening" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-12 pb-24 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">

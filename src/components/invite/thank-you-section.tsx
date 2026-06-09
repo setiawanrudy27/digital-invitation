@@ -14,7 +14,7 @@ export default function ThankYouSection({ thankYou, groom, bride }: ThankYouSect
   return (
     <motion.section
       id="thank-you"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-24 vintage-bg"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden px-6 py-24 bg-white"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}

@@ -66,7 +66,7 @@ export default function GallerySection({ photos, videos }: GallerySectionProps) 
   if (allCount === 0) return null;
 
   return (
-    <section id="gallery" className="relative pt-10 pb-20 md:pt-16 md:pb-28 px-4 overflow-hidden vintage-bg watercolor-overlay"
+    <section id="gallery" className="relative pt-10 pb-20 md:pt-16 md:pb-28 px-4 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="max-w-6xl mx-auto relative z-10">

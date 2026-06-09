@@ -95,7 +95,7 @@ export default function CoupleSection({ groom, bride, showPhoto = true }: {
   showPhoto?: boolean;
 }) {
   return (
-    <section id="couple" className="relative py-16 md:py-24 lg:py-28 px-4 overflow-hidden vintage-bg watercolor-overlay">
+    <section id="couple" className="relative py-16 md:py-24 lg:py-28 px-4 overflow-hidden bg-white">
       <FloatingLeaves />
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}

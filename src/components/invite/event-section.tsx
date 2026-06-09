@@ -279,7 +279,7 @@ export default function EventSection({
   if (!events || events.length === 0) return null;
 
   return (
-    <section id="events" className="relative px-4 pt-0 -mt-2 pb-20 md:px-8 md:pt-2 md:pb-28 overflow-hidden vintage-bg watercolor-overlay"
+    <section id="events" className="relative px-4 pt-0 -mt-2 pb-20 md:px-8 md:pt-2 md:pb-28 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="mx-auto max-w-5xl relative z-10">

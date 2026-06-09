@@ -140,7 +140,7 @@ export default function InvitationClient(data: InvitationPageData) {
 
           <div className="lg:w-[clamp(360px,30%,540px)] lg:h-screen">
             <div className="relative w-full h-full bg-white lg:flex lg:flex-col invitation-theme">
-              <div ref={scrollRef} className="lg:flex-1 lg:overflow-y-auto max-lg:min-h-screen">
+              <div ref={scrollRef} className="lg:flex-1 lg:overflow-y-auto max-lg:min-h-screen bg-white">
                 <InvitationSections data={data} containerRef={scrollRef} />
               </div>
               <div className="lg:hidden">

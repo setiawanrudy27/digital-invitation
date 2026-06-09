@@ -12,7 +12,7 @@ export default function FrameSection({
   if (!frame?.frame_url && !frame?.frame_url_instagram) return null;
 
   return (
-    <section className="relative px-4 pt-6 pb-20 md:px-8 md:pt-8 md:pb-28 overflow-hidden vintage-bg watercolor-overlay"
+    <section className="relative px-4 pt-6 pb-20 md:px-8 md:pt-8 md:pb-28 overflow-hidden bg-white"
     >
       <FloatingLeaves count={5} />
       <div className="mx-auto max-w-3xl relative z-10">
