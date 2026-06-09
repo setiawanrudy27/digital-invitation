@@ -25,6 +25,17 @@ export default function InvitationClient(data: InvitationPageData) {
   }, []);
 
   useEffect(() => {
+    if (!isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
     if (!isOpen || !data.music?.music_url) return;
     const audio = new Audio(data.music.music_url);
     audio.loop = true;
@@ -98,7 +109,7 @@ export default function InvitationClient(data: InvitationPageData) {
       )}
 
       {!isOpen ? (
-        <div className="h-screen overflow-hidden">
+        <div className="h-dvh overflow-hidden overscroll-none">
           <CoverSection data={data} onOpen={() => setIsOpen(true)} />
         </div>
       ) : (
