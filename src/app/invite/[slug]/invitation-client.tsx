@@ -1,8 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import type { InvitationPageData } from "@/components/invite/types";
 
 import LoadingScreen from "@/components/invite/loading-screen";
@@ -10,8 +8,6 @@ import CoverSection from "@/components/invite/cover-section";
 import MusicPlayer from "@/components/invite/music-player";
 import FloatingNav from "@/components/invite/floating-nav";
 import InvitationSections from "@/components/invite/invitation-sections";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function InvitationClient(data: InvitationPageData) {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,13 +21,17 @@ export default function InvitationClient(data: InvitationPageData) {
   }, []);
 
   useEffect(() => {
+    const html = document.documentElement;
     if (!isOpen) {
       document.body.style.overflow = "hidden";
+      html.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
+      html.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      html.style.overflow = "";
     };
   }, [isOpen]);
 
@@ -47,38 +47,6 @@ export default function InvitationClient(data: InvitationPageData) {
       setIsMusicPlaying(false);
     };
   }, [isOpen, data.music?.music_url]);
-
-  useEffect(() => {
-    if (!isOpen || !scrollRef.current) return;
-
-    const isDesktop = window.innerWidth >= 1024;
-    const scroller = isDesktop ? scrollRef.current : undefined;
-    const container = isDesktop ? scrollRef.current : document;
-
-    const sections = container.querySelectorAll("section");
-    sections.forEach((section) => {
-      gsap.fromTo(
-        section,
-        { opacity: 0, y: 60 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: section,
-            scroller: scroller,
-            start: "top 85%",
-            once: true,
-          },
-        }
-      );
-    });
-
-    return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill());
-    };
-  }, [isOpen]);
 
   if (isLoading) {
     return <LoadingScreen />;

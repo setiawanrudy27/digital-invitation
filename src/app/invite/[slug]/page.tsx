@@ -24,15 +24,18 @@ export async function generateMetadata({
   if (!invitation) return { title: "Not Found" };
 
   const [couples, galleryPhotos] = await Promise.all([
-    supabase.from("couples").select("cover_photo_url, person_type").eq("invitation_id", invitation.id) as any,
+    supabase.from("couples").select("full_name, nickname, cover_photo_url, person_type").eq("invitation_id", invitation.id) as any,
     supabase.from("gallery_photos").select("photo_url").eq("invitation_id", invitation.id).eq("is_visible", true).order("display_order").limit(1) as any,
   ]);
 
   const bride = couples.data?.find((c: any) => c.person_type === "bride");
+  const groom = couples.data?.find((c: any) => c.person_type === "groom");
   const ogImage = galleryPhotos.data?.[0]?.photo_url || bride?.cover_photo_url || "/images/background_opening.jpg";
 
   return {
-    title: invitation.title,
+    title: {
+      absolute: `Wedding ${bride?.nickname || bride?.full_name || ""} & ${groom?.nickname || groom?.full_name || ""}`,
+    },
     description: "Wedding Invitation",
     openGraph: {
       title: invitation.title,

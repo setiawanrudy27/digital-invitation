@@ -40,7 +40,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-center overflow-hidden"
+      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-start pt-20 lg:pt-8 overflow-hidden"
       animate={isExiting ? { opacity: 0, scale: 1.03 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: "easeInOut" }}
     >
@@ -52,7 +52,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         transition={{ duration: 0.8, delay: 0.3 }}
       >
         <motion.p
-          className="font-quicksand text-xl md:text-2xl -mt-6"
+          className="font-quicksand text-xl md:text-2xl"
           style={{ color: themeColors.primary, fontWeight: 200 }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -62,7 +62,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.p>
 
         <motion.div
-          className="mt-7 space-y-1"
+          className="mt-10 lg:mt-4 space-y-1"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -88,7 +88,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {formattedDate && (
           <motion.p
-            className="mt-4 md:mt-6 font-display text-sm md:text-xl tracking-widest italic"
+            className="mt-6 lg:mt-3 font-display text-sm md:text-xl tracking-widest italic"
             style={{ color: themeColors.primary }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="mt-9 md:mt-12 px-6 md:px-8 py-4 md:py-6 text-center rounded-2xl"
+          className="mt-12 lg:mt-6 px-6 md:px-8 py-6 lg:py-4 text-center rounded-2xl"
           style={{
             background: "linear-gradient(135deg, rgba(250,246,239,0.9) 0%, rgba(242,236,228,0.8) 100%)",
             border: "1px solid rgba(201,168,76,0.2)",
@@ -127,7 +127,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.button
-          className="group relative mt-7 md:mt-11 overflow-hidden rounded-full"
+          className="group relative mt-10 lg:mt-5 overflow-hidden rounded-full"
           style={{
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             boxShadow: `0 4px 24px rgba(139,58,66,0.3)`,
