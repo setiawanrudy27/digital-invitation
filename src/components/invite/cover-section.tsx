@@ -40,16 +40,10 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full flex flex-col items-center justify-center overflow-hidden"
-      style={{
-        backgroundImage: "url('/images/background_opening.jpg')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-center overflow-hidden"
       animate={isExiting ? { opacity: 0, scale: 1.03 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: "easeInOut" }}
     >
-      <div className="pointer-events-none absolute inset-0 bg-black/40" aria-hidden="true" />
 
       <motion.div
         className="relative z-10 flex flex-col items-center px-8 text-center max-w-lg"

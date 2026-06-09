@@ -86,7 +86,7 @@ export default function InvitationClient(data: InvitationPageData) {
 
   const heroImage = data.galleryPhotos?.[0]?.photo_url
     || data.coupleBride?.cover_photo_url
-    || "/images/background_opening.jpg";
+    || "";
 
   const formatDate = (dateStr: string | null | undefined) => {
     if (!dateStr) return "";
@@ -113,22 +113,22 @@ export default function InvitationClient(data: InvitationPageData) {
           <CoverSection data={data} onOpen={() => setIsOpen(true)} />
         </div>
       ) : (
-        <div className="lg:flex lg:h-screen lg:bg-black lg:overflow-hidden">
+        <div className="lg:flex lg:h-screen lg:overflow-hidden">
           <div className="hidden lg:flex lg:flex-1 lg:relative lg:overflow-hidden">
             <div
-              className="absolute inset-0 w-full h-full"
-              style={{
+              className="absolute inset-0 w-full h-full bg-white"
+              style={heroImage ? {
                 backgroundImage: `url('${heroImage}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-              }}
+              } : undefined}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/30" />
+              {heroImage && <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/30" />}
               <div className="absolute bottom-10 left-10 z-10 text-white">
-                <p className="font-quicksand text-xl tracking-[0.2em] uppercase opacity-90">
+                <p className="font-quicksand text-xl tracking-[0.2em] uppercase opacity-80">
                   Undangan Pernikahan
                 </p>
-                <h1 className="font-italianno text-8xl md:text-9xl leading-none mt-2 text-white">
+                <h1 className="font-italianno text-8xl md:text-9xl leading-none mt-2">
                   {data.coupleBride?.nickname || data.coupleBride?.full_name || ""} &amp; {data.coupleGroom?.nickname || data.coupleGroom?.full_name || ""}
                 </h1>
                 <p className="font-quicksand text-xl tracking-wider mt-3 opacity-80">
@@ -139,14 +139,7 @@ export default function InvitationClient(data: InvitationPageData) {
           </div>
 
           <div className="lg:w-[clamp(360px,30%,540px)] lg:h-screen">
-            <div className="relative w-full h-full lg:flex lg:flex-col invitation-theme"
-              style={{
-                backgroundImage: "url('/images/background-invitation.webp')",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <div className="absolute inset-0 bg-[#F5ECE0]/20 pointer-events-none" />
+            <div className="relative w-full h-full bg-white lg:flex lg:flex-col invitation-theme">
               <div ref={scrollRef} className="lg:flex-1 lg:overflow-y-auto max-lg:min-h-screen">
                 <InvitationSections data={data} containerRef={scrollRef} />
               </div>
