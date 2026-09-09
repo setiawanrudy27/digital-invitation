@@ -47,7 +47,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-center sm:justify-start pt-8 sm:pt-20 lg:pt-8 overflow-hidden"
+      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-center sm:justify-start pt-4 sm:pt-20 lg:pt-8 overflow-hidden"
       animate={isExiting ? { opacity: 0, scale: 1.03 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: "easeInOut" }}
     >
@@ -73,7 +73,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
           <Image src="/images/blink.png" alt="Blink decoration right" width={64} height={64} className="h-auto w-8 sm:w-10 md:w-14" />
         </motion.div>
         <motion.div
-          className="-mt-12 mb-2 sm:-mt-10 sm:mb-4 flex w-full justify-center"
+          className="-mt-4 mb-1 sm:-mt-10 sm:mb-4 flex w-full justify-center"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35 }}
@@ -117,7 +117,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {(brideHeadPhoto || groomHeadPhoto) && (
           <motion.div
-            className="relative mt-2 sm:mt-6 flex items-center justify-center translate-y-10"
+            className="relative mt-1 sm:mt-6 flex items-center justify-center translate-y-3 sm:translate-y-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
@@ -179,7 +179,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="mt-11 sm:mt-16 lg:mt-12 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
+          className="mt-8 sm:mt-16 lg:mt-12 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -214,7 +214,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="translate-y-10 sm:translate-y-16 lg:translate-y-16 px-4 sm:px-6 md:px-8 py-3 sm:py-6 lg:py-4 text-center rounded-2xl"
+          className="translate-y-3 sm:translate-y-16 lg:translate-y-16 px-4 sm:px-6 md:px-8 py-3 sm:py-6 lg:py-4 text-center rounded-2xl"
           style={{
             background: "linear-gradient(135deg, rgba(250,246,239,0.9) 0%, rgba(242,236,228,0.8) 100%)",
             border: "1px solid rgba(201,168,76,0.2)",
@@ -242,7 +242,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.button
-          className="group relative translate-y-16 sm:translate-y-20 lg:translate-y-20 overflow-hidden rounded-full"
+          className="group relative translate-y-6 sm:translate-y-20 lg:translate-y-20 overflow-hidden rounded-full"
           style={{
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             boxShadow: `0 4px 24px rgba(139,58,66,0.3)`,
@@ -264,7 +264,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.button>
 
         <motion.div
-          className="mt-6 flex w-full justify-center"
+          className="mt-4 sm:mt-6 flex w-full justify-center"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.05 }}
