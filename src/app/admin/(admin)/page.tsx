@@ -81,7 +81,7 @@ export default async function AdminDashboard() {
     },
   ];
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
   const inviteUrl = `${siteUrl}/invite/${invitation.slug}`;
 
   return (

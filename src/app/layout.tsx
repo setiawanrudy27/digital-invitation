@@ -41,11 +41,14 @@ const parisienne = Parisienne({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://qorirudywedding.netlify.app"
+  ),
   title: {
     default: "Digital Invitation Platform",
     template: "%s | Digital Invitation",
   },
-  description: "Platform undangan digital berbasis AI",
+  description: "Platform undangan digital pernikahan",
   icons: {
     icon: "/images/faviconlink.png",
     shortcut: "/images/faviconlink.png",

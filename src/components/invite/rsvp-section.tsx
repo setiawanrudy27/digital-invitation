@@ -61,20 +61,22 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
 
     setLoading(true);
     try {
-      const { createPublicClient } = await import("@/lib/supabase/public-client");
-      const supabase = createPublicClient();
+      const res = await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          invitation_id: invitationId,
+          guest_name: form.guest_name.trim(),
+          attending: form.attending,
+          guest_count: form.attending ? form.guest_count : 0,
+          message: form.message.trim() || null,
+        }),
+      });
 
-      const { error: insertError } = await supabase.from("rsvps").insert({
-        invitation_id: invitationId,
-        guest_name: form.guest_name.trim(),
-        attending: form.attending,
-        guest_count: form.attending ? form.guest_count : 0,
-        message: form.message.trim() || null,
-      } as any);
+      const data = await res.json();
 
-      if (insertError) {
-        console.error("RSVP insert error:", insertError);
-        throw insertError;
+      if (!res.ok) {
+        throw new Error(data.error || "Gagal mengirim RSVP");
       }
 
       setLocalRsvps((prev) => [

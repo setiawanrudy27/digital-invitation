@@ -103,7 +103,7 @@ export default function InvitationPageClient({ invitations: initialInvitations }
   };
 
   const copyInviteLink = (slug: string) => {
-    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
     const link = `${siteUrl}/invite/${slug}`;
     navigator.clipboard.writeText(link);
     alert("Link undangan disalin!");

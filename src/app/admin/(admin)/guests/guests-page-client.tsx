@@ -50,7 +50,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationSlug
   });
   const pageSize = 10;
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 
   const filteredGuests = useMemo(() => {
     if (!searchQuery.trim()) return guests;
