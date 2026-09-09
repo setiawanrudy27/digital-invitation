@@ -47,13 +47,13 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-center sm:justify-start pt-4 sm:pt-20 lg:pt-8 overflow-hidden"
+      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-center px-2 sm:px-0 pt-2 pb-2 sm:pt-20 sm:pb-6 lg:pt-8 overflow-hidden"
       animate={isExiting ? { opacity: 0, scale: 1.03 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: "easeInOut" }}
     >
 
       <motion.div
-        className="relative z-10 flex flex-col items-center px-4 sm:px-8 text-center max-w-lg"
+        className="relative z-10 flex w-full max-w-[420px] flex-col items-center px-2 text-center sm:px-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.3 }}
@@ -73,7 +73,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
           <Image src="/images/blink.png" alt="Blink decoration right" width={64} height={64} className="h-auto w-8 sm:w-10 md:w-14" />
         </motion.div>
         <motion.div
-          className="-mt-4 mb-1 sm:-mt-10 sm:mb-4 flex w-full justify-center"
+          className="-mt-2 mb-0 sm:-mt-10 sm:mb-4 flex w-full justify-center"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35 }}
@@ -84,7 +84,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             width={520}
             height={160}
             priority
-            className="h-auto w-[78vw] max-w-[420px] sm:w-[85vw] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+            className="h-auto w-[72vw] max-w-[360px] sm:w-[85vw] sm:max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
           />
         </motion.div>
 
@@ -117,12 +117,12 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {(brideHeadPhoto || groomHeadPhoto) && (
           <motion.div
-            className="relative mt-1 sm:mt-6 flex items-center justify-center translate-y-3 sm:translate-y-10"
+            className="relative mt-0 flex items-center justify-center translate-y-0 sm:translate-y-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <div className="relative w-[220px] h-[220px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px]">
+            <div className="relative w-[180px] h-[180px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px]">
               <div className="relative h-full w-full">
                 <Image
                   src={coverSilhouetteSrc}
@@ -179,13 +179,13 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="mt-8 sm:mt-16 lg:mt-12 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
+          className="mt-5 sm:mt-16 lg:mt-12 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <h1
-            className="font-italianno text-[2.5rem] leading-none sm:text-4xl md:text-6xl lg:text-7xl"
+            className="font-italianno text-[2.2rem] leading-none sm:text-4xl md:text-6xl lg:text-7xl"
             style={{ color: themeColors.primary, letterSpacing: "-0.04em", textAlign: "center" }}
           >
             {brideName}
@@ -194,7 +194,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             &amp;
           </span>
           <h1
-            className="font-italianno text-[2.5rem] leading-none sm:text-4xl md:text-6xl lg:text-7xl"
+            className="font-italianno text-[2.2rem] leading-none sm:text-4xl md:text-6xl lg:text-7xl"
             style={{ color: themeColors.primary, letterSpacing: "-0.04em", textAlign: "center" }}
           >
             {groomName}
@@ -203,7 +203,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {formattedDate && (
           <motion.p
-            className="mt-1 sm:mt-2 lg:mt-1 font-display text-lg sm:text-xl md:text-[2.2rem] tracking-widest italic"
+            className="mt-1 sm:mt-2 lg:mt-1 font-display text-base sm:text-xl md:text-[2.2rem] tracking-widest italic"
             style={{ color: themeColors.primary }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -214,7 +214,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="translate-y-3 sm:translate-y-16 lg:translate-y-16 px-4 sm:px-6 md:px-8 py-3 sm:py-6 lg:py-4 text-center rounded-2xl"
+          className="translate-y-0 sm:translate-y-16 lg:translate-y-16 px-3 py-3 sm:px-6 sm:py-6 lg:py-4 text-center rounded-2xl"
           style={{
             background: "linear-gradient(135deg, rgba(250,246,239,0.9) 0%, rgba(242,236,228,0.8) 100%)",
             border: "1px solid rgba(201,168,76,0.2)",
@@ -242,7 +242,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.button
-          className="group relative translate-y-6 sm:translate-y-20 lg:translate-y-20 overflow-hidden rounded-full"
+          className="group relative translate-y-1 sm:translate-y-20 lg:translate-y-20 overflow-hidden rounded-full"
           style={{
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             boxShadow: `0 4px 24px rgba(139,58,66,0.3)`,
@@ -264,7 +264,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.button>
 
         <motion.div
-          className="mt-4 sm:mt-6 flex w-full justify-center"
+          className="mt-2 sm:mt-6 flex w-full justify-center"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.05 }}
@@ -274,7 +274,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             alt="Wedding cover bottom frame"
             width={520}
             height={120}
-            className="h-auto w-[85vw] max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+            className="h-auto w-[78vw] max-w-[360px] sm:w-[85vw] sm:max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
           />
         </motion.div>
       </motion.div>
