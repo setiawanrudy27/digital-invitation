@@ -1,0 +1,32 @@
+
+> digital-invitation@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.4 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.100.69:3000
+- Environments: .env.local
+✓ Ready in 1271ms
+- Experiments (use with caution):
+  · serverActions
+
+○ Compiling /admin/login ...
+ GET /admin/login 200 in 8.2s (next.js: 7.9s, application-code: 347ms)
+ GET / 200 in 1539ms (next.js: 1275ms, application-code: 264ms)
+ GET /admin 200 in 3.0s (next.js: 1681ms, application-code: 1316ms)
+ GET /admin/login 200 in 62ms (next.js: 12ms, application-code: 50ms)
+ GET /admin/login 200 in 63ms (next.js: 16ms, application-code: 47ms)
+ GET /admin/login 200 in 63ms (next.js: 12ms, application-code: 51ms)
+ GET /admin 200 in 612ms (next.js: 17ms, application-code: 596ms)
+ GET /admin/login 200 in 57ms (next.js: 13ms, application-code: 44ms)
+ GET /admin/login 200 in 52ms (next.js: 13ms, application-code: 38ms)
+ GET /admin/login 200 in 72ms (next.js: 18ms, application-code: 53ms)
+ POST /api/auth/login 200 in 1526ms (next.js: 1113ms, application-code: 413ms)
+ GET /admin 200 in 846ms (next.js: 12ms, application-code: 834ms)
+ GET /invite/rudy3210-1778205903244 200 in 4.1s (next.js: 2.9s, application-code: 1231ms)
+✓ Compiled in 302ms
+ GET /invite/rudy3210-1778205903244 200 in 828ms (next.js: 257ms, application-code: 571ms)
+ GET /admin 200 in 842ms (next.js: 517ms, application-code: 325ms)
+✓ Compiled in 246ms
+ GET /admin 200 in 909ms (next.js: 246ms, application-code: 663ms)
+ GET /invite/rudy3210-1778205903244 200 in 410ms (next.js: 182ms, application-code: 228ms)

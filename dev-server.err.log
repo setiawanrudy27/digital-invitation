@@ -1,0 +1,40 @@
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+[browser] Image with src "/images/blink.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[browser] Image with src "/images/fotocover-v2.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
+Read more: https://nextjs.org/docs/app/api-reference/components/image#loading

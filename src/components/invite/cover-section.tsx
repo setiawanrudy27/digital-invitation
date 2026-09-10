@@ -117,7 +117,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {(brideHeadPhoto || groomHeadPhoto) && (
           <motion.div
-            className="relative mt-0 flex items-center justify-center translate-y-0 sm:translate-y-10"
+            className="relative mt-0 flex items-center justify-center translate-y-10 sm:translate-y-20"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
