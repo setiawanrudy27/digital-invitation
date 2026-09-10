@@ -24,7 +24,9 @@ export default function SaveTheDateSection({ data }: { data: InvitationPageData 
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          SAVE THE DATE
+          <span className="block">SAVE</span>
+          <span className="block">THE</span>
+          <span className="block">DATE</span>
         </motion.h1>
 
         <motion.div

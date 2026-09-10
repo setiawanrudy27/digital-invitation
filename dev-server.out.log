@@ -336,3 +336,22 @@
  GET /invite/rudy3210-1778205903244 200 in 1374ms (next.js: 17ms, application-code: 1358ms)
  GET /admin/quotes 200 in 436ms (next.js: 11ms, application-code: 426ms)
  GET /invite/rudy3210-1778205903244 200 in 599ms (next.js: 15ms, application-code: 584ms)
+ GET /invite/rudy3210-1778205903244 200 in 671ms (next.js: 26ms, application-code: 645ms)
+✓ Compiled in 102ms
+ GET /admin/quotes 200 in 547ms (next.js: 185ms, application-code: 362ms)
+ GET /invite/rudy3210-1778205903244 200 in 302ms (next.js: 176ms, application-code: 126ms)
+ GET /invite/rudy3210-1778205903244 200 in 810ms (next.js: 21ms, application-code: 789ms)
+✓ Compiled in 111ms
+ GET /admin/quotes 200 in 1539ms (next.js: 314ms, application-code: 1226ms)
+ GET /invite/rudy3210-1778205903244 200 in 1024ms (next.js: 802ms, application-code: 222ms)
+✓ Compiled in 107ms
+ GET /admin/quotes 200 in 1024ms (next.js: 287ms, application-code: 738ms)
+ GET /invite/rudy3210-1778205903244 200 in 581ms (next.js: 324ms, application-code: 257ms)
+ GET /invite/rudy3210-1778205903244 200 in 1191ms (next.js: 30ms, application-code: 1161ms)
+✓ Compiled in 87ms
+ GET /admin/quotes 200 in 597ms (next.js: 188ms, application-code: 409ms)
+ GET /invite/rudy3210-1778205903244 200 in 316ms (next.js: 181ms, application-code: 135ms)
+✓ Compiled in 84ms
+ GET /admin/quotes 200 in 948ms (next.js: 238ms, application-code: 710ms)
+ GET /invite/rudy3210-1778205903244 200 in 581ms (next.js: 282ms, application-code: 298ms)
+ GET /invite/rudy3210-1778205903244 200 in 1129ms (next.js: 15ms, application-code: 1114ms)

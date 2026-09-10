@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import type { Couple } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 function ProfileImage({ photo_url, full_name }: { photo_url: string | null; full_name: string }) {
   return (
@@ -106,16 +107,16 @@ export default function CoupleSection({ groom, bride, showPhoto = true }: {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 md:mb-16 lg:mb-20"
         >
-          <h2
-            className="font-display text-3xl md:text-4xl lg:text-5xl italic leading-tight"
-            style={{ color: themeColors.charcoal }}
-          >
-            Pasangan Mempelai
-          </h2>
+          <Image
+            src="/images/bismillah.png"
+            alt="Bismillah"
+            width={2160}
+            height={703}
+            className="mx-auto h-auto w-full max-w-md object-contain"
+          />
           <p className="mx-auto mt-4 max-w-xl font-sans text-xs md:text-sm leading-relaxed" style={{ color: themeColors.muted }}>
-            Dengan segala puji bagi Allah yang telah menciptakan makhluk-Nya berpasang-pasangan, Yaa Allah izinkanlah kami merangkaikan cinta yang Engkau berikan dalam ikatan pernikahan.
+            Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami…
           </p>
-          <OrnamentDivider variant="gold" className="mt-6" />
         </motion.div>
 
         {/* Bride: image left, content right */}
