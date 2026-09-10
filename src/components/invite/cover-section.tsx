@@ -59,14 +59,14 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         transition={{ duration: 0.8, delay: 0.3 }}
       >
         <motion.div
-          className="pointer-events-none absolute left-3 bottom-28 sm:left-17 sm:bottom-130"
+          className="pointer-events-none absolute left-10 bottom-70 sm:left-17 sm:bottom-130"
           animate={{ rotate: [-10, 8, -10], x: [0, 5, 0], y: [0, -8, 0], scale: [1, 1.08, 1] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
           <Image src="/images/blink.png" alt="Blink decoration left" width={64} height={64} className="h-auto w-8 sm:w-10 md:w-14" />
         </motion.div>
         <motion.div
-          className="pointer-events-none absolute right-3 top-20 sm:right-15 sm:top-40"
+          className="pointer-events-none absolute right-11 top-30 sm:right-15 sm:top-40"
           animate={{ rotate: [10, -8, 10], x: [0, -5, 0], y: [0, 8, 0], scale: [1, 1.08, 1] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
         >
@@ -179,7 +179,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="mt-5 sm:mt-16 lg:mt-12 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
+          className="mt-14 sm:mt-48 lg:mt-48 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -214,7 +214,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="translate-y-0 sm:translate-y-16 lg:translate-y-16 px-3 py-3 sm:px-6 sm:py-6 lg:py-4 text-center rounded-2xl"
+          className="translate-y-6 sm:translate-y-32 lg:translate-y-32 mb-6 sm:mb-10 lg:mb-10 px-3 py-3 sm:px-6 sm:py-6 lg:py-4 text-center rounded-2xl"
           style={{
             background: "linear-gradient(135deg, rgba(250,246,239,0.9) 0%, rgba(242,236,228,0.8) 100%)",
             border: "1px solid rgba(201,168,76,0.2)",
@@ -242,7 +242,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.button
-          className="group relative translate-y-1 sm:translate-y-20 lg:translate-y-20 overflow-hidden rounded-full"
+          className="group relative translate-y-5 sm:translate-y-56 lg:translate-y-56 overflow-hidden rounded-full"
           style={{
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             boxShadow: `0 4px 24px rgba(139,58,66,0.3)`,

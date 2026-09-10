@@ -39,3 +39,6 @@
 ✓ Compiled in 142ms
  GET /admin 200 in 809ms (next.js: 225ms, application-code: 585ms)
  GET /invite/rudy3210-1778205903244 200 in 352ms (next.js: 150ms, application-code: 201ms)
+✓ Compiled in 121ms
+ GET /admin 200 in 819ms (next.js: 214ms, application-code: 604ms)
+ GET /invite/rudy3210-1778205903244 200 in 406ms (next.js: 226ms, application-code: 180ms)
