@@ -2,7 +2,7 @@
 
 import type { InvitationPageData } from "@/components/invite/types";
 import ScrollProgress from "@/components/invite/scroll-progress";
-import OpeningSection from "@/components/invite/opening-section";
+import SaveTheDateSection from "@/components/invite/save-the-date-section";
 import CoupleSection from "@/components/invite/couple-section";
 import QuoteSection from "@/components/invite/quote-section";
 import EventSection from "@/components/invite/event-section";
@@ -24,7 +24,7 @@ export default function InvitationSections({ data, containerRef }: Props) {
   return (
     <>
       <ScrollProgress containerRef={containerRef} />
-      <OpeningSection data={data} />
+      <SaveTheDateSection data={data} />
       <CoupleSection groom={data.coupleGroom} bride={data.coupleBride} showPhoto={data.settings?.show_couple_photo ?? true} />
       {data.quotes.length > 0 && <QuoteSection quotes={data.quotes} />}
       <EventSection events={data.events} invitation={data.invitation} />

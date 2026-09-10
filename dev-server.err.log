@@ -38,3 +38,52 @@ Error [AuthApiError]: Invalid Refresh Token: Already Used
 Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
 [browser] Image with src "/images/fotocover-v2.png" was detected as the Largest Contentful Paint (LCP). Please add the `loading="eager"` property if this image is above the fold.
 Read more: https://nextjs.org/docs/app/api-reference/components/image#loading
+[browser] Uncaught ReferenceError: OrnamentDivider is not defined
+    at SaveTheDateSection (src/components/invite/save-the-date-section.tsx:41:10)
+    at <unknown> (src/components/invite/save-the-date-section.tsx:8:25)
+    at InvitationSections (src/components/invite/invitation-sections.tsx:27:7)
+    at InvitationClient (file://D:/Rudy/digital-invitation/.next/dev/static/chunks/src_10dcp2.._.js:7601:249)
+    at InvitePage (src\app\invite\[slug]\page.tsx:77:5)
+  39 |         </motion.h1>
+  40 |
+> 41 |         <OrnamentDivider variant="gold" className="mt-6" />
+     |          ^
+  42 |
+  43 |         <motion.div
+  44 |           className="mt-8 w-full"
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
+Error [AuthApiError]: Invalid Refresh Token: Already Used
+    at ignore-listed frames {
+  __isAuthError: true,
+  status: 400,
+  code: 'refresh_token_already_used'
+}
