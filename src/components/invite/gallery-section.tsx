@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import type { GalleryPhoto, GalleryVideo } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
 
 function getYoutubeId(url: string): string | null {
   const match = url.match(
@@ -84,7 +84,7 @@ export default function GallerySection({ photos, videos }: GallerySectionProps) 
           <p className="mt-5 max-w-lg mx-auto font-sans text-sm md:text-base leading-relaxed italic" style={{ color: themeColors.muted }}>
             &ldquo;Aku tidak tahu dimana ujung perjalanan ini, aku tidak bisa menjanjikan apapun. Tapi, selama aku mampu, mimpi-mimpi kita adalah prioritas.&rdquo;
           </p>
-          <OrnamentDivider variant="gold" className="mt-5" />
+
         </motion.div>
 
         <div className="space-y-4 md:space-y-6">

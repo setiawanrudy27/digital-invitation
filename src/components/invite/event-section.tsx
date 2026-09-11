@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import type { Event, Invitation } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 function pad(n: number) {
   return String(n).padStart(2, "0");
@@ -180,89 +181,49 @@ function EventCard({ event: ev }: { event: Event }) {
   const tzAbbr = useMemo(() => formatTZ(ev.timezone), [ev.timezone]);
 
   return (
-    <GoldBorderFrame className="p-6 md:p-8">
-      {/* Corner roses */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl" aria-hidden="true">
-        <RoseOrnament size={20} className="absolute left-3 top-3 opacity-60" />
-        <RoseOrnament size={20} className="absolute right-3 top-3 opacity-60" />
-        <RoseOrnament size={20} className="absolute left-3 bottom-3 opacity-60" />
-        <RoseOrnament size={20} className="absolute right-3 bottom-3 opacity-60" />
+    <div className="py-8 text-center">
+      <h3 className="mb-4 font-display text-xl md:text-2xl italic" style={{ color: themeColors.charcoal }}>
+        {ev.title}
+      </h3>
+
+      <div className="space-y-2 text-sm md:text-base" style={{ color: themeColors.muted }}>
+        <p style={{ color: themeColors.text }}>{dateOnly}</p>
+        <p style={{ color: themeColors.secondary }}>
+          {startTime}
+          {ev.until_finish ? ` ${tzAbbr} - Sampai Selesai` : endTime ? ` - ${endTime} ${tzAbbr}` : ` ${tzAbbr}`}
+        </p>
+
+        {ev.place_name && (
+          <>
+            <p className="mt-2 font-medium" style={{ color: themeColors.text }}>{ev.place_name}</p>
+            {ev.address && <p style={{ color: themeColors.muted }}>{ev.address}</p>}
+          </>
+        )}
+        {!ev.place_name && ev.address && (
+          <p className="mt-2" style={{ color: themeColors.text }}>{ev.address}</p>
+        )}
       </div>
 
-      <div className="relative z-10">
-        <div className="mb-4 flex items-start justify-between gap-3">
-          <h3 className="font-display text-xl md:text-2xl italic" style={{ color: themeColors.charcoal }}>
-            {ev.title}
-          </h3>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={themeColors.secondary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-1">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" />
+      {ev.google_maps_link && (
+        <a
+          href={ev.google_maps_link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-4 inline-flex items-center gap-1.5 rounded-full px-6 py-3 text-sm md:text-base shadow-sm transition-all duration-200 hover:shadow-md"
+          style={{
+            background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
+            color: themeColors.surface,
+            boxShadow: `0 4px 16px rgba(139,58,66,0.25)`,
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
           </svg>
-        </div>
-
-        <div className="space-y-3 text-sm md:text-base" style={{ color: themeColors.muted }}>
-          <div className="flex items-start gap-3">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={themeColors.secondary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
-              <circle cx="12" cy="12" r="10" />
-              <polyline points="12 6 12 12 16 14" />
-            </svg>
-            <div>
-              <p style={{ color: themeColors.text }}>{dateOnly}</p>
-              <p style={{ color: themeColors.secondary }}>
-                {startTime}
-                {ev.until_finish ? ` ${tzAbbr} - Sampai Selesai` : endTime ? ` - ${endTime} ${tzAbbr}` : ` ${tzAbbr}`}
-              </p>
-            </div>
-          </div>
-
-          {ev.place_name && (
-            <div className="flex items-start gap-3">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={themeColors.secondary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <div>
-                <p className="font-medium" style={{ color: themeColors.text }}>{ev.place_name}</p>
-                {ev.address && <p className="mt-0.5" style={{ color: themeColors.muted }}>{ev.address}</p>}
-              </div>
-            </div>
-          )}
-          {!ev.place_name && ev.address && (
-            <div className="flex items-start gap-3">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={themeColors.secondary} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 shrink-0">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              <p style={{ color: themeColors.text }}>{ev.address}</p>
-            </div>
-          )}
-        </div>
-
-        <div className="mt-5 flex flex-wrap gap-3">
-          {ev.google_maps_link && (
-            <a
-              href={ev.google_maps_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm transition-all duration-200 hover:shadow-md"
-              style={{
-                background: themeColors.surface,
-                border: `1px solid rgba(201,168,76,0.25)`,
-                color: themeColors.primary,
-              }}
-            >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              Lihat Lokasi
-            </a>
-          )}
-        </div>
-      </div>
-    </GoldBorderFrame>
+          Lihat Lokasi
+        </a>
+      )}
+    </div>
   );
 }
 
@@ -279,36 +240,69 @@ export default function EventSection({
   if (!events || events.length === 0) return null;
 
   return (
-    <section id="events" className="relative px-4 pt-0 -mt-2 pb-20 md:px-8 md:pt-2 md:pb-28 overflow-hidden bg-white"
+    <section id="events" className="relative px-4 pt-16 -mt-2 pb-20 md:px-8 md:pt-24 md:pb-28 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="mx-auto max-w-5xl relative z-10">
-        <motion.div
-          className="mb-14 text-center"
-          initial={fadeUpProps.initial}
-          whileInView={fadeUpProps.whileInView}
-          viewport={fadeUpProps.viewport}
-          transition={fadeUpProps.transition}
-        >
-          
-          <h2 className="font-display text-3xl md:text-3xl lg:text-4xl italic" style={{ color: themeColors.charcoal }}>
-            Acara Pernikahan
-          </h2>
-          <OrnamentDivider variant="gold" className="mt-4" />
+        <div className="mb-14">
+          <div className="flex items-stretch gap-3 md:gap-8">
+            <motion.div
+              className="h-[170px] w-auto shrink-0 -mt-12 sm:h-[200px] md:h-[150px] lg:h-[180px] md:-mt-14"
+              initial={fadeUpProps.initial}
+              whileInView={fadeUpProps.whileInView}
+              viewport={fadeUpProps.viewport}
+              transition={fadeUpProps.transition}
+            >
+              <Image
+                src="/images/gambarevent.png"
+                alt="Save The Date"
+                width={882}
+                height={935}
+                className="h-full w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+              />
+            </motion.div>
 
-          <p className="mt-6 font-display text-lg md:text-xl italic" style={{ color: themeColors.primary }}>
-            {new Date(targetDate).toLocaleDateString("id-ID", {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
-        </motion.div>
+            <div className="relative flex h-[90px] flex-1 flex-col items-center justify-center gap-1 ml-4 md:ml-14 sm:h-[120px] md:h-[150px] lg:h-[180px]">
+              {["SAVE", "THE", "DATE!"].map((w, i) => (
+                <motion.span
+                  key={w}
+                  className="font-display italic leading-none tracking-[0.08em]"
+                  style={{
+                    color: themeColors.primary,
+                    fontSize: "clamp(3rem, 6vw, 4rem)",
+                    marginLeft: `-${i * 14}px`,
+                  }}
+                  initial={{ opacity: 0, y: 24, rotate: 8 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 8 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.7, delay: 0.1 + i * 0.15, ease: "easeOut" }}
+                >
+                  {w}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+
+          <motion.div
+            className="mt-14 flex justify-center"
+            initial={fadeUpProps.initial}
+            whileInView={fadeUpProps.whileInView}
+            viewport={fadeUpProps.viewport}
+            transition={{ ...fadeUpProps.transition, delay: 0.2 }}
+          >
+            <Image
+              src="/images/theday.png"
+              alt="The Day"
+              width={2160}
+              height={877}
+              className="h-auto w-full max-w-[340px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)] sm:max-w-[420px]"
+            />
+          </motion.div>
+        </div>
 
         {/* Countdown */}
         <motion.div
-          className="mb-16 mt-10 grid grid-cols-4 gap-3 md:gap-5"
+          className="mb-8 mt-10 grid grid-cols-4 gap-3 md:gap-5"
           initial={fadeUpProps.initial}
           whileInView={fadeUpProps.whileInView}
           viewport={fadeUpProps.viewport}
@@ -345,6 +339,22 @@ export default function EventSection({
             </svg>
             Simpan Tanggalnya
           </motion.a>
+        </motion.div>
+
+        <motion.div
+          className="mb-2 flex justify-center"
+          initial={fadeUpProps.initial}
+          whileInView={fadeUpProps.whileInView}
+          viewport={fadeUpProps.viewport}
+          transition={{ ...fadeUpProps.transition, delay: 0.2 }}
+        >
+          <Image
+            src="/images/cake.png"
+            alt="Cake"
+            width={561}
+            height={998}
+            className="h-auto w-16 object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)] sm:w-20 md:w-24"
+          />
         </motion.div>
 
         {/* Event cards */}

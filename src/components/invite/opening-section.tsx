@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { InvitationPageData } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldOrchid } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves, GoldOrchid } from "@/components/invite/decoratives";
 
 export default function OpeningSection({ data }: { data: InvitationPageData }) {
   const brideName = data.coupleBride?.nickname || data.coupleBride?.full_name || "";
@@ -139,7 +139,7 @@ export default function OpeningSection({ data }: { data: InvitationPageData }) {
           </h1>
         </motion.div>
 
-        <OrnamentDivider variant="gold" />
+
 
         {/* Greeting */}
         <motion.p

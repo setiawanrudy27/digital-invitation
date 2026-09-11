@@ -7,48 +7,49 @@ import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 function ProfileImage({ photo_url, full_name }: { photo_url: string | null; full_name: string }) {
   return (
-    <div className="w-full aspect-[3/4] max-w-[280px] mx-auto md:mx-0">
-      {photo_url ? (
-        <div className="relative w-full h-full overflow-hidden rounded-xl shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
-          <img
-            src={photo_url}
-            alt={full_name}
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-xl" />
-        </div>
-      ) : (
-        <div
-          className="w-full h-full flex items-center justify-center rounded-xl"
-          style={{ background: `linear-gradient(135deg, ${themeColors.blush}, ${themeColors.surface})` }}
-        >
-          <svg className="w-12 h-12" style={{ color: `${themeColors.secondary}80` }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-          </svg>
-        </div>
-      )}
+    <div className="relative w-full aspect-[2/3] max-w-[145px] mx-auto">
+      <div className="relative h-full w-full">
+        {photo_url ? (
+          <div className="absolute left-1/2 top-1/2 w-[150px] h-[198px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[50%] shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+            <img
+              src={photo_url}
+              alt={full_name}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[50%]" />
+          </div>
+        ) : (
+          <div
+            className="absolute left-1/2 top-1/2 w-[104px] h-[152px] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-[50%]"
+            style={{ background: `linear-gradient(135deg, ${themeColors.blush}, ${themeColors.surface})` }}
+          >
+            <svg className="w-10 h-10" style={{ color: `${themeColors.secondary}80` }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
+          </div>
+        )}
+        <img
+          src="/images/framemempelai.png"
+          alt="Frame mempelai"
+          className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain"
+        />
+      </div>
     </div>
   );
 }
 
-function ProfileContent({ person, label, alignRight = false }: { person: Couple; label: string; alignRight?: boolean }) {
+function ProfileContent({ person }: { person: Couple }) {
   return (
-    <div className="space-y-5">
+    <div className="space-y-3">
       <div>
-        <span
-          className="font-sans text-[10px] md:text-[11px] uppercase tracking-[0.3em]"
-          style={{ color: themeColors.primary }}
-        >
-          {label}
-        </span>
         <h3
-          className="font-italianno text-2xl md:text-3xl lg:text-4xl mt-3 leading-tight"
+          className="font-italianno text-2xl md:text-3xl lg:text-4xl leading-tight"
           style={{ color: themeColors.primary }}
         >
           {person.full_name}
         </h3>
         {person.nickname && (
-          <p className="font-sans text-sm md:text-base italic mt-2" style={{ color: themeColors.secondary }}>
+          <p className="font-sans text-sm md:text-base italic mt-1" style={{ color: themeColors.secondary }}>
             &ldquo;{person.nickname}&rdquo;
           </p>
         )}
@@ -119,52 +120,55 @@ export default function CoupleSection({ groom, bride, showPhoto = true }: {
           </p>
         </motion.div>
 
-        {/* Bride: image left, content right */}
-        {bride && (
+        {/* Bride centered photo */}
+        {bride && showPhoto && (
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="grid grid-cols-2 gap-2 lg:gap-4 items-stretch"
+            className="flex items-center justify-center"
           >
-            <div className="flex items-center justify-center">
-              {showPhoto && <ProfileImage photo_url={bride.photo_url} full_name={bride.full_name} />}
-            </div>
-            <div className="flex flex-col justify-center text-right">
-              <ProfileContent person={bride} label="Mempelai Wanita" alignRight />
-            </div>
+            <ProfileImage photo_url={bride.photo_url} full_name={bride.full_name} />
           </motion.div>
         )}
 
-        {/* Centered divider */}
-        <motion.div
-          initial={{ opacity: 0, scaleX: 0 }}
-          whileInView={{ opacity: 1, scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="flex items-center justify-center my-6 md:my-20 lg:my-24"
-        >
-          <span className="font-italianno text-4xl md:text-5xl lg:text-6xl" style={{ color: themeColors.primary }}>&amp;</span>
-        </motion.div>
+        {/* Couple name data below */}
+        <div className="mx-auto mt-10 md:mt-14 flex max-w-xl flex-col items-center gap-5 md:gap-8 text-center">
+          {bride && (
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              className="w-full"
+            >
+              <ProfileContent person={bride} />
+            </motion.div>
+          )}
 
-        {/* Groom: content left, image right */}
-        {groom && (
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
-            className="grid grid-cols-2 gap-2 lg:gap-4 items-stretch"
+            initial={{ opacity: 0, scaleX: 0 }}
+            whileInView={{ opacity: 1, scaleX: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="flex items-center justify-center"
           >
-            <div className="flex flex-col justify-center text-left">
-              <ProfileContent person={groom} label="Mempelai Pria" />
-            </div>
-            <div className="flex items-center justify-center">
-              {showPhoto && <ProfileImage photo_url={groom.photo_url} full_name={groom.full_name} />}
-            </div>
+            <span className="font-italianno text-4xl md:text-5xl lg:text-6xl" style={{ color: themeColors.primary }}>&amp;</span>
           </motion.div>
-        )}
+
+          {groom && (
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+              className="w-full"
+            >
+              <ProfileContent person={groom} />
+            </motion.div>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { RSVP, Quote } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves, RoseOrnament } from "@/components/invite/decoratives";
 
 interface RsvpSectionProps {
   invitationId: string;
@@ -134,7 +134,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
           <h2 className="font-display text-3xl tracking-wide sm:text-4xl italic" style={{ color: themeColors.charcoal }}>
             Doa &amp; Ucapan
           </h2>
-          <OrnamentDivider variant="gold" className="mt-3" />
+
           <p className="mt-6 text-sm leading-relaxed" style={{ color: themeColors.muted }}>
             Sapa dan kirim ucapan beserta doa yang terbaik untuk mereka yang berbahagia, sembari mengkonfirmasi kehadiran anda pada acara pernikahan kedua mempelai.
           </p>
@@ -166,7 +166,14 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
           </motion.div>
         )}
 
-        <GoldBorderFrame className="mt-8 p-6 sm:p-8">
+        <div
+          className="relative rounded-xl mt-8 p-6 sm:p-8"
+          style={{
+            background: `linear-gradient(135deg, ${themeColors.surface} 0%, ${themeColors.cream} 100%)`,
+            border: "1px solid rgba(201,168,76,0.25)",
+            boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+          }}
+        >
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="mb-1.5 block text-sm font-medium" style={{ color: themeColors.text }}>
@@ -295,7 +302,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
               {loading ? "Mengirim..." : "Kirim"}
             </button>
           </form>
-        </GoldBorderFrame>
+        </div>
 
         {visibleRsvps.length > 0 && (
           <motion.div
@@ -373,7 +380,14 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
             transition={{ duration: 0.6, delay: 0.35, ease: "easeOut" }}
             className="mt-12 text-center"
           >
-            <GoldBorderFrame className="p-8">
+            <div
+              className="relative rounded-xl p-8"
+              style={{
+                background: `linear-gradient(135deg, ${themeColors.surface} 0%, ${themeColors.cream} 100%)`,
+                border: "1px solid rgba(201,168,76,0.25)",
+                boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
+              }}
+            >
               <div className="font-script text-6xl leading-none" style={{ color: `${themeColors.gold}20` }}>
                 &ldquo;
               </div>
@@ -385,7 +399,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
                   &mdash; {quotes[2].source}
                 </cite>
               )}
-            </GoldBorderFrame>
+            </div>
           </motion.div>
         )}
       </div>

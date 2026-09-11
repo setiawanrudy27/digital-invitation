@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import type { WeddingFrame } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 export default function FrameSection({
   frame,
@@ -16,37 +17,46 @@ export default function FrameSection({
     >
       <FloatingLeaves count={5} />
       <div className="mx-auto max-w-3xl relative z-10">
-        <GoldBorderFrame className="p-8 md:p-10">
-          <RoseOrnament size={20} className="absolute left-4 top-4" />
-          <RoseOrnament size={20} className="absolute right-4 top-4" />
-          <RoseOrnament size={20} className="absolute left-4 bottom-4" />
-          <RoseOrnament size={20} className="absolute right-4 bottom-4" />
+          <div className="p-8 md:p-10">
 
-          <div className="mb-6 text-center relative z-10">
-            <motion.div
-              className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full"
-              style={{
-                background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
-                boxShadow: `0 4px 16px rgba(139,58,66,0.2)`,
-              }}
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.15 }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <polyline points="21 15 16 10 5 21" />
-              </svg>
-            </motion.div>
+          <div className="mb-6">
+            <div className="flex items-stretch gap-6 md:gap-11">
+              <motion.div
+                className="h-[104px] w-auto shrink-0 -mt-6 -ml-6 sm:h-[134px] md:h-[94px] lg:h-[114px] md:-mt-6 md:-ml-10"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
+              >
+                <Image
+                  src="/images/frame.png"
+                  alt="Wedding Frame"
+                  width={1068}
+                  height={859}
+                  className="h-full w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+                />
+              </motion.div>
 
-
-            <h2 className="font-display text-2xl md:text-3xl italic" style={{ color: themeColors.charcoal }}>
-              Wedding Frame
-            </h2>
-
-            <OrnamentDivider variant="gold" className="mt-4" />
+              <div className="relative flex h-[104px] flex-1 flex-col items-center justify-center gap-0.5 -ml-4 md:-ml-10 sm:h-[134px] md:h-[94px] lg:h-[114px]">
+                {["WEDDING", "FRAME"].map((w, i) => (
+                  <motion.span
+                    key={w}
+                    className="font-display italic leading-none tracking-[0.05em]"
+                    style={{
+                      color: themeColors.primary,
+                      fontSize: "clamp(2.2rem, 5.5vw, 3.6rem)",
+                      marginLeft: `-${i * 8}px`,
+                    }}
+                    initial={{ opacity: 0, y: 24, rotate: 8 }}
+                    whileInView={{ opacity: 1, y: 0, rotate: 8 }}
+                    viewport={{ once: true, margin: "-60px" }}
+                    transition={{ duration: 0.7, delay: 0.1 + i * 0.15, ease: "easeOut" }}
+                  >
+                    {w}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
           </div>
 
           <p className="mb-8 text-center text-sm leading-relaxed md:text-base relative z-10" style={{ color: themeColors.muted }}>
@@ -99,7 +109,7 @@ export default function FrameSection({
               </motion.div>
             )}
           </div>
-        </GoldBorderFrame>
+        </div>
       </div>
     </section>
   );

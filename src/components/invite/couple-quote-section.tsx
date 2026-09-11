@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { Quote } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 export default function CoupleQuoteSection({ quotes }: { quotes: Quote[] }) {
   const quote = quotes[1];
@@ -39,7 +39,7 @@ export default function CoupleQuoteSection({ quotes }: { quotes: Quote[] }) {
 
           {quote.source && (
             <div className="mt-4 space-y-1">
-              <OrnamentDivider variant="gold" className="scale-75" />
+
               <cite className="font-sans text-[8px] md:text-[10px] not-italic block" style={{ color: themeColors.muted }}>
                 &mdash; {quote.source}
               </cite>

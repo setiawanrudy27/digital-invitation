@@ -6,7 +6,6 @@ import type { InvitationPageData } from "@/components/invite/types";
 import LoadingScreen from "@/components/invite/loading-screen";
 import CoverSection from "@/components/invite/cover-section";
 import MusicPlayer from "@/components/invite/music-player";
-import FloatingNav from "@/components/invite/floating-nav";
 import InvitationSections from "@/components/invite/invitation-sections";
 
 export default function InvitationClient(data: InvitationPageData) {
@@ -110,9 +109,6 @@ export default function InvitationClient(data: InvitationPageData) {
             <div className="relative w-full h-full bg-white lg:flex lg:flex-col invitation-theme">
               <div ref={scrollRef} className="lg:flex-1 lg:overflow-y-auto max-lg:min-h-screen bg-white">
                 <InvitationSections data={data} containerRef={scrollRef} />
-              </div>
-              <div className="lg:hidden">
-                <FloatingNav />
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { LoveStory } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves, RoseOrnament } from "@/components/invite/decoratives";
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr);
@@ -43,7 +43,7 @@ export default function LoveStorySection({ stories }: LoveStorySectionProps) {
           <p className="text-sm md:text-base mt-3 italic font-light tracking-wide" style={{ color: themeColors.muted }}>
             &ldquo;Menikah bukan perlombaan, bukan soal cepat atau lambat. Tetapi, siapa yang siap mengemban amanah yang besar.&rdquo;
           </p>
-          <OrnamentDivider variant="gold" className="mt-5" />
+
         </motion.div>
 
         <div className="relative">

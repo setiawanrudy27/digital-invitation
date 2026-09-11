@@ -3,9 +3,10 @@
 import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, Copy, Gift, X } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { BankAccount, QRIS, Setting } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
 
 interface GiftSectionProps {
   bankAccounts: BankAccount[];
@@ -22,6 +23,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
 
   const [showModal, setShowModal] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  const primaryAccount = bankAccounts[0] ?? null;
 
   const handleCopy = useCallback(async (account: BankAccount) => {
     try {
@@ -65,19 +67,50 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center"
         >
-          <div
-            className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full"
-            style={{ background: `linear-gradient(135deg, ${themeColors.primary}, ${themeColors.secondary})` }}
-          >
-            <Gift className="h-5 w-5" style={{ color: themeColors.surface }} />
+          <div className="flex justify-center items-center gap-6 md:gap-11">
+            <motion.div
+              className="h-[110px] w-auto shrink-0 -ml-1 sm:h-[140px] md:h-[100px] lg:h-[120px] md:-ml-10"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            >
+              <Image
+                src="/images/gift.png"
+                alt="Wedding Gift"
+                width={988}
+                height={957}
+                className="h-full w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+              />
+            </motion.div>
+
+            <div className="relative flex h-[110px] flex-1 max-w-[60vw] flex-col items-center justify-center gap-0.5 -ml-4 md:-ml-10 sm:h-[140px] md:h-[100px] lg:h-[120px]">
+              {["Wedding", "Gift"].map((w, i) => (
+                <motion.span
+                  key={w}
+                  className="font-display italic leading-none tracking-[0.05em]"
+                  style={{
+                    color: themeColors.primary,
+                    fontSize: "clamp(2.8rem, 6.5vw, 4.2rem)",
+                    marginLeft: `-${i * 8}px`,
+                  }}
+                  initial={{ opacity: 0, y: 24, rotate: 8 }}
+                  whileInView={{ opacity: 1, y: 0, rotate: 8 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.7, delay: 0.1 + i * 0.15, ease: "easeOut" }}
+                >
+                  {w}
+                </motion.span>
+              ))}
+            </div>
           </div>
-          <h2 className="font-display text-3xl tracking-wide sm:text-4xl italic" style={{ color: themeColors.charcoal }}>
-            Hadiah Pernikahan
+          <h2 className="sr-only font-display text-3xl tracking-wide sm:text-4xl italic" style={{ color: themeColors.charcoal }}>
+            Wedding Gift
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed" style={{ color: themeColors.muted }}>
             Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih Anda, kami akan senang hati menerimanya yang tentu akan semakin melengkapi kebahagiaan kami.
           </p>
-          <OrnamentDivider variant="gold" className="mt-3" />
+
         </motion.div>
 
         <motion.div
@@ -139,44 +172,52 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
               </div>
 
               <div className="space-y-6">
-                {hasTransfer && (
+                {hasTransfer && primaryAccount && (
                   <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
                     className="space-y-4"
                   >
-                    {bankAccounts.map((account) => (
-                      <motion.div
-                        key={account.id}
-                        variants={itemVariants}
-                        className="rounded-2xl p-5"
-                        style={{
-                          backgroundColor: themeColors.cream,
-                          border: `1px solid rgba(201,168,76,0.15)`,
-                        }}
-                      >
-                        <p className="text-xs font-medium uppercase tracking-widest" style={{ color: themeColors.primary }}>
-                          {account.bank_name}
-                        </p>
-                        <p className="mt-2 font-display text-lg tracking-wide" style={{ color: themeColors.charcoal }}>
-                          {account.account_holder}
-                        </p>
-                        <div className="mt-2 flex items-center gap-3" style={{ color: themeColors.muted }}>
-                          <span className="font-mono text-sm tracking-wider">{account.account_number}</span>
+                    <div className="relative mx-auto flex max-w-[420px] justify-center">
+                      <Image
+                        src="/images/rekening.png"
+                        alt="Rekening pembayaran"
+                        width={760}
+                        height={420}
+                        className="h-auto w-full object-contain"
+                        priority
+                      />
+
+                      <div className="absolute inset-0 flex flex-col justify-center px-7 py-8 text-left">
+                        <div className="-translate-y-4">
+                        <div className="font-bold uppercase tracking-[0.16em]" style={{ color: themeColors.primary, fontSize: "clamp(1.8rem, 4vw, 2.6rem)" }}>
+                            {primaryAccount.bank_name}
+                          </div>
+
+                        <div className="-mt-1 font-mono text-[clamp(1rem,2.8vw,1.4rem)] tracking-[0.16em]" style={{ color: themeColors.charcoal }}>
+                          {primaryAccount.account_number}
+                        </div>
+                      </div>
+
+                        <div className="flex items-center justify-between gap-4">
+                          <div className="flex min-w-0 flex-col whitespace-nowrap text-[clamp(0.8rem,2.6vw,1.2rem)]" style={{ color: themeColors.charcoal }}>
+                            <span className="font-semibold">Account name:</span>
+                            <span className="translate-x-6 font-semibold">{primaryAccount.account_holder}</span>
+                          </div>
                           <button
                             type="button"
-                            onClick={() => handleCopy(account)}
+                            onClick={() => handleCopy(primaryAccount)}
                             className={cn(
-                              "inline-flex items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-200",
-                              copiedId === account.id ? "text-white" : "hover:shadow-sm"
+                              "inline-flex shrink-0 -translate-y-2 -translate-x-3 items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-200",
+                              copiedId === primaryAccount.id ? "text-white" : "hover:shadow-sm"
                             )}
                             style={{
-                              backgroundColor: copiedId === account.id ? themeColors.primary : `${themeColors.primary}15`,
-                              color: copiedId === account.id ? themeColors.surface : themeColors.primary,
+                              backgroundColor: copiedId === primaryAccount.id ? themeColors.primary : `${themeColors.primary}15`,
+                              color: copiedId === primaryAccount.id ? themeColors.surface : themeColors.primary,
                             }}
                           >
-                            {copiedId === account.id ? (
+                            {copiedId === primaryAccount.id ? (
                               <>
                                 <Check className="h-3 w-3" />
                                 Tersalin
@@ -184,13 +225,13 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
                             ) : (
                               <>
                                 <Copy className="h-3 w-3" />
-                                Salin
+                                Copy
                               </>
                             )}
                           </button>
                         </div>
-                      </motion.div>
-                    ))}
+                      </div>
+                    </div>
                   </motion.div>
                 )}
 
@@ -202,7 +243,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
                     className="text-center"
                   >
                     <p className="mb-4 font-display text-lg italic" style={{ color: themeColors.charcoal }}>
-                      Scan QRIS
+                      QRIS
                     </p>
                     <img
                       src={qris!.qris_url}

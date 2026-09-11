@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ThankYou, Couple } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldOrchid } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves, GoldOrchid } from "@/components/invite/decoratives";
 
 interface ThankYouSectionProps {
   thankYou?: ThankYou | null;
@@ -50,7 +50,7 @@ export default function ThankYouSection({ thankYou, groom, bride }: ThankYouSect
         ))}
       </div>
 
-      <div className="relative z-10 mx-auto max-w-2xl text-center">
+      <div className="relative z-10 mx-auto max-w-2xl text-center -mt-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +61,7 @@ export default function ThankYouSection({ thankYou, groom, bride }: ThankYouSect
             Terima Kasih
           </h2>
 
-          <OrnamentDivider variant="gold" className="mt-6" />
+
         </motion.div>
 
         <motion.p
@@ -100,7 +100,7 @@ export default function ThankYouSection({ thankYou, groom, bride }: ThankYouSect
           <p className="mt-3 font-display text-2xl tracking-wide sm:text-3xl italic" style={{ color: themeColors.charcoal }}>
             {bride?.nickname || bride?.full_name || "________"} &amp; {groom?.nickname || groom?.full_name || "________"}
           </p>
-          <OrnamentDivider variant="gold" className="mt-8" />
+
         </motion.div>
       </div>
     </motion.section>

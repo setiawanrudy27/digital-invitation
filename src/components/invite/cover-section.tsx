@@ -56,7 +56,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         className="relative z-10 flex w-full max-w-[420px] flex-col items-center px-2 text-center sm:px-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        transition={{ duration: 0.4, delay: 0.15 }}
       >
         <motion.div
           className="pointer-events-none absolute left-10 bottom-70 sm:left-17 sm:bottom-130"
@@ -91,13 +91,44 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         <motion.p
           className="font-quicksand text-xl sm:text-2xl md:text-[2rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-tight"
           style={{ color: themeColors.primary, fontWeight: 500 }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <span className="block">THESE KIDS</span>
+          <span className="block">
+            {"THESE KIDS".split("").map((char, i) => (
+              <motion.span
+                key={i}
+                className="inline-block whitespace-pre"
+                initial={{ opacity: 0, scale: 0, y: i % 2 === 0 ? -18 : 18, rotate: i % 2 === 0 ? -12 : 12 }}
+                animate={{ opacity: 1, scale: [0, 1.5, 0.85, 1.15, 1], y: 0, rotate: 0 }}
+                transition={{
+                  delay: 0.4 + i * 0.05,
+                  duration: 0.9,
+                  times: [0, 0.3, 0.55, 0.8, 1],
+                  ease: "easeOut",
+                }}
+              >
+                {char}
+              </motion.span>
+            ))}
+          </span>
           <span className="relative inline-block">
-            <span className="block">ARE GETTING MARRIED!</span>
+            <span className="block">
+              {"ARE GETTING MARRIED!".split("").map((char, i) => (
+                <motion.span
+                  key={i}
+                  className="inline-block whitespace-pre"
+                  initial={{ opacity: 0, scale: 0, y: i % 2 === 0 ? -18 : 18, rotate: i % 2 === 0 ? -12 : 12 }}
+                  animate={{ opacity: 1, scale: [0, 1.5, 0.85, 1.15, 1], y: 0, rotate: 0 }}
+                  transition={{
+                    delay: 0.6 + i * 0.045,
+                    duration: 0.9,
+                    times: [0, 0.3, 0.55, 0.8, 1],
+                    ease: "easeOut",
+                  }}
+                >
+                  {char}
+                </motion.span>
+              ))}
+            </span>
             <Image
               src="/images/cincincover.png"
               alt="Ring decoration"
@@ -137,7 +168,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
                     className="absolute overflow-hidden border-[3px] border-white shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
                     style={{
                       left: "20%",
-                      top: "-30px",
+                      top: "-18px",
                       width: "28%",
                       height: "28%",
                       borderRadius: "50%",
@@ -158,7 +189,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
                     className="absolute overflow-hidden border-[3px] border-white shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
                     style={{
                       right: "24%",
-                      top: "-15px",
+                      top: "-9px",
                       width: "28%",
                       height: "28%",
                       borderRadius: "50%",

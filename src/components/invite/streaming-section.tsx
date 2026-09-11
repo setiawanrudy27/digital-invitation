@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { LiveStreaming } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, OrnamentDivider, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 export default function StreamingSection({
   stream,
@@ -16,39 +16,12 @@ export default function StreamingSection({
     >
       <FloatingLeaves count={5} />
       <div className="mx-auto max-w-3xl relative z-10">
-        <GoldBorderFrame className="p-8 md:p-10">
-          <RoseOrnament size={20} className="absolute left-4 top-4" />
-          <RoseOrnament size={20} className="absolute right-4 top-4" />
-          <RoseOrnament size={20} className="absolute left-4 bottom-4" />
-          <RoseOrnament size={20} className="absolute right-4 bottom-4" />
+          <div className="p-8 md:p-10">
 
           <div className="mb-6 text-center relative z-10">
-            <motion.div
-              className="mx-auto mb-4 flex size-14 items-center justify-center rounded-full"
-              style={{
-                background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
-                boxShadow: `0 4px 16px rgba(139,58,66,0.2)`,
-              }}
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.15 }}
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="7" width="14" height="11" rx="2" />
-                <circle cx="9" cy="12.5" r="3" />
-                <path d="M16 10l5-3v11l-5-3" />
-                
-              </svg>
-            </motion.div>
-
-            
-
             <h2 className="font-display text-2xl md:text-3xl italic" style={{ color: themeColors.charcoal }}>
               Live Streaming
             </h2>
-
-            <OrnamentDivider variant="gold" className="mt-4" />
           </div>
 
           <p className="mb-8 text-center text-sm leading-relaxed md:text-base relative z-10" style={{ color: themeColors.muted }}>
@@ -77,7 +50,7 @@ export default function StreamingSection({
               Lihat Live Streaming
             </motion.a>
           </div>
-        </GoldBorderFrame>
+        </div>
       </div>
     </section>
   );
