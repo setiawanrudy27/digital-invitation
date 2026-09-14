@@ -25,7 +25,7 @@ export async function generateMetadata({
 
   const [couples, galleryPhotos] = await Promise.all([
     supabase.from("couples").select("cover_photo_url, person_type").eq("invitation_id", invitation.id) as any,
-    supabase.from("gallery_photos").select("photo_url").eq("invitation_id", invitation.id).eq("is_visible", true).order("display_order").limit(1) as any,
+    supabase.from("gallery_photos").select("photo_url").eq("invitation_id", invitation.id).order("display_order").limit(1) as any,
   ]);
 
   const bride = couples.data?.find((c: any) => c.person_type === "bride");

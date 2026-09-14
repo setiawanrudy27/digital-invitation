@@ -21,7 +21,7 @@ export async function fetchInvitationData(invitationId: string, guestName: strin
   ] = await Promise.all([
     supabase.from("couples").select("*").eq("invitation_id", invitationId).then((r) => r.data as any),
     supabase.from("events").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("start_date").then((r) => r.data as any),
-    supabase.from("gallery_photos").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("display_order").then((r) => r.data as any),
+    supabase.from("gallery_photos").select("*").eq("invitation_id", invitationId).order("display_order").then((r) => r.data as any),
     supabase.from("gallery_videos").select("*").eq("invitation_id", invitationId).eq("is_visible", true).then((r) => r.data as any),
     supabase.from("love_stories").select("*").eq("invitation_id", invitationId).order("story_date").then((r) => r.data as any),
     supabase.from("quotes").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("created_at").then((r) => r.data as any),

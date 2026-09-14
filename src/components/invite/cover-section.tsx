@@ -1,14 +1,63 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import type { InvitationPageData } from "@/components/invite/types";
 import { themeColors } from "@/components/invite/decoratives";
 
 interface CoverSectionProps {
   data: InvitationPageData;
   onOpen: () => void;
+}
+
+const BURST_COLORS = ["#c9a84c", "#d4af61", "#e8c96a", "#b8943f", "#f0d878", "#a67c2e", "#d4a843", "#c49a3a"];
+
+function BurstParticles({ trigger }: { trigger: boolean }) {
+  const particles = useMemo(() => {
+    return Array.from({ length: 18 }, (_, i) => ({
+      id: i,
+      angle: (i / 18) * 360 + Math.random() * 20 - 10,
+      distance: 60 + Math.random() * 80,
+      size: 3 + Math.random() * 5,
+      color: BURST_COLORS[i % BURST_COLORS.length],
+      delay: Math.random() * 0.15,
+      duration: 0.6 + Math.random() * 0.3,
+    }));
+  }, []);
+
+  return (
+    <AnimatePresence>
+      {trigger && particles.map((p) => {
+        const rad = (p.angle * Math.PI) / 180;
+        const tx = Math.cos(rad) * p.distance;
+        const ty = Math.sin(rad) * p.distance;
+        return (
+          <motion.span
+            key={p.id}
+            className="absolute rounded-full pointer-events-none"
+            style={{
+              width: p.size,
+              height: p.size,
+              backgroundColor: p.color,
+              top: "50%",
+              left: "50%",
+              marginTop: -p.size / 2,
+              marginLeft: -p.size / 2,
+            }}
+            initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+            animate={{ opacity: 0, x: tx, y: ty, scale: 0.2 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              duration: p.duration,
+              delay: p.delay,
+              ease: "easeOut",
+            }}
+          />
+        );
+      })}
+    </AnimatePresence>
+  );
 }
 
 function formatWeddingDate(dateStr: string | null | undefined): string {
@@ -30,6 +79,15 @@ function getGreeting(guestName: string | undefined | null): string[] {
 
 export default function CoverSection({ data, onOpen }: CoverSectionProps) {
   const [isExiting, setIsExiting] = useState(false);
+  const [showBurst, setShowBurst] = useState(false);
+  const burstFired = useRef(false);
+
+  useEffect(() => {
+    if (burstFired.current) return;
+    burstFired.current = true;
+    const timer = setTimeout(() => setShowBurst(true), 1100);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleOpen = () => {
     setIsExiting(true);
@@ -47,13 +105,13 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full h-full bg-white flex flex-col items-center justify-center px-2 sm:px-0 pt-2 pb-2 sm:pt-20 sm:pb-6 lg:pt-8 overflow-hidden"
+      className="invitation-theme fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full min-h-screen bg-white flex flex-col items-center justify-center px-2 sm:px-0 pt-2 pb-2 sm:pt-20 sm:pb-6 lg:pt-8 overflow-y-auto overscroll-none"
       animate={isExiting ? { opacity: 0, scale: 1.03 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: "easeInOut" }}
     >
 
       <motion.div
-        className="relative z-10 flex w-full max-w-[420px] flex-col items-center px-2 text-center sm:px-8"
+        className="relative z-10 flex w-full max-w-[420px] min-h-[100dvh] flex-col items-center justify-center px-2 text-center sm:px-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.15 }}
@@ -84,14 +142,15 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             width={520}
             height={160}
             priority
-            className="h-auto w-[72vw] max-w-[360px] sm:w-[85vw] sm:max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+            className="h-auto w-[78vw] max-w-[360px] sm:w-[85vw] sm:max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
           />
         </motion.div>
 
         <motion.p
-          className="font-quicksand text-xl sm:text-2xl md:text-[2rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-tight"
+          className="relative font-quicksand text-xl sm:text-2xl md:text-[2rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-tight"
           style={{ color: themeColors.primary, fontWeight: 500 }}
         >
+          <BurstParticles trigger={showBurst} />
           <span className="block">
             {"THESE KIDS".split("").map((char, i) => (
               <motion.span
@@ -148,12 +207,12 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {(brideHeadPhoto || groomHeadPhoto) && (
           <motion.div
-            className="relative mt-0 flex items-center justify-center translate-y-10 sm:translate-y-40"
+            className="relative mt-2 flex items-center justify-center translate-y-0 sm:translate-y-10 md:translate-y-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <div className="relative w-[180px] h-[180px] sm:w-[260px] sm:h-[260px] md:w-[320px] md:h-[320px]">
+            <div className="relative w-[160px] h-[160px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px]">
               <div className="relative h-full w-full">
                 <Image
                   src={coverSilhouetteSrc}
@@ -210,7 +269,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="mt-14 sm:mt-48 lg:mt-48 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
+          className="mt-4 sm:mt-8 md:mt-10 lg:mt-12 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
@@ -234,7 +293,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {formattedDate && (
           <motion.p
-            className="mt-1 sm:mt-2 lg:mt-1 font-display text-base sm:text-xl md:text-[2.2rem] tracking-widest italic"
+            className="mt-1 sm:mt-2 lg:mt-1 font-display text-sm sm:text-xl md:text-[2.2rem] tracking-widest italic"
             style={{ color: themeColors.primary }}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -245,7 +304,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="translate-y-6 sm:translate-y-32 lg:translate-y-32 mb-6 sm:mb-10 lg:mb-10 px-3 py-3 sm:px-6 sm:py-6 lg:py-4 text-center rounded-2xl"
+          className="translate-y-0 sm:translate-y-4 lg:translate-y-6 mb-4 sm:mb-6 lg:mb-6 px-3 py-3 sm:px-6 sm:py-6 lg:py-4 text-center rounded-2xl"
           style={{
             background: "linear-gradient(135deg, rgba(250,246,239,0.9) 0%, rgba(242,236,228,0.8) 100%)",
             border: "1px solid rgba(201,168,76,0.2)",
@@ -273,7 +332,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.button
-          className="group relative translate-y-5 sm:translate-y-56 lg:translate-y-56 overflow-hidden rounded-full"
+          className="group relative translate-y-0 sm:translate-y-4 lg:translate-y-8 overflow-hidden rounded-full"
           style={{
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             boxShadow: `0 4px 24px rgba(139,58,66,0.3)`,
@@ -295,7 +354,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.button>
 
         <motion.div
-          className="mt-2 sm:mt-6 flex w-full justify-center"
+          className="mt-2 sm:mt-4 flex w-full justify-center"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.05 }}

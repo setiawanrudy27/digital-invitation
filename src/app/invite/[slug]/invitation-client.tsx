@@ -36,13 +36,24 @@ export default function InvitationClient(data: InvitationPageData) {
 
   useEffect(() => {
     if (!isOpen || !data.music?.music_url) return;
-    const audio = new Audio(data.music.music_url);
-    audio.loop = true;
-    audioRef.current = audio;
-    audio.play().then(() => setIsMusicPlaying(true)).catch(() => {});
+
+    if (!audioRef.current) {
+      const audio = new Audio(data.music.music_url);
+      audio.loop = true;
+      audio.preload = "auto";
+      audio.crossOrigin = "anonymous";
+      audioRef.current = audio;
+
+      audio.play().then(() => setIsMusicPlaying(true)).catch(() => {
+        setIsMusicPlaying(false);
+      });
+    }
+
     return () => {
-      audio.pause();
-      audioRef.current = null;
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
       setIsMusicPlaying(false);
     };
   }, [isOpen, data.music?.music_url]);
@@ -51,8 +62,9 @@ export default function InvitationClient(data: InvitationPageData) {
     return <LoadingScreen />;
   }
 
-  const heroImage = data.galleryPhotos?.[0]?.photo_url
+  const heroImage = data.galleryPhotos?.find((photo) => Boolean(photo?.photo_url))?.photo_url
     || data.coupleBride?.cover_photo_url
+    || data.coupleGroom?.cover_photo_url
     || "";
 
   const formatDate = (dateStr: string | null | undefined) => {
@@ -69,10 +81,8 @@ export default function InvitationClient(data: InvitationPageData) {
 
   return (
     <>
-      {isOpen && data.music && (
-        <div className="fixed bottom-6 left-6 z-50">
-          <MusicPlayer audioRef={audioRef} isPlaying={isMusicPlaying} setIsPlaying={setIsMusicPlaying} />
-        </div>
+      {isOpen && data.music?.music_url && (
+        <MusicPlayer audioRef={audioRef} isPlaying={isMusicPlaying} setIsPlaying={setIsMusicPlaying} />
       )}
 
       {!isOpen ? (

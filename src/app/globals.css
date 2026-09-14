@@ -1,15 +1,23 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Alex+Brush&family=Parisienne&family=Quicksand:wght@200..600&family=Italianno&family=Corinthia&family=MonteCarlo&display=swap");
-@import "tailwindcss";
+﻿@import "tailwindcss";
+
+@font-face {
+  font-family: 'Single Day';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/SingleDay-Regular.ttf') format('truetype');
+}
 
 @theme inline {
-  --font-sans: 'Inter', system-ui, sans-serif;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-script: 'Great Vibes', cursive;
-  --font-quicksand: 'Quicksand', sans-serif;
-  --font-corinthia: 'Corinthia', cursive;
-  --font-alexbrush: 'Alex Brush', cursive;
-  --font-parisienne: 'Parisienne', cursive;
-  --font-montecarlo: 'MonteCarlo', cursive;
+  --font-sans: 'Single Day', 'Inter', system-ui, sans-serif;
+  --font-display: 'Single Day', serif;
+  --font-script: 'Single Day', cursive;
+  --font-quicksand: 'Single Day', sans-serif;
+  --font-corinthia: 'Single Day', cursive;
+  --font-alexbrush: 'Single Day', cursive;
+  --font-parisienne: 'Single Day', cursive;
+  --font-montecarlo: 'Single Day', cursive;
+  --font-yuyu: 'Single Day', cursive;
 
   --color-burgundy-50: #fef2f2;
   --color-burgundy-100: #fde3e3;
@@ -130,32 +138,44 @@
 }
 
 .font-quicksand {
-  font-family: var(--font-quicksand) !important;
+  font-family: 'Single Day', 'Inter', cursive !important;
   font-weight: 300;
 }
 
 .font-corinthia {
-  font-family: var(--font-corinthia), cursive !important;
+  font-family: 'Single Day', 'Inter', cursive !important;
   font-variant-ligatures: contextual;
   font-feature-settings: "liga" 1, "calt" 1;
 }
 
 .font-parisienne {
-  font-family: var(--font-parisienne) !important;
+  font-family: 'Single Day', 'Inter', cursive !important;
 }
 
 .font-montecarlo {
-  font-family: var(--font-montecarlo), cursive !important;
+  font-family: 'Single Day', 'Inter', cursive !important;
 }
 
 .font-italianno {
-  font-family: var(--font-italianno), cursive !important;
+  font-family: 'Single Day', 'Inter', cursive !important;
 }
 
 .font-script {
-  font-family: var(--font-script), var(--font-alexbrush), cursive !important;
+  font-family: 'Single Day', 'Inter', cursive !important;
   font-variant-ligatures: contextual;
   font-feature-settings: "liga" 1, "calt" 1, "clig" 1;
+}
+
+.invitation-theme .font-display,
+.invitation-theme .font-sans,
+.invitation-theme .font-quicksand,
+.invitation-theme .font-italianno,
+.invitation-theme .font-script,
+.invitation-theme .font-corinthia,
+.invitation-theme .font-parisienne,
+.invitation-theme .font-montecarlo,
+.invitation-theme .font-mono {
+  font-family: 'Single Day', 'Inter', cursive !important;
 }
 
 /* Invitation theme: luxury botanical vintage palette */
@@ -178,6 +198,43 @@
 .invitation-theme body {
   background-color: var(--invite-bg);
   color: var(--invite-text);
+}
+
+.invitation-theme,
+.invitation-theme *,
+.invitation-theme .font-display,
+.invitation-theme .font-sans,
+.invitation-theme .font-quicksand,
+.invitation-theme .font-italianno,
+.invitation-theme .font-script,
+.invitation-theme .font-corinthia,
+.invitation-theme .font-parisienne,
+.invitation-theme .font-montecarlo,
+.invitation-theme .font-mono,
+.invitation-theme h1,
+.invitation-theme h2,
+.invitation-theme h3,
+.invitation-theme h4,
+.invitation-theme h5,
+.invitation-theme h6,
+.invitation-theme p,
+.invitation-theme span,
+.invitation-theme button,
+.invitation-theme input,
+.invitation-theme textarea {
+  font-family: 'Single Day', 'Inter', cursive !important;
+}
+
+.invitation-theme .font-display,
+.invitation-theme .font-sans,
+.invitation-theme .font-quicksand,
+.invitation-theme .font-italianno,
+.invitation-theme .font-script,
+.invitation-theme .font-corinthia,
+.invitation-theme .font-parisienne,
+.invitation-theme .font-montecarlo,
+.invitation-theme .font-mono {
+  font-family: 'Single Day', 'Inter', cursive !important;
 }
 
 /* Vintage paper texture overlay */
@@ -205,8 +262,8 @@
 
 /* Ornate section heading */
 .invitation-theme .section-heading {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
+  font-family: 'Single Day', 'Inter', cursive !important;
+  font-style: normal;
   font-weight: 600;
   letter-spacing: 0.05em;
 }

@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef, useEffect, useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
+import { Music2, Pause } from "lucide-react";
 import { themeColors } from "@/components/invite/decoratives";
 
 interface MusicPlayerProps {
@@ -11,66 +12,71 @@ interface MusicPlayerProps {
 }
 
 export default function MusicPlayer({ audioRef, isPlaying, setIsPlaying }: MusicPlayerProps) {
-  const togglePlay = useCallback(() => {
-    if (!audioRef.current) return;
+  const realPlaying = audioRef.current ? !audioRef.current.paused : isPlaying;
 
-    if (isPlaying) {
-      audioRef.current.pause();
-      setIsPlaying(false);
+  const togglePlay = useCallback(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch(() => {
+        setIsPlaying(false);
+      });
     } else {
-      audioRef.current.play().catch(() => {});
-      setIsPlaying(true);
+      audio.pause();
+      setIsPlaying(false);
     }
-  }, [isPlaying, audioRef, setIsPlaying]);
+  }, [audioRef, setIsPlaying]);
 
   useEffect(() => {
     const handleVisibility = () => {
-      if (!audioRef.current) return;
+      const audio = audioRef.current;
+      if (!audio) return;
+
       if (document.hidden) {
-        audioRef.current.pause();
+        audio.pause();
         setIsPlaying(false);
-      } else {
-        audioRef.current.play().then(() => {
+      } else if (audio.paused) {
+        audio.play().then(() => {
           setIsPlaying(true);
-        }).catch(() => {});
+        }).catch(() => {
+          setIsPlaying(false);
+        });
       }
     };
 
     document.addEventListener("visibilitychange", handleVisibility);
-    return () =>
-      document.removeEventListener("visibilitychange", handleVisibility);
-  }, []);
+    return () => document.removeEventListener("visibilitychange", handleVisibility);
+  }, [audioRef, setIsPlaying]);
 
   return (
     <motion.button
-      className="flex h-12 w-12 items-center justify-center rounded-full"
+      className="fixed bottom-6 left-6 z-50 flex h-12 w-12 items-center justify-center rounded-full"
       style={{
         background: "rgba(250,246,239,0.9)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         border: `1px solid rgba(201,168,76,0.25)`,
         boxShadow: "0 4px 20px rgba(0,0,0,0.06)",
-        color: isPlaying ? themeColors.primary : themeColors.gold,
+        color: realPlaying ? themeColors.primary : themeColors.gold,
       }}
       onClick={togglePlay}
       whileHover={{ scale: 1.08 }}
       whileTap={{ scale: 0.92 }}
-      aria-label={isPlaying ? "Pause music" : "Play music"}
+      aria-label={realPlaying ? "Pause music" : "Play music"}
     >
-      {isPlaying ? (
-        <motion.svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
+      {realPlaying ? (
+        <motion.span
           animate={{ rotate: 360 }}
           transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+          className="flex items-center justify-center"
         >
-          <path d="M9 18V5l12-2v13" />
-          <circle cx="6" cy="18" r="3" />
-          <circle cx="18" cy="16" r="3" />
-        </motion.svg>
+          <Pause size={20} strokeWidth={2} fill="none" />
+        </motion.span>
       ) : (
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <rect x="6" y="4" width="4" height="16" />
-          <rect x="14" y="4" width="4" height="16" />
-        </svg>
+        <Music2 size={20} strokeWidth={2} fill="none" />
       )}
     </motion.button>
   );
