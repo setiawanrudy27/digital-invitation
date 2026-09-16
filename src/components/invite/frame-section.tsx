@@ -17,12 +17,12 @@ export default function FrameSection({
     >
       <FloatingLeaves count={5} />
       <div className="mx-auto max-w-3xl relative z-10">
-          <div className="p-8 md:p-10">
+          <div className="p-4 sm:p-6 md:p-8">
 
           <div className="mb-6">
-            <div className="flex items-stretch gap-6 md:gap-11">
+              <div className="mx-auto flex w-full max-w-[560px] items-center justify-center gap-3 sm:gap-5 md:gap-6">
               <motion.div
-                className="h-[104px] w-auto shrink-0 -mt-6 -ml-6 sm:h-[134px] md:h-[94px] lg:h-[114px] md:-mt-6 md:-ml-10"
+                  className="h-[104px] w-auto shrink-0 sm:h-[128px] md:h-[136px]"
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
@@ -37,14 +37,14 @@ export default function FrameSection({
                 />
               </motion.div>
 
-              <div className="relative flex h-[104px] flex-1 flex-col items-center justify-center gap-0.5 -ml-4 md:-ml-10 sm:h-[134px] md:h-[94px] lg:h-[114px]">
+              <div className="relative flex h-[104px] w-[190px] shrink-0 flex-col items-center justify-center gap-0.5 sm:h-[128px] sm:w-[230px] md:h-[136px] md:w-[270px]">
                 {["WEDDING", "FRAME"].map((w, i) => (
                   <motion.span
                     key={w}
                     className="font-display italic leading-none tracking-[0.05em]"
                     style={{
                       color: themeColors.primary,
-                      fontSize: "clamp(2.2rem, 5.5vw, 3.6rem)",
+                      fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
                       marginLeft: `-${i * 8}px`,
                     }}
                     initial={{ opacity: 0, y: 24, rotate: 8 }}
@@ -59,18 +59,31 @@ export default function FrameSection({
             </div>
           </div>
 
-          <p className="mb-8 text-center text-sm leading-relaxed md:text-base relative z-10" style={{ color: themeColors.muted }}>
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mb-8 text-center text-sm leading-relaxed md:text-base relative z-10"
+            style={{ color: "#000000" }}
+          >
             Abadikan momen spesial Anda dengan bingkai foto pernikahan kami.
-          </p>
+          </motion.p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 relative z-10"
+          >
             {frame.frame_url_instagram && (
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-36">
                 <a
                   href={frame.frame_url_instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-medium shadow-sm transition-all duration-200"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3.5 text-sm font-medium shadow-sm transition-all duration-200"
                   style={{
                     background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
                     color: themeColors.surface,
@@ -82,17 +95,17 @@ export default function FrameSection({
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
                     <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                   </svg>
-                  Frame Instagram
+                  Instagram
                 </a>
               </motion.div>
             )}
             {frame.frame_url && (
-              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
+              <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }} className="w-36">
                 <a
                   href={frame.frame_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-medium shadow-sm transition-all duration-200"
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3.5 text-sm font-medium shadow-sm transition-all duration-200"
                   style={{
                     background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
                     color: themeColors.surface,
@@ -100,15 +113,13 @@ export default function FrameSection({
                   }}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
-                    <polyline points="21 15 16 10 5 21" />
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
                   </svg>
-                  Frame TikTok
+                  TikTok
                 </a>
               </motion.div>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

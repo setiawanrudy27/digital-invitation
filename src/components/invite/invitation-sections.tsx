@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import type { InvitationPageData } from "@/components/invite/types";
+import PhotoboothSection from "@/components/invite/photobooth-section";
 
 const ScrollProgress = dynamic(() => import("@/components/invite/scroll-progress"), { ssr: false });
 const SaveTheDateSection = dynamic(() => import("@/components/invite/save-the-date-section"), { ssr: false });
@@ -10,7 +11,6 @@ const EventSection = dynamic(() => import("@/components/invite/event-section"), 
 const StreamingSection = dynamic(() => import("@/components/invite/streaming-section"), { ssr: false });
 const FrameSection = dynamic(() => import("@/components/invite/frame-section"), { ssr: false });
 const LoveStorySection = dynamic(() => import("@/components/invite/love-story-section"), { ssr: false });
-const PhotoboothSection = dynamic(() => import("@/components/invite/photobooth-section"), { ssr: false });
 const GallerySection = dynamic(() => import("@/components/invite/gallery-section"), { ssr: false });
 const CoupleQuoteSection = dynamic(() => import("@/components/invite/couple-quote-section"), { ssr: false });
 const RSVPSection = dynamic(() => import("@/components/invite/rsvp-section"), { ssr: false });

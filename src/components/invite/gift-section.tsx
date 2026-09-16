@@ -67,9 +67,9 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center"
         >
-          <div className="flex justify-center items-center gap-6 md:gap-11">
+          <div className="mx-auto flex w-full max-w-[560px] items-center justify-center gap-3 sm:gap-5 md:gap-6">
             <motion.div
-              className="h-[110px] w-auto shrink-0 -ml-1 sm:h-[140px] md:h-[100px] lg:h-[120px] md:-ml-10"
+              className="h-[110px] w-auto shrink-0 sm:h-[140px] md:h-[136px]"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -84,14 +84,14 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
               />
             </motion.div>
 
-            <div className="relative flex h-[110px] flex-1 max-w-[60vw] flex-col items-center justify-center gap-0.5 -ml-4 md:-ml-10 sm:h-[140px] md:h-[100px] lg:h-[120px]">
+            <div className="relative flex h-[110px] w-[170px] shrink-0 flex-col items-center justify-center gap-0.5 sm:h-[140px] sm:w-[230px] md:h-[136px] md:w-[270px]">
               {["Wedding", "Gift"].map((w, i) => (
                 <motion.span
                   key={w}
                   className="font-display italic leading-none tracking-[0.05em]"
                   style={{
                     color: themeColors.primary,
-                    fontSize: "clamp(2.8rem, 6.5vw, 4.2rem)",
+                    fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
                     marginLeft: `-${i * 8}px`,
                   }}
                   initial={{ opacity: 0, y: 24, rotate: 8 }}
@@ -107,7 +107,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
           <h2 className="sr-only font-display text-3xl tracking-wide sm:text-4xl italic" style={{ color: themeColors.charcoal }}>
             Wedding Gift
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed" style={{ color: themeColors.muted }}>
+          <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed" style={{ color: "#000000" }}>
             Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun jika memberi adalah ungkapan tanda kasih Anda, kami akan senang hati menerimanya yang tentu akan semakin melengkapi kebahagiaan kami.
           </p>
 
@@ -189,27 +189,27 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
                         priority
                       />
 
-                      <div className="absolute inset-0 flex flex-col justify-center px-7 py-8 text-left">
-                        <div className="-translate-y-4">
-                        <div className="font-bold uppercase tracking-[0.16em]" style={{ color: themeColors.primary, fontSize: "clamp(1.8rem, 4vw, 2.6rem)" }}>
+                      <div className="absolute inset-0 flex flex-col justify-center gap-3 px-[14%] py-[18%] text-left sm:gap-4">
+                        <div className="space-y-1">
+                          <div className="font-bold uppercase tracking-[0.16em]" style={{ color: themeColors.primary, fontSize: "clamp(1.8rem, 4vw, 2.6rem)" }}>
                             {primaryAccount.bank_name}
                           </div>
 
-                        <div className="-mt-1 font-mono text-[clamp(1rem,2.8vw,1.4rem)] tracking-[0.16em]" style={{ color: themeColors.charcoal }}>
-                          {primaryAccount.account_number}
+                          <div className="font-mono text-[clamp(1rem,2.8vw,1.4rem)] tracking-[0.16em]" style={{ color: themeColors.charcoal }}>
+                            {primaryAccount.account_number}
+                          </div>
                         </div>
-                      </div>
 
-                        <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center justify-between gap-3 sm:gap-4">
                           <div className="flex min-w-0 flex-col whitespace-nowrap text-[clamp(0.8rem,2.6vw,1.2rem)]" style={{ color: themeColors.charcoal }}>
                             <span className="font-semibold">Account name:</span>
-                            <span className="translate-x-6 font-semibold">{primaryAccount.account_holder}</span>
+                            <span className="translate-x-2 font-semibold">{primaryAccount.account_holder}</span>
                           </div>
                           <button
                             type="button"
                             onClick={() => handleCopy(primaryAccount)}
                             className={cn(
-                              "inline-flex shrink-0 -translate-y-2 -translate-x-3 items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-200",
+                              "inline-flex shrink-0 translate-x-1 -translate-y-3 items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-200",
                               copiedId === primaryAccount.id ? "text-white" : "hover:shadow-sm"
                             )}
                             style={{

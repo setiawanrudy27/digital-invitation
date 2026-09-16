@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useConfirm } from "@/components/ui/use-confirm";
+import { compressImage } from "@/lib/compress-image";
 import type { Database } from "@/lib/supabase/database.types";
 
 type LoveStory = Database["public"]["Tables"]["love_stories"]["Row"];
@@ -57,10 +58,11 @@ export default function LoveStoriesPageClient({ stories: initialStories, invitat
 
   const uploadToStorage = async (file: File, bucket: string): Promise<string> => {
     const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
-    const fileExt = file.name.split('.').pop();
+    const uploadFile = bucket === "photos" ? await compressImage(file) : file;
+    const fileExt = uploadFile.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
 
-    const { error } = await supabase.storage.from(bucket).upload(fileName, file);
+    const { error } = await supabase.storage.from(bucket).upload(fileName, uploadFile);
     if (error) throw error;
 
     const { data } = supabase.storage.from(bucket).getPublicUrl(fileName);

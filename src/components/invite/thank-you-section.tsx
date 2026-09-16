@@ -57,7 +57,7 @@ export default function ThankYouSection({ thankYou, groom, bride }: ThankYouSect
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
         >
-          <h2 className="font-display text-4xl tracking-wide sm:text-5xl italic" style={{ color: themeColors.charcoal }}>
+          <h2 className="font-display text-4xl tracking-wide sm:text-5xl italic" style={{ color: "#a34641" }}>
             Terima Kasih
           </h2>
 
@@ -77,7 +77,7 @@ export default function ThankYouSection({ thankYou, groom, bride }: ThankYouSect
 
         <motion.p
           className="mt-4 text-sm leading-relaxed max-w-lg mx-auto"
-          style={{ color: themeColors.muted }}
+          style={{ color: "#000000" }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

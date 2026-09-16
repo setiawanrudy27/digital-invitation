@@ -181,26 +181,32 @@ function EventCard({ event: ev }: { event: Event }) {
   const tzAbbr = useMemo(() => formatTZ(ev.timezone), [ev.timezone]);
 
   return (
-    <div className="py-8 text-center">
-      <h3 className="mb-4 font-display text-xl md:text-2xl italic" style={{ color: themeColors.charcoal }}>
+    <motion.div
+      className="py-8 text-center"
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+    >
+      <h3 className="mb-4 font-display text-3xl md:text-4xl italic" style={{ color: "#a34641" }}>
         {ev.title}
       </h3>
 
       <div className="space-y-2 text-sm md:text-base" style={{ color: themeColors.muted }}>
-        <p style={{ color: themeColors.text }}>{dateOnly}</p>
-        <p style={{ color: themeColors.secondary }}>
+        <p style={{ color: "#000000" }}>{dateOnly}</p>
+        <p style={{ color: "#000000" }}>
           {startTime}
           {ev.until_finish ? ` ${tzAbbr} - Sampai Selesai` : endTime ? ` - ${endTime} ${tzAbbr}` : ` ${tzAbbr}`}
         </p>
 
         {ev.place_name && (
           <>
-            <p className="mt-2 font-medium" style={{ color: themeColors.text }}>{ev.place_name}</p>
-            {ev.address && <p style={{ color: themeColors.muted }}>{ev.address}</p>}
+            <p className="mt-2 font-medium" style={{ color: "#000000" }}>{ev.place_name}</p>
+            {ev.address && <p style={{ color: "#000000" }}>{ev.address}</p>}
           </>
         )}
         {!ev.place_name && ev.address && (
-          <p className="mt-2" style={{ color: themeColors.text }}>{ev.address}</p>
+          <p className="mt-2" style={{ color: "#000000" }}>{ev.address}</p>
         )}
       </div>
 
@@ -223,7 +229,7 @@ function EventCard({ event: ev }: { event: Event }) {
           Lihat Lokasi
         </a>
       )}
-    </div>
+    </motion.div>
   );
 }
 
@@ -245,9 +251,9 @@ export default function EventSection({
       <FloatingLeaves />
       <div className="mx-auto max-w-5xl relative z-10">
         <div className="mb-14">
-          <div className="flex items-stretch gap-3 md:gap-8">
+          <div className="mx-auto flex w-full max-w-[620px] items-center justify-center gap-3 sm:gap-5 md:gap-6">
             <motion.div
-              className="h-[170px] w-auto shrink-0 -mt-12 sm:h-[200px] md:h-[150px] lg:h-[180px] md:-mt-14"
+              className="h-[110px] w-auto shrink-0 sm:h-[180px] md:h-[190px]"
               initial={fadeUpProps.initial}
               whileInView={fadeUpProps.whileInView}
               viewport={fadeUpProps.viewport}
@@ -262,14 +268,14 @@ export default function EventSection({
               />
             </motion.div>
 
-            <div className="relative flex h-[90px] flex-1 flex-col items-center justify-center gap-1 ml-4 md:ml-14 sm:h-[120px] md:h-[150px] lg:h-[180px]">
+            <div className="relative flex h-[110px] w-[160px] shrink-0 flex-col items-center justify-center gap-1 sm:h-[180px] sm:w-[250px] md:h-[190px] md:w-[300px]">
               {["SAVE", "THE", "DATE!"].map((w, i) => (
                 <motion.span
                   key={w}
                   className="font-display italic leading-none tracking-[0.08em]"
                   style={{
                     color: themeColors.primary,
-                    fontSize: "clamp(3rem, 6vw, 4rem)",
+                    fontSize: "clamp(2.2rem, 5.5vw, 3.8rem)",
                     marginLeft: `-${i * 14}px`,
                   }}
                   initial={{ opacity: 0, y: 24, rotate: 8 }}

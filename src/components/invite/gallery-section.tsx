@@ -113,6 +113,7 @@ export default function GallerySection({ photos, videos }: GallerySectionProps) 
                         title="YouTube video"
                         allow="autoplay; encrypted-media"
                         allowFullScreen
+                        loading="lazy"
                         className="w-full h-full"
                       />
                     ) : (

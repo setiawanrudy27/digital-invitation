@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Toggle } from "@/components/ui/toggle";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useConfirm } from "@/components/ui/use-confirm";
+import { compressImage } from "@/lib/compress-image";
 import type { Database } from "@/lib/supabase/database.types";
 
 type Couple = Database["public"]["Tables"]["couples"]["Row"];
@@ -98,10 +99,11 @@ export default function CouplesPageClient({ couples: initialCouples, invitationI
 
   const uploadToStorage = async (file: File): Promise<string> => {
     const supabase = await loadClient();
-    const fileExt = file.name.split('.').pop();
+    const uploadFile = await compressImage(file);
+    const fileExt = uploadFile.name.split('.').pop();
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
 
-    const { error } = await supabase.storage.from("photos").upload(fileName, file);
+    const { error } = await supabase.storage.from("photos").upload(fileName, uploadFile);
     if (error) throw error;
 
     const { data } = supabase.storage.from("photos").getPublicUrl(fileName);

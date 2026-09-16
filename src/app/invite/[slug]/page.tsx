@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { createPublicClient } from "@/lib/supabase/public-client";
-import { fetchInvitationData } from "@/lib/invitation-data";
+import { fetchInvitationData, getPublicInvitationBySlug } from "@/lib/invitation-data";
 import InvitationClient from "./invitation-client";
 
 export const dynamic = "force-dynamic";
@@ -13,13 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const supabase = createPublicClient();
-
-  const invitation = await supabase
-    .from("invitations")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle()
-    .then((r) => r.data) as any;
+  const invitation = await getPublicInvitationBySlug(slug);
 
   if (!invitation) return { title: "Not Found" };
 
@@ -58,14 +52,7 @@ export default async function InvitePage({
 }) {
   const { slug } = await params;
   const { guest: guestName = "" } = await searchParams;
-  const supabase = createPublicClient();
-
-  const invitation = await supabase
-    .from("invitations")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle()
-    .then((r) => r.data) as any;
+  const invitation = await getPublicInvitationBySlug(slug);
 
   if (!invitation) {
     notFound();

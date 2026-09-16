@@ -193,6 +193,13 @@
   --invite-sage: #A3B39A;
   --invite-ivory: #F2ECE4;
   --invite-charcoal: #2C1E1E;
+
+  --text-xs: 1rem;
+  --text-xs--line-height: calc(1.5 / 1);
+  --text-sm: 1.125rem;
+  --text-sm--line-height: calc(1.5 / 1.125);
+  --text-base: 1.25rem;
+  --text-base--line-height: calc(1.75 / 1.25);
 }
 
 .invitation-theme body {

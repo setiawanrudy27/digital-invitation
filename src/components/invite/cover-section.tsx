@@ -1,63 +1,14 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import type { InvitationPageData } from "@/components/invite/types";
 import { themeColors } from "@/components/invite/decoratives";
 
 interface CoverSectionProps {
   data: InvitationPageData;
   onOpen: () => void;
-}
-
-const BURST_COLORS = ["#c9a84c", "#d4af61", "#e8c96a", "#b8943f", "#f0d878", "#a67c2e", "#d4a843", "#c49a3a"];
-
-function BurstParticles({ trigger }: { trigger: boolean }) {
-  const particles = useMemo(() => {
-    return Array.from({ length: 18 }, (_, i) => ({
-      id: i,
-      angle: (i / 18) * 360 + Math.random() * 20 - 10,
-      distance: 60 + Math.random() * 80,
-      size: 3 + Math.random() * 5,
-      color: BURST_COLORS[i % BURST_COLORS.length],
-      delay: Math.random() * 0.15,
-      duration: 0.6 + Math.random() * 0.3,
-    }));
-  }, []);
-
-  return (
-    <AnimatePresence>
-      {trigger && particles.map((p) => {
-        const rad = (p.angle * Math.PI) / 180;
-        const tx = Math.cos(rad) * p.distance;
-        const ty = Math.sin(rad) * p.distance;
-        return (
-          <motion.span
-            key={p.id}
-            className="absolute rounded-full pointer-events-none"
-            style={{
-              width: p.size,
-              height: p.size,
-              backgroundColor: p.color,
-              top: "50%",
-              left: "50%",
-              marginTop: -p.size / 2,
-              marginLeft: -p.size / 2,
-            }}
-            initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
-            animate={{ opacity: 0, x: tx, y: ty, scale: 0.2 }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: p.duration,
-              delay: p.delay,
-              ease: "easeOut",
-            }}
-          />
-        );
-      })}
-    </AnimatePresence>
-  );
 }
 
 function formatWeddingDate(dateStr: string | null | undefined): string {
@@ -79,15 +30,6 @@ function getGreeting(guestName: string | undefined | null): string[] {
 
 export default function CoverSection({ data, onOpen }: CoverSectionProps) {
   const [isExiting, setIsExiting] = useState(false);
-  const [showBurst, setShowBurst] = useState(false);
-  const burstFired = useRef(false);
-
-  useEffect(() => {
-    if (burstFired.current) return;
-    burstFired.current = true;
-    const timer = setTimeout(() => setShowBurst(true), 1100);
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleOpen = () => {
     setIsExiting(true);
@@ -147,22 +89,21 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.p
-          className="relative font-quicksand text-xl sm:text-2xl md:text-[2rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-tight"
+          className="relative font-quicksand text-lg sm:text-2xl md:text-[1.7rem] lg:text-[2rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-tight"
           style={{ color: themeColors.primary, fontWeight: 500 }}
         >
-          <BurstParticles trigger={showBurst} />
           <span className="block">
             {"THESE KIDS".split("").map((char, i) => (
               <motion.span
                 key={i}
                 className="inline-block whitespace-pre"
-                initial={{ opacity: 0, scale: 0, y: i % 2 === 0 ? -18 : 18, rotate: i % 2 === 0 ? -12 : 12 }}
-                animate={{ opacity: 1, scale: [0, 1.5, 0.85, 1.15, 1], y: 0, rotate: 0 }}
+                initial={{ opacity: 0, scale: 0, y: i % 2 === 0 ? -16 : 16, rotate: i % 2 === 0 ? -10 : 10 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
                 transition={{
+                  type: "spring",
+                  stiffness: 320,
+                  damping: 11,
                   delay: 0.4 + i * 0.05,
-                  duration: 0.9,
-                  times: [0, 0.3, 0.55, 0.8, 1],
-                  ease: "easeOut",
                 }}
               >
                 {char}
@@ -170,18 +111,18 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             ))}
           </span>
           <span className="relative inline-block">
-            <span className="block">
+            <span className="block whitespace-nowrap">
               {"ARE GETTING MARRIED!".split("").map((char, i) => (
                 <motion.span
                   key={i}
                   className="inline-block whitespace-pre"
-                  initial={{ opacity: 0, scale: 0, y: i % 2 === 0 ? -18 : 18, rotate: i % 2 === 0 ? -12 : 12 }}
-                  animate={{ opacity: 1, scale: [0, 1.5, 0.85, 1.15, 1], y: 0, rotate: 0 }}
+                  initial={{ opacity: 0, scale: 0, y: i % 2 === 0 ? -16 : 16, rotate: i % 2 === 0 ? -10 : 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
                   transition={{
+                    type: "spring",
+                    stiffness: 320,
+                    damping: 11,
                     delay: 0.6 + i * 0.045,
-                    duration: 0.9,
-                    times: [0, 0.3, 0.55, 0.8, 1],
-                    ease: "easeOut",
                   }}
                 >
                   {char}
@@ -207,7 +148,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {(brideHeadPhoto || groomHeadPhoto) && (
           <motion.div
-            className="relative mt-2 flex items-center justify-center translate-y-0 sm:translate-y-10 md:translate-y-16"
+            className="relative mt-2 flex items-center justify-center translate-y-0 sm:translate-y-10 md:translate-y-0 lg:translate-y-16"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}

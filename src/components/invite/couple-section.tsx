@@ -49,24 +49,24 @@ function ProfileContent({ person }: { person: Couple }) {
           {person.full_name}
         </h3>
         {person.nickname && (
-          <p className="font-sans text-sm md:text-base italic mt-1" style={{ color: themeColors.secondary }}>
+          <p className="font-sans text-sm md:text-base italic mt-3" style={{ color: "#000000" }}>
             &ldquo;{person.nickname}&rdquo;
           </p>
         )}
       </div>
 
-      <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: themeColors.primary }}>
+      <p className="font-sans text-sm md:text-base leading-relaxed" style={{ color: "#000000" }}>
         {person.person_type === "bride" ? "Putri" : "Putra"}
         {person.child_order ? ` ${person.child_order}` : ""} dari
         <br />
-        <span className="font-medium" style={{ color: themeColors.primary }}>
+        <span className="font-medium" style={{ color: "#000000" }}>
           {person.father_name || "-"}
         </span>
         {person.mother_name && (
           <>
             <br />
-            <span style={{ color: themeColors.secondary }}>&amp;</span>{" "}
-            <span className="font-medium" style={{ color: themeColors.primary }}>
+            <span style={{ color: "#000000" }}>&amp;</span>{" "}
+            <span className="font-medium" style={{ color: "#000000" }}>
               {person.mother_name}
             </span>
           </>
@@ -108,16 +108,30 @@ export default function CoupleSection({ groom, bride, showPhoto = true }: {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 md:mb-16 lg:mb-20"
         >
-          <Image
-            src="/images/bismillah.png"
-            alt="Bismillah"
-            width={2160}
-            height={703}
-            className="mx-auto h-auto w-full max-w-md object-contain"
-          />
-          <p className="mx-auto mt-4 max-w-xl font-sans text-xs md:text-sm leading-relaxed" style={{ color: themeColors.muted }}>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <Image
+              src="/images/bismillah-v3.png"
+              alt="Bismillah"
+              width={2160}
+              height={703}
+              className="mx-auto h-auto w-full max-w-md object-contain"
+            />
+          </motion.div>
+          <motion.p
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="mx-auto mt-4 max-w-xl font-sans text-xs md:text-sm leading-relaxed"
+            style={{ color: "#000000" }}
+          >
             Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami…
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Bride centered photo */}

@@ -131,11 +131,11 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center"
         >
-          <h2 className="font-display text-3xl tracking-wide sm:text-4xl italic" style={{ color: themeColors.charcoal }}>
+          <h2 className="font-display text-3xl tracking-wide sm:text-4xl italic" style={{ color: "#a34641" }}>
             Doa &amp; Ucapan
           </h2>
 
-          <p className="mt-6 text-sm leading-relaxed" style={{ color: themeColors.muted }}>
+          <p className="mt-6 text-sm leading-relaxed" style={{ color: "#000000" }}>
             Sapa dan kirim ucapan beserta doa yang terbaik untuk mereka yang berbahagia, sembari mengkonfirmasi kehadiran anda pada acara pernikahan kedua mempelai.
           </p>
         </motion.div>
