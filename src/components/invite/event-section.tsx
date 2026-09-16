@@ -284,7 +284,7 @@ export default function EventSection({
           </div>
 
           <motion.div
-            className="mt-14 flex justify-center"
+            className="relative left-1/2 mt-14 flex w-[calc(100%+2rem)] -translate-x-1/2 justify-center md:w-[calc(100%+4rem)]"
             initial={fadeUpProps.initial}
             whileInView={fadeUpProps.whileInView}
             viewport={fadeUpProps.viewport}
@@ -295,7 +295,7 @@ export default function EventSection({
               alt="The Day"
               width={2160}
               height={877}
-              className="h-auto w-full max-w-[340px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)] sm:max-w-[420px]"
+              className="h-auto w-full max-w-none object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
             />
           </motion.div>
         </div>

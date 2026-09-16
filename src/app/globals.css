@@ -9,15 +9,15 @@
 }
 
 @theme inline {
-  --font-sans: 'Single Day', 'Inter', system-ui, sans-serif;
-  --font-display: 'Single Day', serif;
-  --font-script: 'Single Day', cursive;
-  --font-quicksand: 'Single Day', sans-serif;
-  --font-corinthia: 'Single Day', cursive;
-  --font-alexbrush: 'Single Day', cursive;
-  --font-parisienne: 'Single Day', cursive;
-  --font-montecarlo: 'Single Day', cursive;
-  --font-yuyu: 'Single Day', cursive;
+  --font-sans: 'Helvetica Neue', Arial, sans-serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-script: Georgia, 'Times New Roman', serif;
+  --font-quicksand: 'Helvetica Neue', Arial, sans-serif;
+  --font-corinthia: Georgia, 'Times New Roman', serif;
+  --font-alexbrush: Georgia, 'Times New Roman', serif;
+  --font-parisienne: Georgia, 'Times New Roman', serif;
+  --font-montecarlo: Georgia, 'Times New Roman', serif;
+  --font-yuyu: Georgia, 'Times New Roman', serif;
 
   --color-burgundy-50: #fef2f2;
   --color-burgundy-100: #fde3e3;
@@ -138,30 +138,30 @@
 }
 
 .font-quicksand {
-  font-family: 'Single Day', 'Inter', cursive !important;
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
   font-weight: 300;
 }
 
 .font-corinthia {
-  font-family: 'Single Day', 'Inter', cursive !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
   font-variant-ligatures: contextual;
   font-feature-settings: "liga" 1, "calt" 1;
 }
 
 .font-parisienne {
-  font-family: 'Single Day', 'Inter', cursive !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
 }
 
 .font-montecarlo {
-  font-family: 'Single Day', 'Inter', cursive !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
 }
 
 .font-italianno {
-  font-family: 'Single Day', 'Inter', cursive !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
 }
 
 .font-script {
-  font-family: 'Single Day', 'Inter', cursive !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
   font-variant-ligatures: contextual;
   font-feature-settings: "liga" 1, "calt" 1, "clig" 1;
 }
@@ -327,6 +327,21 @@
   --color-sidebar-foreground: rgba(255,255,255,0.85);
   --color-sidebar-border: rgba(255,255,255,0.08);
   --color-sidebar-accent: rgba(226,110,229,0.25);
+}
+
+.admin-theme,
+.admin-theme * {
+  font-family: 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+.admin-theme .font-display,
+.admin-theme .font-script,
+.admin-theme .font-corinthia,
+.admin-theme .font-alexbrush,
+.admin-theme .font-parisienne,
+.admin-theme .font-montecarlo,
+.admin-theme .font-yuyu {
+  font-family: Georgia, 'Times New Roman', serif !important;
 }
 
 @utility glass {
