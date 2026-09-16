@@ -2,9 +2,9 @@
 
 import dynamic from "next/dynamic";
 import type { InvitationPageData } from "@/components/invite/types";
-import PhotoboothSection from "@/components/invite/photobooth-section";
 
 const ScrollProgress = dynamic(() => import("@/components/invite/scroll-progress"), { ssr: false });
+const PhotoboothSection = dynamic(() => import("@/components/invite/photobooth-section"), { ssr: false });
 const SaveTheDateSection = dynamic(() => import("@/components/invite/save-the-date-section"), { ssr: false });
 const CoupleSection = dynamic(() => import("@/components/invite/couple-section"), { ssr: false });
 const EventSection = dynamic(() => import("@/components/invite/event-section"), { ssr: false });

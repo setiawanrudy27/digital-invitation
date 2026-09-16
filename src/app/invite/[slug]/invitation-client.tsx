@@ -27,6 +27,8 @@ export default function InvitationClient(data: InvitationPageData) {
     } else {
       document.body.style.overflow = "";
       html.style.overflow = "";
+      window.scrollTo(0, 0);
+      scrollRef.current?.scrollTo(0, 0);
     }
     return () => {
       document.body.style.overflow = "";
@@ -86,7 +88,7 @@ export default function InvitationClient(data: InvitationPageData) {
       )}
 
       {!isOpen ? (
-        <div className="h-dvh overflow-hidden overscroll-none">
+        <div className="min-h-dvh overscroll-none">
           <CoverSection data={data} onOpen={() => setIsOpen(true)} />
         </div>
       ) : (

@@ -47,13 +47,13 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
   return (
     <motion.div
-      className="invitation-theme fixed inset-0 z-40 lg:relative lg:inset-auto lg:z-auto w-full min-h-screen bg-white flex flex-col items-center justify-center px-2 sm:px-0 pt-2 pb-2 sm:pt-20 sm:pb-6 lg:pt-8 overflow-y-auto overscroll-none"
+      className="invitation-theme fixed inset-0 z-40 w-full min-h-dvh overflow-y-auto overscroll-y-contain bg-white px-2 py-5 sm:px-0 sm:py-10 lg:relative lg:inset-auto lg:z-auto lg:py-8"
       animate={isExiting ? { opacity: 0, scale: 1.03 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: "easeInOut" }}
     >
 
       <motion.div
-        className="relative z-10 flex w-full max-w-[420px] min-h-[100dvh] flex-col items-center justify-center px-2 text-center sm:px-8"
+        className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[420px] flex-col items-center justify-start px-2 pb-6 text-center sm:px-8 sm:pb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.15 }}
@@ -89,7 +89,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.p
-          className="relative font-quicksand text-lg sm:text-2xl md:text-[1.7rem] lg:text-[2rem] uppercase tracking-[0.15em] sm:tracking-[0.2em] leading-tight"
+          className="relative max-w-full font-quicksand text-[clamp(0.95rem,5vw,2rem)] uppercase tracking-[0.1em] sm:tracking-[0.2em] leading-tight"
           style={{ color: themeColors.primary, fontWeight: 500 }}
         >
           <span className="block">
@@ -111,7 +111,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             ))}
           </span>
           <span className="relative inline-block">
-            <span className="block whitespace-nowrap">
+            <span className="block whitespace-normal break-words">
               {"ARE GETTING MARRIED!".split("").map((char, i) => (
                 <motion.span
                   key={i}
@@ -148,12 +148,12 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
         {(brideHeadPhoto || groomHeadPhoto) && (
           <motion.div
-            className="relative mt-2 flex items-center justify-center translate-y-0 sm:translate-y-10 md:translate-y-0 lg:translate-y-16"
+            className="relative mt-3 flex items-center justify-center sm:mt-8 lg:mt-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
           >
-            <div className="relative w-[160px] h-[160px] sm:w-[220px] sm:h-[220px] md:w-[280px] md:h-[280px] lg:w-[320px] lg:h-[320px]">
+            <div className="relative aspect-square w-[clamp(170px,58vw,320px)]">
               <div className="relative h-full w-full">
                 <Image
                   src={coverSilhouetteSrc}
@@ -168,7 +168,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
                     className="absolute overflow-hidden border-[3px] border-white shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
                     style={{
                       left: "20%",
-                      top: "-18px",
+                      top: "-5.5%",
                       width: "28%",
                       height: "28%",
                       borderRadius: "50%",
@@ -189,7 +189,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
                     className="absolute overflow-hidden border-[3px] border-white shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
                     style={{
                       right: "24%",
-                      top: "-9px",
+                      top: "-2.8%",
                       width: "28%",
                       height: "28%",
                       borderRadius: "50%",
@@ -210,22 +210,22 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="mt-4 sm:mt-8 md:mt-10 lg:mt-12 flex w-full max-w-xl items-center justify-center gap-0.5 sm:gap-1 md:gap-2"
+          className="mt-5 flex w-full max-w-full flex-wrap items-center justify-center gap-x-1 gap-y-0.5 sm:mt-8 sm:gap-x-2"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <h1
-            className="font-italianno text-[2.2rem] leading-none sm:text-4xl md:text-6xl lg:text-7xl"
+            className="min-w-0 max-w-[46%] break-words font-italianno text-[clamp(1.9rem,9vw,4.5rem)] leading-none"
             style={{ color: themeColors.primary, letterSpacing: "-0.04em", textAlign: "center" }}
           >
             {brideName}
           </h1>
-          <span className="font-italianno text-lg sm:text-xl md:text-3xl" style={{ color: themeColors.primary, lineHeight: 1, transform: "translateY(-2px)" }}>
+          <span className="shrink-0 font-italianno text-lg sm:text-xl md:text-3xl" style={{ color: themeColors.primary, lineHeight: 1, transform: "translateY(-2px)" }}>
             &amp;
           </span>
           <h1
-            className="font-italianno text-[2.2rem] leading-none sm:text-4xl md:text-6xl lg:text-7xl"
+            className="min-w-0 max-w-[46%] break-words font-italianno text-[clamp(1.9rem,9vw,4.5rem)] leading-none"
             style={{ color: themeColors.primary, letterSpacing: "-0.04em", textAlign: "center" }}
           >
             {groomName}
@@ -245,7 +245,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         )}
 
         <motion.div
-          className="translate-y-0 sm:translate-y-4 lg:translate-y-6 mb-4 sm:mb-6 lg:mb-6 px-3 py-3 sm:px-6 sm:py-6 lg:py-4 text-center rounded-2xl"
+          className="mt-3 mb-5 w-full max-w-[360px] rounded-2xl px-3 py-3 text-center sm:mt-4 sm:mb-6 sm:px-6 sm:py-6 lg:py-4"
           style={{
             background: "linear-gradient(135deg, rgba(250,246,239,0.9) 0%, rgba(242,236,228,0.8) 100%)",
             border: "1px solid rgba(201,168,76,0.2)",
@@ -273,7 +273,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.div>
 
         <motion.button
-          className="group relative translate-y-0 sm:translate-y-4 lg:translate-y-8 overflow-hidden rounded-full"
+          className="group relative w-full max-w-[360px] overflow-hidden rounded-full"
           style={{
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             boxShadow: `0 4px 24px rgba(139,58,66,0.3)`,
@@ -285,7 +285,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1 }}
         >
-          <span className="relative z-10 flex items-center gap-2 px-8 md:px-10 py-3 md:py-3.5 font-sans text-xs md:text-sm font-medium tracking-[0.2em] text-white">
+          <span className="relative z-10 flex items-center justify-center gap-2 px-5 py-3 text-center font-sans text-xs font-medium tracking-[0.16em] text-white sm:px-8 md:py-3.5 md:text-sm">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="md:w-4 md:h-4">
               <rect x="2" y="4" width="20" height="16" rx="2" />
               <polyline points="22,7 12,13 2,7" />
@@ -295,7 +295,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         </motion.button>
 
         <motion.div
-          className="mt-2 sm:mt-4 flex w-full justify-center"
+          className="mt-4 flex w-full justify-center sm:mt-6"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.05 }}
