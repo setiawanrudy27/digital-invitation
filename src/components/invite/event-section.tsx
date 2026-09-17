@@ -253,7 +253,7 @@ export default function EventSection({
         <div className="mb-14">
           <div className="mx-auto flex w-full max-w-[620px] items-center justify-center gap-3 sm:gap-5 md:gap-6">
             <motion.div
-              className="h-[110px] w-auto shrink-0 sm:h-[180px] md:h-[190px]"
+              className="w-[140px] shrink-0 sm:w-[220px] md:w-[230px]"
               initial={fadeUpProps.initial}
               whileInView={fadeUpProps.whileInView}
               viewport={fadeUpProps.viewport}
@@ -263,8 +263,8 @@ export default function EventSection({
                 src="/images/gambarevent.png"
                 alt="Save The Date"
                 width={882}
-                height={935}
-                className="h-full w-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+                height={711}
+                className="h-auto w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
               />
             </motion.div>
 
