@@ -251,14 +251,14 @@ export default function EventSection({
       <FloatingLeaves />
       <div className="mx-auto max-w-5xl relative z-10">
         <div className="mb-14">
-          <div className="mx-auto flex w-full max-w-[620px] items-center justify-center gap-3 sm:gap-5 md:gap-6">
-            <motion.div
-              className="w-[140px] shrink-0 sm:w-[220px] md:w-[230px]"
-              initial={fadeUpProps.initial}
-              whileInView={fadeUpProps.whileInView}
-              viewport={fadeUpProps.viewport}
-              transition={fadeUpProps.transition}
-            >
+          <motion.div
+            className="mx-auto flex w-full max-w-[820px] items-center justify-center gap-4 sm:gap-8 md:gap-10"
+            initial={fadeUpProps.initial}
+            whileInView={fadeUpProps.whileInView}
+            viewport={fadeUpProps.viewport}
+            transition={fadeUpProps.transition}
+          >
+            <div className="w-[200px] shrink-0 sm:w-[340px] md:w-[350px]">
               <Image
                 src="/images/gambarevent.png"
                 alt="Save The Date"
@@ -266,17 +266,17 @@ export default function EventSection({
                 height={711}
                 className="h-auto w-full object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
               />
-            </motion.div>
+            </div>
 
-            <div className="relative flex h-[110px] w-[160px] shrink-0 flex-col items-center justify-center gap-1 sm:h-[180px] sm:w-[250px] md:h-[190px] md:w-[300px]">
+            <div className="relative flex h-[160px] w-[240px] shrink-0 flex-col items-center justify-center gap-1 sm:h-[260px] sm:w-[360px] md:h-[280px] md:w-[430px]">
               {["SAVE", "THE", "DATE!"].map((w, i) => (
                 <motion.span
                   key={w}
                   className="font-display italic leading-none tracking-[0.08em]"
                   style={{
                     color: themeColors.primary,
-                    fontSize: "clamp(2.2rem, 5.5vw, 3.8rem)",
-                    marginLeft: `-${i * 14}px`,
+                    fontSize: "clamp(3.2rem, 8.5vw, 5.8rem)",
+                    marginLeft: `-${i * 22}px`,
                   }}
                   initial={{ opacity: 0, y: 24, rotate: 8 }}
                   whileInView={{ opacity: 1, y: 0, rotate: 8 }}
@@ -287,7 +287,7 @@ export default function EventSection({
                 </motion.span>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           <motion.div
             className="relative left-1/2 mt-14 flex w-[calc(100%+2rem)] -translate-x-1/2 justify-center md:w-[calc(100%+4rem)]"
