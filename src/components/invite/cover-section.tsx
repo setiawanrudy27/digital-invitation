@@ -87,7 +87,6 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             className="h-auto w-[78vw] max-w-[360px] sm:w-[85vw] sm:max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
           />
         </motion.div>
-
         <motion.p
           className="relative max-w-full font-quicksand text-[clamp(0.95rem,5vw,2rem)] uppercase tracking-[0.1em] sm:tracking-[0.2em] leading-tight"
           style={{ color: themeColors.primary, fontWeight: 500 }}
@@ -293,21 +292,6 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             BUKA UNDANGAN
           </span>
         </motion.button>
-
-        <motion.div
-          className="mt-4 flex w-full justify-center sm:mt-6"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.05 }}
-        >
-          <Image
-            src="/images/framebawahcover.png"
-            alt="Wedding cover bottom frame"
-            width={520}
-            height={120}
-            className="h-auto w-[78vw] max-w-[360px] sm:w-[85vw] sm:max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
-          />
-        </motion.div>
       </motion.div>
     </motion.div>
   );
