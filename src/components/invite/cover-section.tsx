@@ -79,7 +79,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
           transition={{ duration: 0.8, delay: 0.35 }}
         >
           <Image
-            src="/images/frameatascover.png"
+            src="/images/frameatascover.png?v=2"
             alt="Wedding cover frame"
             width={520}
             height={160}
