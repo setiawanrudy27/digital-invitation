@@ -252,13 +252,13 @@ export default function EventSection({
       <div className="mx-auto max-w-5xl relative z-10">
         <div className="mb-14">
           <motion.div
-            className="mx-auto flex w-full max-w-[820px] items-center justify-center gap-4 sm:gap-8 md:gap-10"
+            className="mx-auto flex w-fit items-center justify-center gap-21 sm:gap-24 md:gap-27"
             initial={fadeUpProps.initial}
             whileInView={fadeUpProps.whileInView}
             viewport={fadeUpProps.viewport}
             transition={fadeUpProps.transition}
           >
-            <div className="w-[200px] shrink-0 sm:w-[340px] md:w-[350px]">
+            <div className="w-[140px] shrink-0 sm:w-[160px] md:w-[220px]">
               <Image
                 src="/images/gambarevent.png"
                 alt="Save The Date"
@@ -268,15 +268,15 @@ export default function EventSection({
               />
             </div>
 
-            <div className="relative flex h-[160px] w-[240px] shrink-0 flex-col items-center justify-center gap-1 sm:h-[260px] sm:w-[360px] md:h-[280px] md:w-[430px]">
+            <div className="flex flex-col items-center justify-center gap-1 pr-9">
               {["SAVE", "THE", "DATE!"].map((w, i) => (
                 <motion.span
                   key={w}
                   className="font-display italic leading-none tracking-[0.08em]"
                   style={{
                     color: themeColors.primary,
-                    fontSize: "clamp(3.2rem, 8.5vw, 5.8rem)",
-                    marginLeft: `-${i * 22}px`,
+                    fontSize: "clamp(2.6rem, 7vw, 4.6rem)",
+                    marginLeft: `-${i * 18}px`,
                   }}
                   initial={{ opacity: 0, y: 24, rotate: 8 }}
                   whileInView={{ opacity: 1, y: 0, rotate: 8 }}
