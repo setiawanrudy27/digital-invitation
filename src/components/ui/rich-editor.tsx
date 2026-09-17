@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { useEditor, EditorContent, type Editor } from "@tiptap/react";
+import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import { Bold, Italic, Strikethrough, List, ListOrdered, Undo, Redo, Smile } from "lucide-react";
@@ -14,8 +14,7 @@ interface RichEditorProps {
   className?: string;
 }
 
-function ToolbarButton({ editor, onClick, isActive, children }: {
-  editor: Editor;
+function ToolbarButton({ onClick, isActive, children }: {
   onClick: () => void;
   isActive: boolean;
   children: React.ReactNode;
@@ -90,7 +89,7 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
     <div className={cn("overflow-hidden rounded-2xl border border-input bg-background/80", className)}>
       <div className="flex items-center gap-0.5 border-b border-border px-2 py-1.5">
         <ToolbarButton
-          editor={editor}
+
           isActive={editor.isActive("bold")}
           onClick={() => editor.chain().focus().toggleBold().run()}
         >
@@ -98,7 +97,7 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
         </ToolbarButton>
 
         <ToolbarButton
-          editor={editor}
+
           isActive={editor.isActive("italic")}
           onClick={() => editor.chain().focus().toggleItalic().run()}
         >
@@ -106,7 +105,7 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
         </ToolbarButton>
 
         <ToolbarButton
-          editor={editor}
+
           isActive={editor.isActive("strike")}
           onClick={() => editor.chain().focus().toggleStrike().run()}
         >
@@ -116,7 +115,7 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
         <span className="mx-1 h-5 w-px bg-border" />
 
         <ToolbarButton
-          editor={editor}
+
           isActive={editor.isActive("bulletList")}
           onClick={() => editor.chain().focus().toggleBulletList().run()}
         >
@@ -124,7 +123,7 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
         </ToolbarButton>
 
         <ToolbarButton
-          editor={editor}
+
           isActive={editor.isActive("orderedList")}
           onClick={() => editor.chain().focus().toggleOrderedList().run()}
         >
@@ -134,7 +133,7 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
         <span className="mx-1 h-5 w-px bg-border" />
 
         <ToolbarButton
-          editor={editor}
+
           isActive={false}
           onClick={() => editor.chain().focus().undo().run()}
         >
@@ -142,7 +141,7 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
         </ToolbarButton>
 
         <ToolbarButton
-          editor={editor}
+
           isActive={false}
           onClick={() => editor.chain().focus().redo().run()}
         >
@@ -153,7 +152,6 @@ export default function RichEditor({ value, onChange, placeholder, className }: 
 
         <div ref={emojiRef} className="relative">
           <ToolbarButton
-            editor={editor}
             isActive={emojiOpen}
             onClick={() => setEmojiOpen(!emojiOpen)}
           >

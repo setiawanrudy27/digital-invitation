@@ -6,7 +6,7 @@ import { Check, Copy, Gift, X } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { BankAccount, QRIS, Setting } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 interface GiftSectionProps {
   bankAccounts: BankAccount[];
@@ -48,11 +48,6 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
       opacity: 1,
       transition: { staggerChildren: 0.15 },
     },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
   };
 
   return (

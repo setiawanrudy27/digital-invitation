@@ -170,7 +170,7 @@ export default function QuotesPageClient({ quotes: initialQuotes, invitationId }
       )}
 
       <div className="space-y-4">
-        {quotes.map((quote, index) => {
+        {quotes.map((quote) => {
           const visibleIndex = quotes.filter(q => q.is_visible).indexOf(quote);
           const positionLabel = quote.is_visible
             ? visibleIndex === 0 ? "Quote 1 — Pembuka" : visibleIndex === 1 ? "Quote 2 — Setelah Mempelai" : visibleIndex === 2 ? "Quote 3 — Penutup (di RSVP)" : `Quote ${visibleIndex + 1}`

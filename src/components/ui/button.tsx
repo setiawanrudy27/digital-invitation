@@ -52,7 +52,7 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps
+interface ButtonProps
   extends Omit<React.ComponentPropsWithoutRef<typeof motion.button>, "variant" | "size" | "children">,
     VariantProps<typeof buttonVariants> {
   loading?: boolean;

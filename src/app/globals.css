@@ -239,68 +239,8 @@
 .invitation-theme .font-script,
 .invitation-theme .font-corinthia,
 .invitation-theme .font-parisienne,
-.invitation-theme .font-montecarlo,
 .invitation-theme .font-mono {
   font-family: 'Single Day', 'Inter', cursive !important;
-}
-
-/* Vintage paper texture overlay */
-.invitation-theme .vintage-bg {
-  position: relative;
-}
-.invitation-theme .vintage-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(139,58,66,0.03) 2px, rgba(139,58,66,0.03) 4px),
-    repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(60,42,42,0.02) 3px, rgba(60,42,42,0.02) 5px);
-  pointer-events: none;
-}
-
-/* Gold text gradient utility */
-.invitation-theme .text-gold-gradient {
-  background: linear-gradient(135deg, #C9A84C 0%, #E8D49A 30%, #C9A84C 50%, #D4B96A 70%, #C9A84C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Ornate section heading */
-.invitation-theme .section-heading {
-  font-family: 'Single Day', 'Inter', cursive !important;
-  font-style: normal;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-}
-
-/* Gold border frame */
-.invitation-theme .gold-border {
-  border: 2px solid var(--invite-gold);
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.15), 0 0 20px rgba(201,168,76,0.08);
-}
-
-/* Subtle paper texture for sections */
-.invitation-theme .paper-texture {
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(60,42,42,0.015) 1px, rgba(60,42,42,0.015) 2px);
-}
-
-/* Watercolor overlay effect */
-.invitation-theme .watercolor-overlay {
-  position: relative;
-  overflow: hidden;
-}
-.invitation-theme .watercolor-overlay::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(139,58,66,0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 80%, rgba(122,139,111,0.04) 0%, transparent 50%);
-  pointer-events: none;
 }
 
 /* Floating leaves animation (GPU-accelerated) */

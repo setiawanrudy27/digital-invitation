@@ -3,12 +3,11 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Pencil, Trash2, Upload, Camera } from "lucide-react";
+import { Trash2, Upload, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Toggle } from "@/components/ui/toggle";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useConfirm } from "@/components/ui/use-confirm";
 import { compressImage } from "@/lib/compress-image";
@@ -260,7 +259,6 @@ export default function CouplesPageClient({ couples: initialCouples, invitationI
         {(["bride", "groom"] as PersonType[]).map((personType) => {
           const label = personType === "bride" ? "Mempelai Wanita" : "Mempelai Pria";
           const form = forms[personType];
-          const couple = getCoupleByType(personType);
 
           return (
             <Card key={personType}>

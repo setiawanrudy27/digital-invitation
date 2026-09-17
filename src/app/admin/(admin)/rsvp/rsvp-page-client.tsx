@@ -3,15 +3,12 @@
 
 import { useState, useTransition, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Pencil, Trash2, Eye, EyeOff, X, MessageSquare, Users, UserCheck, UserX, Search } from "lucide-react";
+import { Trash2, Eye, EyeOff, MessageSquare, Users, UserCheck, UserX, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { useConfirm } from "@/components/ui/use-confirm";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
 import {
   Table,
@@ -30,20 +27,13 @@ interface RSVPPageProps {
   invitationId: string;
 }
 
-export default function RSVPPageClient({ rsvps: initialRsvps, invitationId }: RSVPPageProps) {
+export default function RSVPPageClient({ rsvps: initialRsvps }: RSVPPageProps) {
   const router = useRouter();
   const { confirm, confirmDialog } = useConfirm();
   const [rsvps, setRsvps] = useState(initialRsvps);
-  const [editingRsvp, setEditingRsvp] = useState<RSVP | null>(null);
   const [isPending, startTransition] = useTransition();
   const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [formData, setFormData] = useState({
-    guest_name: "",
-    attending: true,
-    guest_count: 1,
-    message: "",
-  });
   const pageSize = 10;
 
   const filteredRsvps = useMemo(() => {
@@ -56,49 +46,10 @@ export default function RSVPPageClient({ rsvps: initialRsvps, invitationId }: RS
     );
   }, [rsvps, searchQuery]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredRsvps.length / pageSize));
   const paginatedRsvps = useMemo(() => {
     const start = (page - 1) * pageSize;
     return filteredRsvps.slice(start, start + pageSize);
   }, [filteredRsvps, page, pageSize]);
-
-  const resetForm = () => {
-    setFormData({ guest_name: "", attending: true, guest_count: 1, message: "" });
-    setEditingRsvp(null);
-  };
-
-  const handleEdit = (rsvp: RSVP) => {
-    setEditingRsvp(rsvp);
-    setFormData({
-      guest_name: rsvp.guest_name,
-      attending: rsvp.attending,
-      guest_count: rsvp.guest_count,
-      message: rsvp.message || "",
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    startTransition(async () => {
-      const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
-
-      if (editingRsvp) {
-        const { error } = await supabase
-          .from("rsvps")
-          .update(formData)
-          .eq("id", editingRsvp.id);
-        if (!error) {
-          const { data } = await supabase
-            .from("rsvps")
-            .select("*")
-            .eq("invitation_id", invitationId)
-            .order("created_at", { ascending: false });
-          if (data) setRsvps(data);
-          resetForm();
-        }
-      }
-    });
-  };
 
   const handleDelete = async (id: string) => {
     if (!(await confirm("Yakin ingin menghapus RSVP ini?"))) return;
@@ -209,105 +160,6 @@ export default function RSVPPageClient({ rsvps: initialRsvps, invitationId }: RS
         })}
       </motion.div>
 
-      {editingRsvp && (
-        <Card variant="elevated">
-          <CardHeader>
-                <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-500 text-white">
-                  <Pencil className="h-4 w-4" />
-                </div>
-                <div>
-                  <CardTitle>Edit RSVP</CardTitle>
-                  <CardDescription>Edit konfirmasi kehadiran dan ucapan tamu</CardDescription>
-                </div>
-              </div>
-              <Button variant="ghost" size="icon" onClick={resetForm} className="shrink-0">
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid gap-5 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="guest_name">Nama Tamu</Label>
-                  <Input
-                    id="guest_name"
-                    value={formData.guest_name}
-                    onChange={(e) => setFormData({ ...formData, guest_name: e.target.value })}
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="guest_count">Jumlah Tamu</Label>
-                  <Input
-                    id="guest_count"
-                    type="number"
-                    value={formData.guest_count}
-                    onChange={(e) => setFormData({ ...formData, guest_count: parseInt(e.target.value) })}
-                    min="1"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <Label>Konfirmasi Kehadiran</Label>
-                <div className="flex gap-4">
-                  <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-input px-4 py-3 has-[:checked]:border-success has-[:checked]:bg-success/10 dark:has-[:checked]:border-success dark:has-[:checked]:bg-success/20 transition-all duration-200">
-                    <input
-                      type="radio"
-                      name="attending"
-                      checked={formData.attending}
-                      onChange={() => setFormData({ ...formData, attending: true })}
-                      className="h-4 w-4 text-success accent-success"
-                    />
-                    <div className="flex items-center gap-2">
-                      <UserCheck className="h-4 w-4 text-success" />
-                      <span className="text-sm font-medium text-success">Hadir</span>
-                    </div>
-                  </label>
-                  <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-input px-4 py-3 has-[:checked]:border-destructive has-[:checked]:bg-destructive/10 dark:has-[:checked]:border-destructive dark:has-[:checked]:bg-destructive/20 transition-all duration-200">
-                    <input
-                      type="radio"
-                      name="attending"
-                      checked={!formData.attending}
-                      onChange={() => setFormData({ ...formData, attending: false })}
-                      className="h-4 w-4 text-destructive accent-destructive"
-                    />
-                    <div className="flex items-center gap-2">
-                      <UserX className="h-4 w-4 text-destructive" />
-                      <span className="text-sm font-medium text-destructive">Tidak Hadir</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="message">Ucapan</Label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  placeholder="Ucapan dari tamu..."
-                  className="min-h-[100px]"
-                />
-              </div>
-
-              <div className="flex gap-3 pt-2">
-                <Button type="submit" disabled={isPending} loading={isPending}>
-                  {isPending ? "Menyimpan..." : "Simpan"}
-                </Button>
-                <Button type="button" variant="outline" onClick={resetForm}>
-                  Batal
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      )}
-
       {rsvps && rsvps.length > 0 ? (
         <DataTable
           searchValue={searchQuery}
@@ -363,15 +215,6 @@ export default function RSVPPageClient({ rsvps: initialRsvps, invitationId }: RS
                           className="text-muted-foreground/60 hover:text-foreground hover:bg-accent sm:max-lg:p-1.5"
                         >
                           {rsvp.is_visible ? <EyeOff className="h-4 w-4 sm:h-3.5 sm:w-3.5" /> : <Eye className="h-4 w-4 sm:h-3.5 sm:w-3.5" />}
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="icon-sm"
-                          onClick={() => handleEdit(rsvp)}
-                          title="Edit"
-                          className="text-muted-foreground/60 hover:text-warning hover:bg-warning/10 sm:max-lg:p-1.5"
-                        >
-                          <Pencil className="h-4 w-4 sm:h-3.5 sm:w-3.5" />
                         </Button>
                         <Button
                           variant="ghost"

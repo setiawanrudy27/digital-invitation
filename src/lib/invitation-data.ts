@@ -33,7 +33,6 @@ const fetchCachedInvitationData = unstable_cache(
       weddingFrame,
       thankYou,
       settings,
-      rsvps,
     ] = await Promise.all([
       supabase.from("couples").select("*").eq("invitation_id", invitationId).then((r) => r.data as any),
       supabase.from("events").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("start_date").then((r) => r.data as any),
@@ -48,7 +47,6 @@ const fetchCachedInvitationData = unstable_cache(
       supabase.from("wedding_frame").select("*").eq("invitation_id", invitationId).eq("is_visible", true).maybeSingle().then((r) => r.data as any),
       supabase.from("thank_you").select("*").eq("invitation_id", invitationId).maybeSingle().then((r) => r.data as any),
       supabase.from("settings").select("*").eq("invitation_id", invitationId).maybeSingle().then((r) => r.data as any),
-      supabase.from("rsvps").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("created_at", { ascending: false }).then((r) => r.data as any),
     ]);
 
     const coupleGroom = couples?.find((c: any) => c.person_type === "groom") ?? null;
@@ -69,7 +67,6 @@ const fetchCachedInvitationData = unstable_cache(
       weddingFrame: weddingFrame ?? null,
       thankYou: thankYou ?? null,
       settings: settings ?? null,
-      rsvps: rsvps ?? [],
     };
   },
   ["public-invitation-data"],
@@ -77,6 +74,16 @@ const fetchCachedInvitationData = unstable_cache(
 );
 
 export async function fetchInvitationData(invitationId: string, guestName: string) {
-  const data = await fetchCachedInvitationData(invitationId);
-  return { ...data, guestName };
+  const supabase = createPublicClient();
+  const [data, rsvps] = await Promise.all([
+    fetchCachedInvitationData(invitationId),
+    supabase
+      .from("rsvps")
+      .select("*")
+      .eq("invitation_id", invitationId)
+      .eq("is_visible", true)
+      .order("created_at", { ascending: false })
+      .then((r) => r.data as any),
+  ]);
+  return { ...data, rsvps: rsvps ?? [], guestName };
 }

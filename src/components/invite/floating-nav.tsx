@@ -81,7 +81,6 @@ export default function FloatingNav() {
         >
           {sections.map((section) => {
             const isActive = activeSection === section.id;
-            const Icon = section.icon;
 
             return (
               <motion.button

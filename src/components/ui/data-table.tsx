@@ -18,7 +18,6 @@ interface DataTableProps {
   page?: number;
   onPageChange?: (page: number) => void;
   pageSize?: number;
-  emptyState?: React.ReactNode;
   className?: string;
   headerClassName?: string;
 }
@@ -33,7 +32,6 @@ export function DataTable({
   page = 1,
   onPageChange,
   pageSize = 10,
-  emptyState,
   className,
   headerClassName,
 }: DataTableProps) {

@@ -3,11 +3,10 @@
 
 import { useState, useTransition, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Pencil, Trash2, X, MessageCircle, Upload, Copy, Download, UserPlus, Search, Filter, Mail, Phone, MapPin, Check } from "lucide-react";
+import { Plus, Pencil, Trash2, X, MessageCircle, Upload, Copy, Download, UserPlus, Search, Mail, Phone, MapPin, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { DataTable } from "@/components/ui/data-table";
 import { useConfirm } from "@/components/ui/use-confirm";
@@ -31,7 +30,7 @@ interface GuestsPageProps {
   whatsappTemplate: string | null;
 }
 
-export default function GuestsPageClient({ guests: initialGuests, invitationSlug, invitationId, whatsappTemplate }: GuestsPageProps) {
+export default function GuestsPageClient({ guests: initialGuests, invitationId, whatsappTemplate }: GuestsPageProps) {
   const router = useRouter();
   const { confirm, confirmDialog } = useConfirm();
   const [guests, setGuests] = useState(initialGuests);
@@ -64,7 +63,6 @@ export default function GuestsPageClient({ guests: initialGuests, invitationSlug
     );
   }, [guests, searchQuery]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredGuests.length / pageSize));
   const paginatedGuests = useMemo(() => {
     const start = (page - 1) * pageSize;
     return filteredGuests.slice(start, start + pageSize);
@@ -422,15 +420,6 @@ export default function GuestsPageClient({ guests: initialGuests, invitationSlug
           page={page}
           onPageChange={setPage}
           pageSize={pageSize}
-          emptyState={
-            <div className="py-16 text-center">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 dark:bg-brand-900/20 mb-4">
-                <Search className="h-6 w-6 text-brand-500" />
-              </div>
-              <p className="text-sm font-medium text-foreground">Tamu tidak ditemukan</p>
-              <p className="text-sm text-muted-foreground mt-1">Coba ubah kata kunci pencarian</p>
-            </div>
-          }
         >
           <Table>
             <TableHeader>

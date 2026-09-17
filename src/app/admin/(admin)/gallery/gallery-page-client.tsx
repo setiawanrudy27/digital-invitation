@@ -1,14 +1,14 @@
 // @ts-nocheck
 "use client";
 
-import { useState, useTransition, useRef, useEffect } from "react";
+import { useState, useTransition, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Trash2, Image, Video, Radio, Music, Frame, Eye, EyeOff, Upload, ArrowUp, ArrowDown, Film, Link2, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { useConfirm } from "@/components/ui/use-confirm";
 import { compressImage } from "@/lib/compress-image";
 import type { Database } from "@/lib/supabase/database.types";

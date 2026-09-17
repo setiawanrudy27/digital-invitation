@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Heart, Mail, ArrowUp } from "lucide-react";
 
 const footerLinks = [

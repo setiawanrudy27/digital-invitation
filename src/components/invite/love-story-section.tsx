@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { LoveStory } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 function formatDate(dateStr: string) {
   const date = new Date(dateStr);

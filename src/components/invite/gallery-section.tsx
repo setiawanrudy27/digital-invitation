@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import type { GalleryPhoto, GalleryVideo } from "@/components/invite/types";
-import { themeColors, FloatingLeaves, GoldBorderFrame, RoseOrnament } from "@/components/invite/decoratives";
+import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 function getYoutubeId(url: string): string | null {
   const match = url.match(
@@ -28,7 +28,6 @@ export default function GallerySection({ photos, videos }: GallerySectionProps) 
   const visibleVideos = videos.filter((v) => v.is_visible);
 
   const allCount = visiblePhotos.length + visibleVideos.length;
-  const hasVideo = visibleVideos.length > 0;
 
   const open = (index: number) => setSelectedIndex(index);
   const close = () => setSelectedIndex(null);

@@ -365,7 +365,7 @@ export default function EventSection({
 
         {/* Event cards */}
         <div className="space-y-6">
-          {events.map((ev, i) => (
+          {events.map((ev) => (
             <EventCard key={ev.id} event={ev} />
           ))}
         </div>
