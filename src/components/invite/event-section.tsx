@@ -290,7 +290,7 @@ export default function EventSection({
           </motion.div>
 
           <motion.div
-            className="relative left-1/2 mt-14 flex w-[calc(100%+2rem)] -translate-x-1/2 justify-center md:w-[calc(100%+4rem)]"
+            className="relative left-1/2 mt-14 flex w-[120%] -translate-x-1/2 justify-center"
             initial={fadeUpProps.initial}
             whileInView={fadeUpProps.whileInView}
             viewport={fadeUpProps.viewport}
@@ -348,7 +348,7 @@ export default function EventSection({
         </motion.div>
 
         <motion.div
-          className="mb-2 flex justify-center"
+          className="mt-34 mb-2 flex justify-center"
           initial={fadeUpProps.initial}
           whileInView={fadeUpProps.whileInView}
           viewport={fadeUpProps.viewport}
