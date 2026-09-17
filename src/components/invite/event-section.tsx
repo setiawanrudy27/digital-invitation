@@ -297,7 +297,7 @@ export default function EventSection({
             transition={{ ...fadeUpProps.transition, delay: 0.2 }}
           >
             <Image
-              src="/images/theday.png"
+              src="/images/theday-v2.png"
               alt="The Day"
               width={2160}
               height={877}

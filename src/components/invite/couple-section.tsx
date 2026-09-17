@@ -130,7 +130,7 @@ export default function CoupleSection({ groom, bride, showPhoto = true }: {
             className="mx-auto mt-4 max-w-xl font-sans text-xs md:text-sm leading-relaxed"
             style={{ color: "#000000" }}
           >
-            Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami…
+            Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri pernikahan kami
           </motion.p>
         </motion.div>
 

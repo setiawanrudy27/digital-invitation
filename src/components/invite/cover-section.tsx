@@ -59,7 +59,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
         transition={{ duration: 0.4, delay: 0.15 }}
       >
         <motion.div
-          className="pointer-events-none absolute left-10 bottom-70 sm:left-17 sm:bottom-130"
+          className="pointer-events-none absolute left-4 bottom-64 sm:left-11 sm:bottom-124"
           animate={{ rotate: [-10, 8, -10], x: [0, 5, 0], y: [0, -8, 0], scale: [1, 1.08, 1] }}
           transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
         >
@@ -73,7 +73,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
           <Image src="/images/blink.png" alt="Blink decoration right" width={64} height={64} className="h-auto w-8 sm:w-10 md:w-14" />
         </motion.div>
         <motion.div
-          className="-mt-2 mb-0 sm:-mt-10 sm:mb-4 flex w-full justify-center"
+          className="mt-7 mb-0 sm:-mt-1 sm:mb-4 flex w-full justify-center"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.35 }}
@@ -84,7 +84,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             width={520}
             height={160}
             priority
-            className="h-auto w-[78vw] max-w-[360px] sm:w-[85vw] sm:max-w-[420px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+            className="h-auto w-[21vw] max-w-[105px] sm:w-[24vw] sm:max-w-[130px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
           />
         </motion.div>
         <motion.p
@@ -92,7 +92,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
           style={{ color: themeColors.primary, fontWeight: 500 }}
         >
           <span className="block">
-            {"THESE KIDS".split("").map((char, i) => (
+            {"THESE KIDS ARE".split("").map((char, i) => (
               <motion.span
                 key={i}
                 className="inline-block whitespace-pre"
@@ -111,7 +111,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
           </span>
           <span className="relative inline-block">
             <span className="block whitespace-normal break-words">
-              {"ARE GETTING MARRIED!".split("").map((char, i) => (
+              {"GETTING MARRIED!".split("").map((char, i) => (
                 <motion.span
                   key={i}
                   className="inline-block whitespace-pre"
@@ -128,20 +128,6 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
                 </motion.span>
               ))}
             </span>
-            <Image
-              src="/images/cincincover.png"
-              alt="Ring decoration"
-              width={36}
-              height={36}
-              className="pointer-events-none absolute -top-6 left-[15%] h-auto w-5 sm:w-6 md:w-8"
-            />
-            <Image
-              src="/images/lovecover.png"
-              alt="Love decoration"
-              width={40}
-              height={40}
-              className="pointer-events-none absolute -top-5 left-[90%] h-auto w-5 sm:w-6 md:w-8"
-            />
           </span>
         </motion.p>
 
@@ -167,7 +153,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
                     className="absolute overflow-hidden border-[3px] border-white shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
                     style={{
                       left: "20%",
-                      top: "-5.5%",
+                      top: "-11.5%",
                       width: "28%",
                       height: "28%",
                       borderRadius: "50%",
@@ -188,7 +174,7 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
                     className="absolute overflow-hidden border-[3px] border-white shadow-[0_8px_18px_rgba(0,0,0,0.12)]"
                     style={{
                       right: "24%",
-                      top: "-2.8%",
+                      top: "-4.8%",
                       width: "28%",
                       height: "28%",
                       borderRadius: "50%",

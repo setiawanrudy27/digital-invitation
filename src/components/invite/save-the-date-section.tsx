@@ -25,7 +25,7 @@ export default function SaveTheDateSection({ data }: { data: InvitationPageData 
         >
           {(() => {
             let charIndex = 0;
-            return ["SAVE", "THE", "DATE"].map((word) => (
+            return ["THE", "WEDDING", "OF"].map((word) => (
               <div key={word} className="block">
                 {word.split("").map((char) => {
                   const delay = 0.06 + charIndex * 0.05;
@@ -56,7 +56,7 @@ export default function SaveTheDateSection({ data }: { data: InvitationPageData 
         >
           <Image
             src="/images/savethedate.png"
-            alt="Save the date"
+            alt="The Wedding Of"
             width={2160}
             height={898}
             priority
