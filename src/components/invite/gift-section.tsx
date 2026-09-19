@@ -103,7 +103,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
             Wedding Gift
           </h2>
           <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed" style={{ color: "#000000" }}>
-            Doa Restu Anda merupakan karunia yang sangat berarti bagi kami. Namun, jika memberi adalah ungkapan tanda kasih Anda, kami akan senang hati menerimanya yang tentu akan semakin melengkapi kebahagiaan kami.
+            Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Namun, jika memberi adalah ungkapan tanda kasih Anda, kami akan senang hati menerimanya yang tentu akan semakin melengkapi kebahagiaan kami.
           </p>
 
         </motion.div>

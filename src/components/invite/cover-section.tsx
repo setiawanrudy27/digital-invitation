@@ -84,11 +84,11 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             width={520}
             height={160}
             priority
-            className="h-auto w-[21vw] max-w-[105px] sm:w-[24vw] sm:max-w-[130px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
+            className="-translate-y-4 h-auto w-[21vw] max-w-[105px] sm:w-[24vw] sm:max-w-[130px] object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.08)]"
           />
         </motion.div>
         <motion.p
-          className="relative max-w-full font-quicksand text-[clamp(0.95rem,5vw,2rem)] uppercase tracking-[0.1em] sm:tracking-[0.2em] leading-tight"
+          className="relative -translate-y-4 max-w-full font-quicksand text-[clamp(0.95rem,5vw,2rem)] uppercase tracking-[0.1em] sm:tracking-[0.2em] leading-tight"
           style={{ color: themeColors.primary, fontWeight: 500 }}
         >
           <span className="block">

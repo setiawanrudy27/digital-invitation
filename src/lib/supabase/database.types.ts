@@ -140,6 +140,7 @@ export type Database = {
           address: string | null;
           phone: string | null;
           email: string | null;
+          guest_from: string | null;
           slug: string | null;
           shared_count: number;
           created_at: string;
@@ -152,6 +153,7 @@ export type Database = {
           address?: string | null;
           phone?: string | null;
           email?: string | null;
+          guest_from?: string | null;
           slug?: string | null;
           shared_count?: number;
           created_at?: string;
@@ -164,6 +166,7 @@ export type Database = {
           address?: string | null;
           phone?: string | null;
           email?: string | null;
+          guest_from?: string | null;
           slug?: string | null;
           shared_count?: number;
           created_at?: string;

@@ -136,7 +136,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
           </h2>
 
           <p className="mt-6 text-sm leading-relaxed" style={{ color: "#000000" }}>
-            Sapa dan kirim ucapan beserta doa yang terbaik untuk mereka yang berbahagia, sembari mengkonfirmasi kehadiran anda pada acara pernikahan kedua mempelai.
+            Sapa dan kirim ucapan beserta doa terbaik untuk mereka yang berbahagia, sembari mengonfirmasi kehadiran Anda pada acara pernikahan.
           </p>
         </motion.div>
 

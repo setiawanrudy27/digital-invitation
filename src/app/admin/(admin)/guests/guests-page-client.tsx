@@ -3,7 +3,7 @@
 
 import { useState, useTransition, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Pencil, Trash2, X, MessageCircle, Upload, Copy, Download, UserPlus, Search, Mail, Phone, MapPin, Check } from "lucide-react";
+import { Plus, Pencil, Trash2, X, MessageCircle, Upload, Copy, Download, UserPlus, Search, Mail, Phone, MapPin, Check, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,6 +47,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
     address: "",
     phone: "",
     email: "",
+    guest_from: "",
   });
   const pageSize = 10;
 
@@ -60,6 +61,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
         g.name.toLowerCase().includes(q) ||
         (g.email || "").toLowerCase().includes(q) ||
         (g.address || "").toLowerCase().includes(q) ||
+        (g.guest_from || "").toLowerCase().includes(q) ||
         (g.phone || "").includes(q)
     );
   }, [guests, searchQuery]);
@@ -68,6 +70,18 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
     const start = (page - 1) * pageSize;
     return filteredGuests.slice(start, start + pageSize);
   }, [filteredGuests, page, pageSize]);
+
+  const guestRecap = useMemo(() => {
+    const sourceMap = new Map<string, number>();
+    guests.forEach((g) => {
+      const source = (g.guest_from || "").trim() || "Tidak Diketahui";
+      sourceMap.set(source, (sourceMap.get(source) || 0) + 1);
+    });
+    const bySource = Array.from(sourceMap.entries())
+      .map(([source, count]) => ({ source, count }))
+      .sort((a, b) => b.count - a.count);
+    return { total: guests.length, bySource };
+  }, [guests]);
 
   const generateInviteLink = (guest: Guest) => {
     return `${siteUrl}/invite/g/${guest.slug}`;
@@ -158,7 +172,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
   };
 
   const resetForm = () => {
-    setFormData({ name: "", address: "", phone: "", email: "" });
+    setFormData({ name: "", address: "", phone: "", email: "", guest_from: "" });
     setEditingGuest(null);
     setShowForm(false);
   };
@@ -170,6 +184,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
       address: guest.address || "",
       phone: guest.phone || "",
       email: guest.email || "",
+      guest_from: guest.guest_from || "",
     });
     setShowForm(true);
   };
@@ -188,6 +203,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
           address: formData.address,
           phone: formData.phone,
           email: formData.email,
+          guest_from: formData.guest_from,
           slug: slug,
         };
         const { error } = await supabase
@@ -247,7 +263,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
         const workbook = XLSX.read(event.target?.result, { type: "array" });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const data: Array<{ Nama?: string; Alamat?: string; Telepon?: string; Email?: string }> =
+        const data: Array<{ Nama?: string; Alamat?: string; Telepon?: string; Email?: string; "Tamu Dari"?: string }> =
           XLSX.utils.sheet_to_json(worksheet);
 
         const guestsToInsert = data
@@ -257,6 +273,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
             address: row.Alamat || "",
             phone: row.Telepon || "",
             email: row.Email || "",
+            guest_from: row["Tamu Dari"] || "",
             slug: generateSlug(row.Nama),
             invitation_id: invitationId,
           }));
@@ -279,7 +296,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
 
   const downloadTemplate = () => {
     const worksheet = XLSX.utils.json_to_sheet([
-      { Nama: "", Alamat: "", Telepon: "", Email: "" },
+      { Nama: "", Alamat: "", Telepon: "", Email: "", "Tamu Dari": "" },
     ]);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, "Tamu");
@@ -331,7 +348,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
               <div>
                 <CardTitle>Import Tamu dari Excel</CardTitle>
                 <CardDescription>
-                  Format Excel: Kolom <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Nama</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Alamat</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Telepon</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Email</code>
+                  Format Excel: Kolom <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Nama</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Alamat</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Telepon</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Email</code>, <code className="text-xs bg-muted px-1.5 py-0.5 rounded">Tamu Dari</code>
                 </CardDescription>
               </div>
               <Button variant="ghost" size="icon" onClick={() => setShowImport(false)}>
@@ -395,6 +412,15 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                   />
                 </div>
                 <div className="space-y-2">
+                  <Label htmlFor="guest_from">Tamu Dari</Label>
+                  <Input
+                    id="guest_from"
+                    value={formData.guest_from}
+                    onChange={(e) => setFormData({ ...formData, guest_from: e.target.value })}
+                    placeholder="Misal: Sisi mempelai pria"
+                  />
+                </div>
+                <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     id="email"
@@ -425,6 +451,36 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
         </Card>
       )}
 
+      {guests.length > 0 && (
+        <Card variant="flat">
+          <CardContent className="py-4">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/20">
+                <Users className="h-4 w-4 text-brand-500" />
+              </div>
+              <h2 className="text-sm font-semibold">Rekapan Tamu</h2>
+            </div>
+            <div className="flex items-center gap-3 mb-3">
+              <div className="rounded-xl bg-brand-600 dark:bg-brand-500 px-4 py-2.5 text-center">
+                <p className="text-lg font-bold leading-none text-white">{guestRecap.total}</p>
+                <p className="mt-1 text-[11px] font-medium text-white/80">Total Tamu</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xs text-muted-foreground mr-1">Tamu Dari:</span>
+              {guestRecap.bySource.map((item) => (
+                <div key={item.source} className="flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5">
+                  <Badge variant={item.source === "Tidak Diketahui" ? "secondary" : "success"} className="px-1.5 min-w-6 justify-center text-xs">
+                    {item.count}
+                  </Badge>
+                  <span className="text-xs text-muted-foreground">{item.source}</span>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {guests.length > 0 ? (
         <DataTable
           searchValue={searchQuery}
@@ -443,7 +499,8 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                 <TableHead>Alamat</TableHead>
                 <TableHead className="hidden md:table-cell">Email</TableHead>
                 <TableHead className="hidden lg:table-cell">No Telepon</TableHead>
-                <TableHead className="text-right w-44">Aksi</TableHead>
+                <TableHead className="hidden lg:table-cell">Tamu Dari</TableHead>
+                <TableHead className="w-44 text-left">Aksi</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -491,8 +548,15 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                         <span className="text-muted-foreground/30">&mdash;</span>
                       )}
                     </TableCell>
-                    <TableCell className="text-right">
-                      <div className="flex items-center justify-end gap-1.5">
+                    <TableCell className="text-sm text-muted-foreground hidden lg:table-cell">
+                      {guest.guest_from ? (
+                        <span>{guest.guest_from}</span>
+                      ) : (
+                        <span className="text-muted-foreground/30">&mdash;</span>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center justify-start gap-1.5">
                         {(guest.shared_count || 0) > 0 && (
                           <Badge
                             variant="success"
@@ -551,7 +615,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={6} className="py-16 text-center">
+                  <TableCell colSpan={7} className="py-16 text-center">
                     <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-50 dark:bg-brand-900/20 mb-4">
                       <Search className="h-6 w-6 text-brand-500" />
                     </div>
