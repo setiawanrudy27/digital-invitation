@@ -4,6 +4,7 @@
 import { useState, useTransition, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, X, MessageCircle, Upload, Copy, Download, UserPlus, Search, Mail, Phone, MapPin, Check } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -118,12 +119,24 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
     return encoded;
   };
 
+  const trackShare = async (guest: Guest) => {
+    const newCount = (guest.shared_count || 0) + 1;
+    setGuests((prev) =>
+      prev.map((g) => (g.id === guest.id ? { ...g, shared_count: newCount } : g))
+    );
+    startTransition(async () => {
+      const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
+      await supabase.from("guests").update({ shared_count: newCount }).eq("id", guest.id);
+    });
+  };
+
   const sendWhatsApp = (guest: Guest) => {
     const message = generateWhatsAppMessage(guest);
     const phone = guest.phone?.replace(/[^0-9]/g, "");
     const formattedPhone = phone?.startsWith("0") ? "62" + phone.slice(1) : phone;
     const url = `https://api.whatsapp.com/send?phone=${formattedPhone}&text=${encodeUTF8(message)}`;
     window.open(url, "_blank");
+    trackShare(guest);
   };
 
   const copyInviteLink = (guest: Guest) => {
@@ -131,6 +144,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
     navigator.clipboard.writeText(link);
     setCopiedGuestId(guest.id);
     setTimeout(() => setCopiedGuestId(null), 2000);
+    trackShare(guest);
   };
 
   const generateSlug = (name: string) => {
@@ -479,6 +493,16 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        {(guest.shared_count || 0) > 0 && (
+                          <Badge
+                            variant="success"
+                            size="sm"
+                            title={`Link undangan telah dikirim sebanyak ${guest.shared_count}x`}
+                            className="gap-0.5 shrink-0"
+                          >
+                            {guest.shared_count}x
+                          </Badge>
+                        )}
                         <Button
                           variant="ghost"
                           size="icon-sm"

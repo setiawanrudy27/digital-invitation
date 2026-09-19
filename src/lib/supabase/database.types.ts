@@ -141,6 +141,7 @@ export type Database = {
           phone: string | null;
           email: string | null;
           slug: string | null;
+          shared_count: number;
           created_at: string;
           updated_at: string;
         };
@@ -152,6 +153,7 @@ export type Database = {
           phone?: string | null;
           email?: string | null;
           slug?: string | null;
+          shared_count?: number;
           created_at?: string;
           updated_at?: string;
         };
@@ -163,6 +165,7 @@ export type Database = {
           phone?: string | null;
           email?: string | null;
           slug?: string | null;
+          shared_count?: number;
           created_at?: string;
           updated_at?: string;
         };
