@@ -120,7 +120,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
   };
 
   return (
-    <section id="rsvp" className="relative px-6 -mt-6 pb-20 sm:-mt-5 sm:pb-28 overflow-hidden bg-white"
+    <section id="rsvp" className="relative px-6 mt-14 pb-20 sm:pb-28 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="mx-auto max-w-2xl relative z-10">
@@ -282,14 +282,16 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
               <p className="text-sm" style={{ color: themeColors.primary }}>{error}</p>
             )}
 
-            <button
+            <motion.button
               type="submit"
               disabled={loading}
-              className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium shadow-sm transition-all duration-200 hover:shadow-lg disabled:opacity-60"
+              className="flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-medium shadow-sm transition-all duration-200 disabled:opacity-60"
               style={{
                 background: `linear-gradient(135deg, ${themeColors.primary}, ${themeColors.secondary})`,
                 color: themeColors.surface,
               }}
+              whileHover={{ scale: 1.03, boxShadow: `0 8px 24px rgba(139,58,66,0.35)`, transition: { duration: 0.2 } }}
+              whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -300,7 +302,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
                 </svg>
               )}
               {loading ? "Mengirim..." : "Kirim"}
-            </button>
+            </motion.button>
           </form>
         </div>
 

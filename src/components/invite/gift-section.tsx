@@ -80,7 +80,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
             </motion.div>
 
             <div className="relative flex h-[110px] w-[170px] shrink-0 flex-col items-center justify-center gap-0.5 sm:h-[140px] sm:w-[230px] md:h-[136px] md:w-[270px]">
-              {["Wedding", "Gift"].map((w, i) => (
+              {["WEDDING", "GIFT"].map((w, i) => (
                 <motion.span
                   key={w}
                   className="font-display italic leading-none tracking-[0.05em]"
@@ -115,18 +115,20 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-10 text-center"
         >
-          <button
+          <motion.button
             onClick={() => setShowModal(true)}
-            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium shadow-sm transition-all duration-200 hover:shadow-lg"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium shadow-sm transition-all duration-200"
             style={{
               background: `linear-gradient(135deg, ${themeColors.primary}, ${themeColors.secondary})`,
               color: themeColors.surface,
               boxShadow: `0 4px 16px rgba(139,58,66,0.25)`,
             }}
+            whileHover={{ scale: 1.03, boxShadow: `0 8px 24px rgba(139,58,66,0.35)`, transition: { duration: 0.2 } }}
+            whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
           >
             <Gift className="h-4 w-4" />
             Tujuan Pengiriman
-          </button>
+          </motion.button>
         </motion.div>
       </div>
 

@@ -263,8 +263,8 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             boxShadow: `0 4px 24px rgba(139,58,66,0.3)`,
           }}
-          whileHover={{ boxShadow: `0 8px 32px rgba(139,58,66,0.45)`, scale: 1.03 }}
-          whileTap={{ scale: 0.97 }}
+          whileHover={{ boxShadow: `0 8px 32px rgba(139,58,66,0.45)`, scale: 1.03, transition: { duration: 0.2 } }}
+          whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
           onClick={handleOpen}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

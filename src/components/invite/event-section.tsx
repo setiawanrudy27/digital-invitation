@@ -211,23 +211,25 @@ function EventCard({ event: ev }: { event: Event }) {
       </div>
 
       {ev.google_maps_link && (
-        <a
+        <motion.a
           href={ev.google_maps_link}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-4 inline-flex items-center gap-1.5 rounded-full px-6 py-3 text-sm md:text-base shadow-sm transition-all duration-200 hover:shadow-md"
+          className="mt-4 inline-flex items-center gap-1.5 rounded-full px-6 py-3 text-sm md:text-base shadow-sm transition-all duration-200"
           style={{
             background: `linear-gradient(135deg, ${themeColors.primary} 0%, ${themeColors.secondary} 100%)`,
             color: themeColors.surface,
             boxShadow: `0 4px 16px rgba(139,58,66,0.25)`,
           }}
+          whileHover={{ scale: 1.03, boxShadow: `0 8px 24px rgba(139,58,66,0.35)`, transition: { duration: 0.2 } }}
+          whileTap={{ scale: 0.97, transition: { duration: 0.1 } }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
             <circle cx="12" cy="10" r="3" />
           </svg>
           Lihat Lokasi
-        </a>
+        </motion.a>
       )}
     </motion.div>
   );
