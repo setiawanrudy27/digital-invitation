@@ -540,7 +540,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
               <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/20">
                 <Users className="h-4 w-4 text-brand-500" />
               </div>
-              <h2 className="text-sm font-semibold">Filter Tamu Dari</h2>
+              <h2 className="text-sm font-semibold">Tampilkan Tamu Dari</h2>
               {selectedSources.length > 0 && (
                 <Button
                   variant="ghost"
