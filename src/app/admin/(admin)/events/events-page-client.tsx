@@ -60,8 +60,8 @@ export default function EventsPageClient({ events: initialEvents, invitationId }
     setEditingEvent(event);
     setFormData({
       title: event.title,
-      start_date: event.start_date ? event.start_date.slice(0, 16) : "",
-      end_date: event.end_date ? event.end_date.slice(0, 16) : "",
+      start_date: event.start_date ? toLocalInputValue(event.start_date, event.timezone) : "",
+      end_date: event.end_date ? toLocalInputValue(event.end_date, event.timezone) : "",
       until_finish: event.until_finish,
       timezone: event.timezone,
       place_name: event.place_name || "",
@@ -79,8 +79,8 @@ export default function EventsPageClient({ events: initialEvents, invitationId }
       const data = {
         invitation_id: invitationId,
         ...formData,
-        start_date: formData.start_date ? new Date(formData.start_date).toISOString() : null,
-        end_date: formData.until_finish ? null : (formData.end_date ? new Date(formData.end_date).toISOString() : null),
+        start_date: formData.start_date ? fromLocalInputValue(formData.start_date, formData.timezone) : null,
+        end_date: formData.until_finish ? null : (formData.end_date ? fromLocalInputValue(formData.end_date, formData.timezone) : null),
       };
 
       if (editingEvent) {
@@ -138,6 +138,40 @@ export default function EventsPageClient({ events: initialEvents, invitationId }
       dateStyle: "medium",
       timeStyle: "short",
     });
+  };
+
+  const toLocalInputValue = (dateStr: string, tz: string) => {
+    const parts = new Intl.DateTimeFormat("en-CA", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+      timeZone: tz,
+    }).formatToParts(new Date(dateStr));
+    const get = (t: string) => (parts.find((p) => p.type === t)?.value || "").trim();
+    return `${get("year")}-${get("month")}-${get("day")}T${get("hour")}:${get("minute")}`;
+  };
+
+  const fromLocalInputValue = (value: string, tz: string) => {
+    const [datePart, timePart] = value.split("T");
+    if (!datePart || !timePart) return null;
+    const [y, m, d] = datePart.split("-").map(Number);
+    const [hh, mm] = timePart.split(":").map(Number);
+    const guess = Date.UTC(y, m - 1, d, hh, mm);
+    const p = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hourCycle: "h23",
+      timeZone: tz,
+    }).formatToParts(new Date(guess));
+    const g = (t: string) => Number((p.find((x) => x.type === t)?.value || "0").trim());
+    const offset = Date.UTC(g("year"), g("month") - 1, g("day"), g("hour"), g("minute")) - guess;
+    return new Date(guess - offset).toISOString();
   };
 
   return (

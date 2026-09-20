@@ -40,6 +40,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
   const [isPending, startTransition] = useTransition();
   const [showImport, setShowImport] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedSources, setSelectedSources] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const [copiedGuestId, setCopiedGuestId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -49,22 +50,61 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
     email: "",
     guest_from: "",
   });
-  const pageSize = 10;
+  const pageSize = 20;
+
+  const GUEST_SOURCE_COLORS: string[] = [
+    "bg-red-100 text-red-700 border-red-300 dark:bg-red-950/60 dark:text-red-200 dark:border-red-800",
+    "bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-950/60 dark:text-blue-200 dark:border-blue-800",
+    "bg-yellow-100 text-yellow-700 border-yellow-300 dark:bg-yellow-950/60 dark:text-yellow-200 dark:border-yellow-800",
+    "bg-green-100 text-green-700 border-green-300 dark:bg-green-950/60 dark:text-green-200 dark:border-green-800",
+    "bg-orange-100 text-orange-700 border-orange-300 dark:bg-orange-950/60 dark:text-orange-200 dark:border-orange-800",
+    "bg-purple-100 text-purple-700 border-purple-300 dark:bg-purple-950/60 dark:text-purple-200 dark:border-purple-800",
+    "bg-[#e9dcc8] text-[#7c5a34] border-[#d8c4a3] dark:bg-[#3d2c16]/70 dark:text-[#e5cfa8] dark:border-[#5a4222]",
+    "bg-pink-200 text-pink-800 border-pink-300 dark:bg-pink-950/60 dark:text-pink-200 dark:border-pink-800",
+    "bg-neutral-700 text-neutral-100 border-neutral-500 dark:bg-neutral-200 dark:text-neutral-800 dark:border-neutral-400",
+    "bg-gray-200 text-gray-700 border-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:border-gray-700",
+  ];
+
+  const getSourceColorClass = (source: string) => {
+    if (source === "Tidak Diketahui") {
+      return "border-dashed border-border bg-muted/40 text-muted-foreground";
+    }
+    let hash = 0;
+    for (let i = 0; i < source.length; i++) {
+      hash = (hash * 31 + source.charCodeAt(i)) >>> 0;
+    }
+    return GUEST_SOURCE_COLORS[hash % GUEST_SOURCE_COLORS.length];
+  };
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL!;
 
   const filteredGuests = useMemo(() => {
-    if (!searchQuery.trim()) return guests;
-    const q = searchQuery.toLowerCase();
-    return guests.filter(
-      (g) =>
-        g.name.toLowerCase().includes(q) ||
-        (g.email || "").toLowerCase().includes(q) ||
-        (g.address || "").toLowerCase().includes(q) ||
-        (g.guest_from || "").toLowerCase().includes(q) ||
-        (g.phone || "").includes(q)
-    );
-  }, [guests, searchQuery]);
+    let result = guests;
+    if (selectedSources.length > 0) {
+      result = result.filter((g) => selectedSources.includes((g.guest_from || "").trim()));
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(
+        (g) =>
+          g.name.toLowerCase().includes(q) ||
+          (g.email || "").toLowerCase().includes(q) ||
+          (g.address || "").toLowerCase().includes(q) ||
+          (g.guest_from || "").toLowerCase().includes(q) ||
+          (g.phone || "").includes(q)
+      );
+    }
+    return result;
+  }, [guests, searchQuery, selectedSources]);
+
+  const sourceOptions = useMemo(() => {
+    const set = new Set<string>();
+    guests.forEach((g) => {
+      const s = (g.guest_from || "").trim();
+      if (s) set.add(s);
+    });
+    return Array.from(set).sort();
+  }, [guests]);
 
   const paginatedGuests = useMemo(() => {
     const start = (page - 1) * pageSize;
@@ -315,6 +355,15 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
     setPage(1);
   };
 
+  const handleSourceFilterChange = (value: string) => {
+    setSelectedSources((prev) =>
+      prev.includes(value)
+        ? prev.filter((s) => s !== value)
+        : [...prev, value]
+    );
+    setPage(1);
+  };
+
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -469,13 +518,72 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-xs text-muted-foreground mr-1">Tamu Dari:</span>
               {guestRecap.bySource.map((item) => (
-                <div key={item.source} className="flex items-center gap-1.5 rounded-lg border border-border bg-background px-2.5 py-1.5">
-                  <Badge variant={item.source === "Tidak Diketahui" ? "secondary" : "success"} className="px-1.5 min-w-6 justify-center text-xs">
+                <div
+                  key={item.source}
+                  className={`flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 ${getSourceColorClass(item.source)}`}
+                >
+                  <span className="rounded bg-white/70 px-1.5 py-px text-xs font-bold leading-tight dark:bg-black/25">
                     {item.count}
-                  </Badge>
-                  <span className="text-xs text-muted-foreground">{item.source}</span>
+                  </span>
+                  <span className="text-xs font-medium">{item.source}</span>
                 </div>
               ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {guests.length > 0 && sourceOptions.length > 0 && (
+        <Card variant="flat">
+          <CardContent className="py-4">
+            <div className="mb-3 flex items-center gap-2">
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/20">
+                <Users className="h-4 w-4 text-brand-500" />
+              </div>
+              <h2 className="text-sm font-semibold">Filter Tamu Dari</h2>
+              {selectedSources.length > 0 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => {
+                    setSelectedSources([]);
+                    setPage(1);
+                  }}
+                  className="ml-auto h-8 text-xs text-muted-foreground hover:text-destructive"
+                >
+                  Hapus Filter ({selectedSources.length})
+                </Button>
+              )}
+            </div>
+            <div className="flex flex-wrap items-center gap-2">
+              {sourceOptions.map((source) => {
+                const active = selectedSources.includes(source);
+                return (
+                  <button
+                    key={source}
+                    type="button"
+                    role="checkbox"
+                    aria-checked={active}
+                    onClick={() => handleSourceFilterChange(source)}
+                    className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
+                      active
+                        ? `${getSourceColorClass(source)} shadow-sm`
+                        : "border-border bg-background text-muted-foreground hover:bg-muted"
+                    }`}
+                  >
+                    <span
+                      className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${
+                        active
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-muted-foreground/50 bg-white dark:bg-background"
+                      }`}
+                    >
+                      {active && <Check className="h-3 w-3" />}
+                    </span>
+                    {source}
+                  </button>
+                );
+              })}
             </div>
           </CardContent>
         </Card>
@@ -515,7 +623,25 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                         <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 dark:bg-brand-900/20 text-xs font-medium text-brand-600 dark:text-brand-400">
                           {guest.name.charAt(0).toUpperCase()}
                         </div>
-                        <span className="font-medium text-foreground">{guest.name}</span>
+                        <div className="min-w-0">
+                          <span className="font-medium text-foreground">{guest.name}</span>
+                          <div className="mt-1 flex flex-col gap-0.5 lg:hidden">
+                            {guest.phone && (
+                              <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                                <Phone className="h-3 w-3 shrink-0" />
+                                <span className="truncate">{guest.phone}</span>
+                              </span>
+                            )}
+                            {guest.guest_from && (
+                              <span
+                                className={`inline-flex items-center gap-1 truncate rounded px-1.5 py-0.5 text-[11px] font-medium border ${getSourceColorClass(guest.guest_from)}`}
+                              >
+                                <Users className="h-3 w-3 shrink-0" />
+                                <span className="truncate">{guest.guest_from}</span>
+                              </span>
+                            )}
+                          </div>
+                        </div>
                       </div>
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground">
@@ -550,7 +676,11 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground hidden lg:table-cell">
                       {guest.guest_from ? (
-                        <span>{guest.guest_from}</span>
+                        <span
+                          className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-medium border truncate max-w-36 ${getSourceColorClass(guest.guest_from)}`}
+                        >
+                          <span className="truncate">{guest.guest_from}</span>
+                        </span>
                       ) : (
                         <span className="text-muted-foreground/30">&mdash;</span>
                       )}

@@ -1,9 +1,9 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Loader2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { RSVP, Quote } from "@/components/invite/types";
 import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
@@ -32,9 +32,22 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
   const router = useRouter();
   const [form, setForm] = useState<FormData>(emptyForm);
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
+  const [toastVisible, setToastVisible] = useState(false);
   const [error, setError] = useState("");
   const [localRsvps, setLocalRsvps] = useState(rsvps);
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const showToast = useCallback(() => {
+    setToastVisible(true);
+    if (toastTimer.current) clearTimeout(toastTimer.current);
+    toastTimer.current = setTimeout(() => setToastVisible(false), 4000);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimer.current) clearTimeout(toastTimer.current);
+    };
+  }, []);
 
   useEffect(() => {
     setLocalRsvps(rsvps);
@@ -95,7 +108,7 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
         ...prev,
       ]);
 
-      setSubmitted(true);
+      showToast();
       setForm(emptyForm);
       router.refresh();
     } catch (err) {
@@ -140,31 +153,52 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
           </p>
         </motion.div>
 
-        {submitted && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="mt-8 rounded-3xl p-6 text-center"
-            style={{
-              background: `linear-gradient(135deg, ${themeColors.bg} 0%, ${themeColors.blush} 50%, ${themeColors.bg} 100%)`,
-              border: `1px solid ${themeColors.primary}30`,
-            }}
-          >
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full"
-              style={{ background: `linear-gradient(135deg, ${themeColors.primary}, ${themeColors.secondary})` }}
+        <AnimatePresence>
+          {toastVisible && (
+            <motion.div
+              initial={{ opacity: 0, y: -24, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -24, scale: 0.95 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="fixed left-1/2 top-6 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2"
+              role="status"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={themeColors.surface} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <p className="mt-3 font-display text-lg" style={{ color: themeColors.charcoal }}>
-              Terima kasih!
-            </p>
-            <p className="mt-1 text-sm" style={{ color: themeColors.primary }}>
-              Konfirmasi kehadiran Anda telah tercatat.
-            </p>
-          </motion.div>
-        )}
+              <div
+                className="relative flex items-center gap-4 rounded-2xl p-4 shadow-2xl"
+                style={{
+                  background: `linear-gradient(135deg, ${themeColors.bg} 0%, ${themeColors.blush} 50%, ${themeColors.bg} 100%)`,
+                  border: `1px solid ${themeColors.primary}30`,
+                }}
+              >
+                <div
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+                  style={{ background: `linear-gradient(135deg, ${themeColors.primary}, ${themeColors.secondary})` }}
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={themeColors.surface} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="font-display text-sm font-semibold" style={{ color: themeColors.charcoal }}>
+                    Terima kasih!
+                  </p>
+                  <p className="mt-0.5 text-xs" style={{ color: themeColors.primary }}>
+                    Konfirmasi kehadiran Anda telah tercatat.
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setToastVisible(false)}
+                  aria-label="Tutup notifikasi"
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-all duration-200"
+                  style={{ color: themeColors.primary, backgroundColor: `${themeColors.primary}10` }}
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div
           className="relative rounded-xl mt-8 p-6 sm:p-8"
