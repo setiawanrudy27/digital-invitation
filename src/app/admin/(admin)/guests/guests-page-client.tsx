@@ -284,10 +284,22 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
 
   const handleDelete = async (id: string) => {
     if (!(await confirm("Yakin ingin menghapus tamu ini?"))) return;
+    const guestsBeforeDelete = guests;
     startTransition(async () => {
       const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
-      await supabase.from("guests").delete().eq("id", id);
-      setGuests((prev) => prev.filter((g) => g.id !== id));
+      const { error } = await supabase.from("guests").delete().eq("id", id);
+      if (error) return;
+      const deletedGuest = guestsBeforeDelete.find((g) => g.id === id);
+      const nextGuests = guestsBeforeDelete.filter((g) => g.id !== id);
+      const lastPage = Math.max(1, Math.ceil(nextGuests.length / pageSize));
+      if (page > lastPage) setPage(lastPage);
+      if (deletedGuest) {
+        const source = (deletedGuest.guest_from || "").trim();
+        if (source && !nextGuests.some((g) => (g.guest_from || "").trim() === source)) {
+          setSelectedSources((prev) => prev.filter((s) => s !== source));
+        }
+      }
+      setGuests(nextGuests);
       router.refresh();
     });
   };
