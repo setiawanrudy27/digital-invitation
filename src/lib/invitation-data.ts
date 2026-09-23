@@ -40,7 +40,7 @@ const fetchCachedInvitationData = unstable_cache(
       supabase.from("gallery_videos").select("*").eq("invitation_id", invitationId).eq("is_visible", true).then((r) => r.data as any),
       supabase.from("love_stories").select("*").eq("invitation_id", invitationId).order("story_date").then((r) => r.data as any),
       supabase.from("quotes").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("created_at").then((r) => r.data as any),
-      supabase.from("bank_accounts").select("*").eq("invitation_id", invitationId).eq("is_visible", true).then((r) => r.data as any),
+      supabase.from("bank_accounts").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("created_at", { ascending: true }).then((r) => r.data as any),
       supabase.from("qris").select("*").eq("invitation_id", invitationId).maybeSingle().then((r) => r.data as any),
       supabase.from("music").select("*").eq("invitation_id", invitationId).eq("is_visible", true).maybeSingle().then((r) => r.data as any),
       supabase.from("live_streaming").select("*").eq("invitation_id", invitationId).eq("is_visible", true).maybeSingle().then((r) => r.data as any),
@@ -89,6 +89,7 @@ export async function fetchInvitationData(invitationId: string, guestName: strin
       .select("*")
       .eq("invitation_id", invitationId)
       .eq("is_visible", true)
+      .order("created_at", { ascending: true })
       .then((r) => r.data as any),
     supabase
       .from("qris")
