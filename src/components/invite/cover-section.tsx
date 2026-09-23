@@ -47,13 +47,13 @@ export default function CoverSection({ data, onOpen }: CoverSectionProps) {
 
   return (
     <motion.div
-      className="invitation-theme fixed inset-0 z-40 w-full min-h-dvh overflow-y-auto overscroll-y-contain bg-white px-2 py-5 sm:px-0 sm:py-10 lg:relative lg:inset-auto lg:z-auto lg:py-8"
+      className="invitation-theme fixed inset-0 z-40 w-full min-h-dvh overflow-y-auto overscroll-y-contain overscroll-x-contain bg-white px-2 py-5 sm:px-0 sm:py-10 lg:py-8"
       animate={isExiting ? { opacity: 0, scale: 1.03 } : { opacity: 1, scale: 1 }}
       transition={{ duration: 0.9, ease: "easeInOut" }}
     >
 
       <motion.div
-        className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[420px] flex-col items-center justify-start px-2 pb-6 text-center sm:px-8 sm:pb-8"
+        className="relative z-10 mx-auto flex min-h-full w-full max-w-[420px] flex-col items-center justify-start px-2 pb-6 text-center sm:px-8 sm:pb-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.15 }}
