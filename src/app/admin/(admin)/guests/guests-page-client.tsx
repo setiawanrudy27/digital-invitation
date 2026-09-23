@@ -1,7 +1,7 @@
 // @ts-nocheck
 "use client";
 
-import { useState, useTransition, useMemo } from "react";
+import { useState, useTransition, useMemo, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Plus, Pencil, Trash2, X, MessageCircle, Upload, Copy, Download, UserPlus, Search, Mail, Phone, MapPin, Check, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -34,6 +34,7 @@ interface GuestsPageProps {
 export default function GuestsPageClient({ guests: initialGuests, invitationId, whatsappTemplate }: GuestsPageProps) {
   const router = useRouter();
   const { confirm, confirmDialog } = useConfirm();
+  const formRef = useRef<HTMLDivElement>(null);
   const [guests, setGuests] = useState(initialGuests);
   const [showForm, setShowForm] = useState(false);
   const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
@@ -66,12 +67,13 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
   ];
 
   const getSourceColorClass = (source: string) => {
-    if (source === "Tidak Diketahui") {
+    const normalized = (source || "").trim() || "Tidak Diketahui";
+    if (normalized === "Tidak Diketahui") {
       return "border-dashed border-border bg-muted/40 text-muted-foreground";
     }
     let hash = 0;
-    for (let i = 0; i < source.length; i++) {
-      hash = (hash * 31 + source.charCodeAt(i)) >>> 0;
+    for (let i = 0; i < normalized.length; i++) {
+      hash = (hash * 31 + normalized.charCodeAt(i)) >>> 0;
     }
     return GUEST_SOURCE_COLORS[hash % GUEST_SOURCE_COLORS.length];
   };
@@ -217,6 +219,12 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
     setShowForm(false);
   };
 
+  const scrollFormIntoView = () => {
+    setTimeout(() => {
+      formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 60);
+  };
+
   const handleEdit = (guest: Guest) => {
     setEditingGuest(guest);
     setFormData({
@@ -227,6 +235,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
       guest_from: guest.guest_from || "",
     });
     setShowForm(true);
+    scrollFormIntoView();
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -243,7 +252,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
           address: formData.address,
           phone: formData.phone,
           email: formData.email,
-          guest_from: formData.guest_from,
+          guest_from: formData.guest_from.trim(),
           slug: slug,
         };
         const { error } = await supabase
@@ -267,7 +276,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
         }
         const { error } = await supabase
           .from("guests")
-          .insert({ ...formData, slug, invitation_id: invitationId });
+          .insert({ ...formData, guest_from: formData.guest_from.trim(), slug, invitation_id: invitationId });
         if (!error) {
           const { data } = await supabase
             .from("guests")
@@ -325,7 +334,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
             address: row.Alamat || "",
             phone: row.Telepon || "",
             email: row.Email || "",
-            guest_from: row["Tamu Dari"] || "",
+            guest_from: (row["Tamu Dari"] || "").trim(),
             slug: generateSlug(row.Nama),
             invitation_id: invitationId,
           }));
@@ -439,7 +448,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
       )}
 
       {showForm && (
-        <Card variant="elevated">
+        <Card ref={formRef} variant="elevated" className="scroll-mt-6">
           <CardHeader>
             <div className="flex items-center justify-between">
               <div>
