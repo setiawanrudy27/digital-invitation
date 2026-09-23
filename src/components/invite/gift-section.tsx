@@ -23,7 +23,6 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
 
   const [showModal, setShowModal] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
-  const primaryAccount = bankAccounts[0] ?? null;
 
   const handleCopy = useCallback(async (account: BankAccount) => {
     try {
@@ -169,68 +168,70 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
               </div>
 
               <div className="space-y-6">
-                {hasTransfer && primaryAccount && (
-                  <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate="visible"
-                    className="space-y-4"
-                  >
-                    <div className="relative mx-auto flex max-w-[420px] justify-center">
-                      <Image
-                        src="/images/rekening.png"
-                        alt="Rekening pembayaran"
-                        width={760}
-                        height={420}
-                        className="h-auto w-full object-contain"
-                        priority
-                      />
+                {hasTransfer &&
+                  bankAccounts.map((account, index) => (
+                    <motion.div
+                      key={account.id}
+                      variants={containerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="space-y-4"
+                    >
+                      <div className="relative mx-auto flex max-w-[420px] justify-center">
+                        <Image
+                          src={index === 0 ? "/images/rekening.png" : "/images/rekening2.png"}
+                          alt="Rekening pembayaran"
+                          width={760}
+                          height={420}
+                          className="h-auto w-full object-contain"
+                          priority={index === 0}
+                        />
 
-                      <div className="absolute inset-0 flex flex-col justify-center gap-3 px-[14%] py-[18%] text-left sm:gap-4">
-                        <div className="space-y-1">
-                          <div className="font-bold uppercase tracking-[0.16em]" style={{ color: themeColors.primary, fontSize: "clamp(1.8rem, 4vw, 2.6rem)" }}>
-                            {primaryAccount.bank_name}
+                        <div className="absolute inset-0 flex flex-col justify-center gap-3 px-[14%] py-[18%] text-left sm:gap-4">
+                          <div className="space-y-1">
+                            <div className="font-bold uppercase tracking-[0.16em]" style={{ color: themeColors.primary, fontSize: "clamp(1.8rem, 4vw, 2.6rem)" }}>
+                              {account.bank_name}
+                            </div>
+
+                            <div className="font-mono text-[clamp(1rem,2.8vw,1.4rem)] tracking-[0.16em]" style={{ color: themeColors.charcoal }}>
+                              {account.account_number}
+                            </div>
                           </div>
 
-                          <div className="font-mono text-[clamp(1rem,2.8vw,1.4rem)] tracking-[0.16em]" style={{ color: themeColors.charcoal }}>
-                            {primaryAccount.account_number}
+                          <div className="flex items-center justify-between gap-3 sm:gap-4">
+                            <div className="flex min-w-0 flex-col whitespace-nowrap text-[clamp(0.8rem,2.6vw,1.2rem)]" style={{ color: themeColors.charcoal }}>
+                              <span className="font-semibold">Account name:</span>
+                              <span className="translate-x-2 font-semibold">{account.account_holder}</span>
+                            </div>
+                            <button
+                              type="button"
+                              onClick={() => handleCopy(account)}
+                              className={cn(
+                                "inline-flex shrink-0 translate-x-1 -translate-y-3 items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-200",
+                                copiedId === account.id ? "text-white" : "hover:shadow-sm"
+                              )}
+                              style={{
+                                backgroundColor: copiedId === account.id ? themeColors.primary : `${themeColors.primary}15`,
+                                color: copiedId === account.id ? themeColors.surface : themeColors.primary,
+                              }}
+                            >
+                              {copiedId === account.id ? (
+                                <>
+                                  <Check className="h-3 w-3" />
+                                  Tersalin
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="h-3 w-3" />
+                                  Copy
+                                </>
+                              )}
+                            </button>
                           </div>
-                        </div>
-
-                        <div className="flex items-center justify-between gap-3 sm:gap-4">
-                          <div className="flex min-w-0 flex-col whitespace-nowrap text-[clamp(0.8rem,2.6vw,1.2rem)]" style={{ color: themeColors.charcoal }}>
-                            <span className="font-semibold">Account name:</span>
-                            <span className="translate-x-2 font-semibold">{primaryAccount.account_holder}</span>
-                          </div>
-                          <button
-                            type="button"
-                            onClick={() => handleCopy(primaryAccount)}
-                            className={cn(
-                              "inline-flex shrink-0 translate-x-1 -translate-y-3 items-center gap-1.5 rounded-xl px-3 py-1.5 text-xs font-medium transition-all duration-200",
-                              copiedId === primaryAccount.id ? "text-white" : "hover:shadow-sm"
-                            )}
-                            style={{
-                              backgroundColor: copiedId === primaryAccount.id ? themeColors.primary : `${themeColors.primary}15`,
-                              color: copiedId === primaryAccount.id ? themeColors.surface : themeColors.primary,
-                            }}
-                          >
-                            {copiedId === primaryAccount.id ? (
-                              <>
-                                <Check className="h-3 w-3" />
-                                Tersalin
-                              </>
-                            ) : (
-                              <>
-                                <Copy className="h-3 w-3" />
-                                Copy
-                              </>
-                            )}
-                          </button>
                         </div>
                       </div>
-                    </div>
-                  </motion.div>
-                )}
+                    </motion.div>
+                  ))}
 
                 {hasQris && (
                   <motion.div
