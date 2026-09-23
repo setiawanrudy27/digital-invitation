@@ -3,8 +3,9 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Pencil, Trash2, X, Upload, Banknote, QrCode, Building2 } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Upload, Banknote, QrCode, Building2, Eye, EyeOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -77,7 +78,7 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
       } else {
         const { error } = await supabase
           .from("bank_accounts")
-          .insert({ ...bankForm, invitation_id: invitationId });
+          .insert({ ...bankForm, is_visible: true, invitation_id: invitationId });
         if (!error) {
           const { data } = await supabase
             .from("bank_accounts")
@@ -99,6 +100,22 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
       await supabase.from("bank_accounts").delete().eq("id", id);
       setBankAccounts((prev) => prev.filter((a) => a.id !== id));
       router.refresh();
+    });
+  };
+
+  const handleToggleVisibility = async (account: BankAccount, visible: boolean) => {
+    startTransition(async () => {
+      const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
+      const { error } = await supabase
+        .from("bank_accounts")
+        .update({ is_visible: visible })
+        .eq("id", account.id);
+      if (!error) {
+        setBankAccounts((prev) =>
+          prev.map((a) => (a.id === account.id ? { ...a, is_visible: visible } : a))
+        );
+        router.refresh();
+      }
     });
   };
 
@@ -261,7 +278,11 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
 
           <div className="space-y-3">
             {bankAccounts.map((account) => (
-              <Card key={account.id} variant="interactive">
+              <Card
+                key={account.id}
+                variant="interactive"
+                className={!account.is_visible ? "bg-muted/40 opacity-70" : undefined}
+              >
                 <CardContent className="p-5">
                   <div className="flex items-start gap-4">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/20">
@@ -270,11 +291,29 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
                     <div className="flex-1 min-w-0 space-y-1">
                       <div className="flex items-center gap-2">
                         <h3 className="font-semibold text-foreground">{account.bank_name}</h3>
+                        {!account.is_visible && (
+                          <Badge variant="secondary" size="sm">
+                            Tersembunyi
+                          </Badge>
+                        )}
                       </div>
                       <p className="text-sm font-mono text-foreground">{account.account_number}</p>
                       <p className="text-sm text-muted-foreground">{account.account_holder}</p>
                     </div>
                     <div className="flex gap-2 shrink-0 ml-4">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleToggleVisibility(account, !account.is_visible)}
+                        disabled={isPending}
+                        title={account.is_visible ? "Sembunyikan dari undangan" : "Tampilkan di undangan"}
+                      >
+                        {account.is_visible ? (
+                          <EyeOff className="h-3.5 w-3.5 text-muted-foreground/70" />
+                        ) : (
+                          <Eye className="h-3.5 w-3.5 text-success" />
+                        )}
+                      </Button>
                       <Button variant="outline" size="sm" onClick={() => handleEditBank(account)} title="Edit">
                         <Pencil className="h-3.5 w-3.5" />
                       </Button>

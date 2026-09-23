@@ -75,7 +75,7 @@ const fetchCachedInvitationData = unstable_cache(
 
 export async function fetchInvitationData(invitationId: string, guestName: string) {
   const supabase = createPublicClient();
-  const [data, rsvps] = await Promise.all([
+  const [data, rsvps, bankAccounts, qris] = await Promise.all([
     fetchCachedInvitationData(invitationId),
     supabase
       .from("rsvps")
@@ -84,6 +84,18 @@ export async function fetchInvitationData(invitationId: string, guestName: strin
       .eq("is_visible", true)
       .order("created_at", { ascending: false })
       .then((r) => r.data as any),
+    supabase
+      .from("bank_accounts")
+      .select("*")
+      .eq("invitation_id", invitationId)
+      .eq("is_visible", true)
+      .then((r) => r.data as any),
+    supabase
+      .from("qris")
+      .select("*")
+      .eq("invitation_id", invitationId)
+      .maybeSingle()
+      .then((r) => r.data as any),
   ]);
-  return { ...data, rsvps: rsvps ?? [], guestName };
+  return { ...data, rsvps: rsvps ?? [], bankAccounts: bankAccounts ?? [], qris: qris ?? null, guestName };
 }
