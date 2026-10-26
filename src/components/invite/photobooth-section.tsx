@@ -35,7 +35,7 @@ export default function PhotoboothSection({ groom, bride }: Props) {
           className="relative w-[62%] max-w-[320px] shrink-0 translate-x-[4.25rem] sm:translate-x-[5.25rem] md:translate-x-[6.25rem]"
         >
           <Image
-            src="/images/photobooth.png"
+            src="/images/photobooth.png?v=2"
             alt="Photo Booth"
             width={1291}
             height={2512}
