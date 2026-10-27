@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Loader2, X } from "lucide-react";
+import { Loader2, Minus, Plus, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { RSVP, Quote } from "@/components/invite/types";
 import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
@@ -271,24 +271,56 @@ export default function RsvpSection({ invitationId, rsvps, quotes = [] }: RsvpSe
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
               >
-                <label className="mb-1.5 block text-sm font-medium" style={{ color: themeColors.text }}>
+                <label htmlFor="rsvp-guest-count" className="mb-1.5 block text-sm font-medium" style={{ color: themeColors.text }}>
                   Jumlah Tamu
                 </label>
-                <input
-                  type="number"
-                  min={1}
-                  max={20}
-                  value={form.guest_count}
-                  onChange={(e) => updateField("guest_count", Math.max(1, parseInt(e.target.value) || 1))}
-                  className="w-full rounded-xl border px-4 py-3 text-sm outline-none transition-all duration-200"
-                  style={{
-                    backgroundColor: themeColors.surface,
-                    borderColor: `rgba(201,168,76,0.25)`,
-                    color: themeColors.text,
-                  }}
-                  onFocus={(e) => { e.target.style.borderColor = themeColors.gold; e.target.style.boxShadow = `0 0 0 3px rgba(201,168,76,0.12)`; }}
-                  onBlur={(e) => { e.target.style.borderColor = `rgba(201,168,76,0.25)`; e.target.style.boxShadow = "none"; }}
-                />
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    aria-label="Kurangi jumlah tamu"
+                    disabled={form.guest_count <= 1}
+                    onClick={() => updateField("guest_count", Math.max(1, form.guest_count - 1))}
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-colors disabled:opacity-40"
+                    style={{
+                      backgroundColor: themeColors.surface,
+                      borderColor: `rgba(201,168,76,0.25)`,
+                      color: themeColors.primary,
+                    }}
+                  >
+                    <Minus className="h-4 w-4" />
+                  </button>
+                  <input
+                    id="rsvp-guest-count"
+                    type="number"
+                    min={1}
+                    max={20}
+                    step={1}
+                    value={form.guest_count}
+                    onChange={(e) => updateField("guest_count", Math.min(20, Math.max(1, parseInt(e.target.value) || 1)))}
+                    className="min-w-0 flex-1 rounded-xl border px-4 py-3 text-center text-sm outline-none transition-all duration-200"
+                    style={{
+                      backgroundColor: themeColors.surface,
+                      borderColor: `rgba(201,168,76,0.25)`,
+                      color: themeColors.text,
+                    }}
+                    onFocus={(e) => { e.target.style.borderColor = themeColors.gold; e.target.style.boxShadow = `0 0 0 3px rgba(201,168,76,0.12)`; }}
+                    onBlur={(e) => { e.target.style.borderColor = `rgba(201,168,76,0.25)`; e.target.style.boxShadow = "none"; }}
+                  />
+                  <button
+                    type="button"
+                    aria-label="Tambah jumlah tamu"
+                    disabled={form.guest_count >= 20}
+                    onClick={() => updateField("guest_count", Math.min(20, form.guest_count + 1))}
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border transition-colors disabled:opacity-40"
+                    style={{
+                      backgroundColor: themeColors.surface,
+                      borderColor: `rgba(201,168,76,0.25)`,
+                      color: themeColors.primary,
+                    }}
+                  >
+                    <Plus className="h-4 w-4" />
+                  </button>
+                </div>
               </motion.div>
             )}
 
