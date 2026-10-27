@@ -5,9 +5,9 @@ export async function POST(request: Request) {
   try {
     const body = await request.json();
     const email = String(body.email ?? "").trim();
-    const password = String(body.password ?? "").trim();
+    const password = String(body.password ?? "");
 
-    if (!email || !password) {
+    if (!email || !password.trim()) {
       return NextResponse.json(
         { error: "Email dan password diperlukan." },
         { status: 400 }
