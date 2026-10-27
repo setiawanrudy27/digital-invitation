@@ -23,6 +23,10 @@ import type { Database } from "@/lib/supabase/database.types";
 import * as XLSX from "xlsx";
 
 type Guest = Database["public"]["Tables"]["guests"]["Row"];
+const UNKNOWN_GUEST_SOURCE = "Tidak Diketahui";
+
+const getGuestSource = (guest: Pick<Guest, "guest_from">) =>
+  guest.guest_from?.trim() || UNKNOWN_GUEST_SOURCE;
 
 interface GuestsPageProps {
   guests: Guest[];
@@ -67,8 +71,8 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
   ];
 
   const getSourceColorClass = (source: string) => {
-    const normalized = (source || "").trim() || "Tidak Diketahui";
-    if (normalized === "Tidak Diketahui") {
+    const normalized = source.trim() || UNKNOWN_GUEST_SOURCE;
+    if (normalized === UNKNOWN_GUEST_SOURCE) {
       return "border-dashed border-border bg-muted/40 text-muted-foreground";
     }
     let hash = 0;
@@ -83,7 +87,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
   const filteredGuests = useMemo(() => {
     let result = guests;
     if (selectedSources.length > 0) {
-      result = result.filter((g) => selectedSources.includes((g.guest_from || "").trim()));
+      result = result.filter((g) => selectedSources.includes(getGuestSource(g)));
     }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -102,8 +106,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
   const sourceOptions = useMemo(() => {
     const set = new Set<string>();
     guests.forEach((g) => {
-      const s = (g.guest_from || "").trim();
-      if (s) set.add(s);
+      set.add(getGuestSource(g));
     });
     return Array.from(set).sort();
   }, [guests]);
@@ -116,7 +119,7 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
   const guestRecap = useMemo(() => {
     const sourceMap = new Map<string, number>();
     guests.forEach((g) => {
-      const source = (g.guest_from || "").trim() || "Tidak Diketahui";
+      const source = getGuestSource(g);
       sourceMap.set(source, (sourceMap.get(source) || 0) + 1);
     });
     const bySource = Array.from(sourceMap.entries())
@@ -303,8 +306,8 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
       const lastPage = Math.max(1, Math.ceil(nextGuests.length / pageSize));
       if (page > lastPage) setPage(lastPage);
       if (deletedGuest) {
-        const source = (deletedGuest.guest_from || "").trim();
-        if (source && !nextGuests.some((g) => (g.guest_from || "").trim() === source)) {
+        const source = getGuestSource(deletedGuest);
+        if (!nextGuests.some((g) => getGuestSource(g) === source)) {
           setSelectedSources((prev) => prev.filter((s) => s !== source));
         }
       }
@@ -653,14 +656,12 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                                 <span className="truncate">{guest.phone}</span>
                               </span>
                             )}
-                            {guest.guest_from && (
-                              <span
-                                className={`inline-flex items-center gap-1 truncate rounded px-1.5 py-0.5 text-[11px] font-medium border ${getSourceColorClass(guest.guest_from)}`}
-                              >
-                                <Users className="h-3 w-3 shrink-0" />
-                                <span className="truncate">{guest.guest_from}</span>
-                              </span>
-                            )}
+                            <span
+                              className={`inline-flex items-center gap-1 truncate rounded px-1.5 py-0.5 text-[11px] font-medium border ${getSourceColorClass(getGuestSource(guest))}`}
+                            >
+                              <Users className="h-3 w-3 shrink-0" />
+                              <span className="truncate">{getGuestSource(guest)}</span>
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -696,15 +697,11 @@ export default function GuestsPageClient({ guests: initialGuests, invitationId, 
                       )}
                     </TableCell>
                     <TableCell className="text-sm text-muted-foreground hidden lg:table-cell">
-                      {guest.guest_from ? (
-                        <span
-                          className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-medium border truncate max-w-36 ${getSourceColorClass(guest.guest_from)}`}
-                        >
-                          <span className="truncate">{guest.guest_from}</span>
-                        </span>
-                      ) : (
-                        <span className="text-muted-foreground/30">&mdash;</span>
-                      )}
+                      <span
+                        className={`inline-flex items-center gap-1 rounded px-2 py-0.5 text-xs font-medium border truncate max-w-36 ${getSourceColorClass(getGuestSource(guest))}`}
+                      >
+                        <span className="truncate">{getGuestSource(guest)}</span>
+                      </span>
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center justify-start gap-1.5">
