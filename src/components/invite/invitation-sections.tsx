@@ -36,8 +36,8 @@ export default function InvitationSections({ data, containerRef }: Props) {
       {data.galleryPhotos.length > 0 && <GallerySection photos={data.galleryPhotos} videos={data.galleryVideos} />}
       {data.quotes.length > 1 && <CoupleQuoteSection quotes={data.quotes} />}
       {data.settings?.show_rsvp !== false && <RSVPSection invitationId={data.invitation.id} rsvps={data.rsvps} quotes={data.quotes} />}
-      {(data.bankAccounts.length > 0 || data.qris) && (
-        <GiftSection bankAccounts={data.bankAccounts} qris={data.qris} settings={data.settings} />
+      {(data.bankAccounts.length > 0 || data.qris || data.shippingAddresses.length > 0) && (
+        <GiftSection bankAccounts={data.bankAccounts} qris={data.qris} shippingAddresses={data.shippingAddresses} settings={data.settings} />
       )}
       <ThankYouSection thankYou={data.thankYou} groom={data.coupleGroom} bride={data.coupleBride} />
     </>

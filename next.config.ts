@@ -8,6 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "ozkqnrwzkmvvqvwsynpx.supabase.co",
       },
     ],
+    localPatterns: [
+      {
+        pathname: "/images/**",
+      },
+    ],
   },
   experimental: {
     serverActions: {

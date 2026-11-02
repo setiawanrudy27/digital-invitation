@@ -422,6 +422,32 @@ export type Database = {
           updated_at?: string;
         };
       };
+      shipping_addresses: {
+        Row: {
+          id: string;
+          invitation_id?: string;
+          address: string;
+          is_visible: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          invitation_id?: string;
+          address: string;
+          is_visible?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          invitation_id?: string;
+          address?: string;
+          is_visible?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+      };
       rsvps: {
         Row: {
           id: string;

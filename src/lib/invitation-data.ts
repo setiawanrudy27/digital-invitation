@@ -28,6 +28,7 @@ const fetchCachedInvitationData = unstable_cache(
       quotes,
       bankAccounts,
       qris,
+      shippingAddresses,
       music,
       liveStreaming,
       weddingFrame,
@@ -42,6 +43,7 @@ const fetchCachedInvitationData = unstable_cache(
       supabase.from("quotes").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("created_at").then((r) => r.data as any),
       supabase.from("bank_accounts").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("created_at", { ascending: true }).then((r) => r.data as any),
       supabase.from("qris").select("*").eq("invitation_id", invitationId).maybeSingle().then((r) => r.data as any),
+      supabase.from("shipping_addresses").select("*").eq("invitation_id", invitationId).eq("is_visible", true).order("created_at").then((r) => r.data as any),
       supabase.from("music").select("*").eq("invitation_id", invitationId).eq("is_visible", true).maybeSingle().then((r) => r.data as any),
       supabase.from("live_streaming").select("*").eq("invitation_id", invitationId).eq("is_visible", true).maybeSingle().then((r) => r.data as any),
       supabase.from("wedding_frame").select("*").eq("invitation_id", invitationId).eq("is_visible", true).maybeSingle().then((r) => r.data as any),
@@ -62,6 +64,7 @@ const fetchCachedInvitationData = unstable_cache(
       quotes: quotes ?? [],
       bankAccounts: bankAccounts ?? [],
       qris: qris ?? null,
+      shippingAddresses: shippingAddresses ?? [],
       music: music ?? null,
       liveStreaming: liveStreaming ?? null,
       weddingFrame: weddingFrame ?? null,
@@ -75,7 +78,7 @@ const fetchCachedInvitationData = unstable_cache(
 
 export async function fetchInvitationData(invitationId: string, guestName: string) {
   const supabase = createPublicClient();
-  const [data, rsvps, bankAccounts, qris] = await Promise.all([
+  const [data, rsvps, bankAccounts, qris, shippingAddresses] = await Promise.all([
     fetchCachedInvitationData(invitationId),
     supabase
       .from("rsvps")
@@ -97,6 +100,13 @@ export async function fetchInvitationData(invitationId: string, guestName: strin
       .eq("invitation_id", invitationId)
       .maybeSingle()
       .then((r) => r.data as any),
+    supabase
+      .from("shipping_addresses")
+      .select("*")
+      .eq("invitation_id", invitationId)
+      .eq("is_visible", true)
+      .order("created_at", { ascending: true })
+      .then((r) => r.data as any),
   ]);
-  return { ...data, rsvps: rsvps ?? [], bankAccounts: bankAccounts ?? [], qris: qris ?? null, guestName };
+  return { ...data, rsvps: rsvps ?? [], bankAccounts: bankAccounts ?? [], qris: qris ?? null, shippingAddresses: shippingAddresses ?? [], guestName };
 }

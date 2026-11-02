@@ -1,9 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 "use client";
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Plus, Pencil, Trash2, X, Upload, Banknote, QrCode, Building2, Eye, EyeOff } from "lucide-react";
+import { Plus, Pencil, Trash2, X, Upload, Banknote, QrCode, Building2, Eye, EyeOff, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -15,27 +16,35 @@ import type { Database } from "@/lib/supabase/database.types";
 
 type BankAccount = Database["public"]["Tables"]["bank_accounts"]["Row"];
 type Qris = Database["public"]["Tables"]["qris"]["Row"];
+type ShippingAddress = Database["public"]["Tables"]["shipping_addresses"]["Row"];
 
 interface GiftsPageProps {
   bankAccounts: BankAccount[];
   qris: Qris | null;
+  shippingAddresses: ShippingAddress[];
   invitationId: string;
 }
 
-export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: initialQris, invitationId }: GiftsPageProps) {
+export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: initialQris, shippingAddresses: initialShippingAddresses, invitationId }: GiftsPageProps) {
   const router = useRouter();
   const { confirm, confirmDialog } = useConfirm();
   const [bankAccounts, setBankAccounts] = useState(initialAccounts);
   const [currentQris, setCurrentQris] = useState(initialQris);
+  const [shippingAddresses, setShippingAddresses] = useState(initialShippingAddresses);
   const [showBankForm, setShowBankForm] = useState(false);
   const [showQrisForm, setShowQrisForm] = useState(false);
+  const [showShippingForm, setShowShippingForm] = useState(false);
   const [editingAccount, setEditingAccount] = useState<BankAccount | null>(null);
+  const [editingShipping, setEditingShipping] = useState<ShippingAddress | null>(null);
   const [isPending, startTransition] = useTransition();
 
   const [bankForm, setBankForm] = useState({
     bank_name: "",
     account_number: "",
     account_holder: "",
+  });
+  const [shippingForm, setShippingForm] = useState({
+    address: "",
   });
   const [qrisFile, setQrisFile] = useState<File | null>(null);
   const [qrisPreview, setQrisPreview] = useState<string>("");
@@ -44,6 +53,12 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
     setBankForm({ bank_name: "", account_number: "", account_holder: "" });
     setEditingAccount(null);
     setShowBankForm(false);
+  };
+
+  const resetShippingForm = () => {
+    setShippingForm({ address: "" });
+    setEditingShipping(null);
+    setShowShippingForm(false);
   };
 
   const handleEditBank = (account: BankAccount) => {
@@ -184,6 +199,77 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
     });
   };
 
+  const handleEditShipping = (shipping: ShippingAddress) => {
+    setEditingShipping(shipping);
+    setShippingForm({
+      address: shipping.address,
+    });
+    setShowShippingForm(true);
+  };
+
+  const handleSubmitShipping = async (e: React.FormEvent) => {
+    e.preventDefault();
+    startTransition(async () => {
+      const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
+
+      if (editingShipping) {
+        const { error } = await supabase
+          .from("shipping_addresses")
+          .update(shippingForm)
+          .eq("id", editingShipping.id);
+        if (!error) {
+          const { data } = await supabase
+            .from("shipping_addresses")
+            .select("*")
+            .eq("invitation_id", invitationId)
+            .order("created_at");
+          if (data) setShippingAddresses(data);
+          resetShippingForm();
+        }
+      } else {
+        const { error } = await supabase
+          .from("shipping_addresses")
+          .insert({ ...shippingForm, is_visible: true, invitation_id: invitationId });
+        if (!error) {
+          const { data } = await supabase
+            .from("shipping_addresses")
+            .select("*")
+            .eq("invitation_id", invitationId)
+            .order("created_at");
+          if (data) setShippingAddresses(data);
+          resetShippingForm();
+        }
+      }
+      router.refresh();
+    });
+  };
+
+  const handleDeleteShipping = async (id: string) => {
+    if (!(await confirm("Yakin ingin menghapus alamat pengiriman ini?"))) return;
+    startTransition(async () => {
+      const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
+      await supabase.from("shipping_addresses").delete().eq("id", id);
+      setShippingAddresses((prev) => prev.filter((a) => a.id !== id));
+      router.refresh();
+    });
+  };
+
+  const handleToggleShippingVisibility = async (shipping: ShippingAddress, visible: boolean) => {
+    startTransition(async () => {
+      const supabase = await import("@/lib/supabase/client").then((m) => m.createClient());
+      const { error } = await supabase
+        .from("shipping_addresses")
+        .update({ is_visible: visible })
+        .eq("id", shipping.id);
+      if (!error) {
+        setShippingAddresses((prev) =>
+          prev.map((a) => (a.id === shipping.id ? { ...a, is_visible: visible } : a))
+        );
+        router.refresh();
+      }
+    });
+  };
+
   const displayedQrisUrl = qrisPreview || currentQris?.qris_url;
 
   return (
@@ -191,7 +277,7 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
       <section className="rounded-3xl border border-border bg-muted/30 p-6 shadow-sm dark:bg-muted/10">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight">Rekening & QRIS</h1>
+            <h1 className="text-3xl font-semibold tracking-tight">Rekening / Gift</h1>
             <p className="text-sm text-muted-foreground dark:text-brand-200/60 mt-1">
               Atur semua metode pembayaran hadiah agar tamu Anda bisa memilih dengan jelas dan nyaman.
             </p>
@@ -448,6 +534,121 @@ export default function GiftsPageClient({ bankAccounts: initialAccounts, qris: i
           )}
         </div>
       </div>
+
+      <section className="space-y-5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-900/20">
+              <MapPin className="h-4 w-4 text-brand-500" />
+            </div>
+            <h2 className="text-lg font-semibold">Tujuan Pengiriman</h2>
+          </div>
+          <Button size="sm" onClick={() => setShowShippingForm(true)}>
+            <Plus className="h-4 w-4" />
+            Tambah
+          </Button>
+        </div>
+
+        {showShippingForm && (
+          <Card variant="elevated">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>{editingShipping ? "Edit Alamat Pengiriman" : "Tambah Alamat Pengiriman"}</CardTitle>
+                  <CardDescription>Masukkan alamat lengkap untuk pengiriman hadiah</CardDescription>
+                </div>
+                <Button variant="ghost" size="icon" onClick={resetShippingForm} className="shrink-0">
+                  <X className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmitShipping} className="space-y-5">
+                <div className="space-y-2">
+                  <Label htmlFor="address">Alamat Lengkap</Label>
+                  <textarea
+                    id="address"
+                    value={shippingForm.address}
+                    onChange={(e) => setShippingForm({ ...shippingForm, address: e.target.value })}
+                    placeholder="Jl. Contoh No. 123, RT 01/RW 02, Kelurahan ABC, Kecamatan XYZ, Kota Jakarta Selatan, DKI Jakarta 12345"
+                    required
+                    rows={4}
+                    className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  />
+                </div>
+                <div className="flex gap-3 pt-2">
+                  <Button type="submit" disabled={isPending} loading={isPending}>
+                    {isPending ? "Menyimpan..." : "Simpan"}
+                  </Button>
+                  <Button type="button" variant="outline" onClick={resetShippingForm}>
+                    Batal
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        )}
+
+        <div className="space-y-3">
+          {shippingAddresses.map((shipping) => (
+            <Card
+              key={shipping.id}
+              variant="interactive"
+              className={!shipping.is_visible ? "bg-muted/40 opacity-70" : undefined}
+            >
+              <CardContent className="p-5">
+                <div className="flex items-start gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 dark:bg-brand-900/20">
+                    <MapPin className="h-5 w-5 text-brand-500" />
+                  </div>
+                  <div className="flex-1 min-w-0 space-y-1">
+                    <p className="text-sm text-foreground">{shipping.address}</p>
+                    {!shipping.is_visible && (
+                      <Badge variant="secondary" size="sm">
+                        Tersembunyi
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="flex gap-2 shrink-0 ml-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleToggleShippingVisibility(shipping, !shipping.is_visible)}
+                      disabled={isPending}
+                      title={shipping.is_visible ? "Sembunyikan dari undangan" : "Tampilkan di undangan"}
+                    >
+                      {shipping.is_visible ? (
+                        <EyeOff className="h-3.5 w-3.5 text-muted-foreground/70" />
+                      ) : (
+                        <Eye className="h-3.5 w-3.5 text-success" />
+                      )}
+                    </Button>
+                    <Button variant="outline" size="sm" onClick={() => handleEditShipping(shipping)} title="Edit">
+                      <Pencil className="h-3.5 w-3.5" />
+                    </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDeleteShipping(shipping.id)}
+                      disabled={isPending}
+                      title="Hapus"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+          {shippingAddresses.length === 0 && !showShippingForm && (
+            <Card variant="flat">
+              <CardContent className="py-12 text-center">
+                <p className="text-sm text-muted-foreground dark:text-brand-200/75">Belum ada alamat pengiriman.</p>
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </section>
       {confirmDialog}
     </div>
   );

@@ -5,21 +5,21 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, Copy, Gift, X } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import type { BankAccount, QRIS, Setting } from "@/components/invite/types";
+import type { BankAccount, QRIS, Setting, ShippingAddress } from "@/components/invite/types";
 import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 interface GiftSectionProps {
   bankAccounts: BankAccount[];
   qris: QRIS | null;
+  shippingAddresses: ShippingAddress[];
   settings: Setting | null;
 }
 
-export default function GiftSection({ bankAccounts, qris, settings }: GiftSectionProps) {
+export default function GiftSection({ bankAccounts, qris, shippingAddresses, settings }: GiftSectionProps) {
   const paymentMethod = settings?.payment_method ?? "transfer";
   const hasTransfer = bankAccounts.length > 0 && (paymentMethod === "transfer" || paymentMethod === "both");
   const hasQris = qris !== null && (paymentMethod === "qris" || paymentMethod === "both");
-
-  if (!hasTransfer && !hasQris) return null;
+  const hasShipping = shippingAddresses.length > 0;
 
   const [showModal, setShowModal] = useState(false);
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -40,6 +40,8 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
       setTimeout(() => setCopiedId(null), 2000);
     }
   }, []);
+
+  if (!hasTransfer && !hasQris && !hasShipping) return null;
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -156,7 +158,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
               <div className="max-h-[85vh] overflow-y-auto rounded-3xl p-6 sm:p-8">
                 <div className="flex items-center justify-between mb-6">
                 <h3 className="font-display text-xl italic" style={{ color: themeColors.charcoal }}>
-                  Tujuan Pengiriman
+                  Rekening Pengiriman
                 </h3>
                 <button
                   onClick={() => setShowModal(false)}
@@ -233,6 +235,33 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
                     </motion.div>
                   ))}
 
+                {hasShipping && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: 0.2 }}
+                    className="space-y-3"
+                  >
+                    <p className="font-display text-lg italic" style={{ color: themeColors.charcoal }}>
+                      Alamat Pengiriman
+                    </p>
+                    {shippingAddresses.map((shipping) => (
+                      <div
+                        key={shipping.id}
+                        className="rounded-2xl p-5 text-left"
+                        style={{
+                          backgroundColor: `${themeColors.primary}08`,
+                          border: `1px solid ${themeColors.primary}20`,
+                        }}
+                      >
+                        <p className="text-sm leading-relaxed" style={{ color: themeColors.charcoal }}>
+                          {shipping.address}
+                        </p>
+                      </div>
+                    ))}
+                  </motion.div>
+                )}
+
                 {hasQris && (
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -251,6 +280,7 @@ export default function GiftSection({ bankAccounts, qris, settings }: GiftSectio
                     />
                   </motion.div>
                 )}
+
               </div>
             </div>
           </motion.div>

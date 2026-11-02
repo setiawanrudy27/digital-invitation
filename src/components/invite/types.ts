@@ -9,6 +9,7 @@ export type LoveStory = Database["public"]["Tables"]["love_stories"]["Row"];
 export type Quote = Database["public"]["Tables"]["quotes"]["Row"];
 export type BankAccount = Database["public"]["Tables"]["bank_accounts"]["Row"];
 export type QRIS = Database["public"]["Tables"]["qris"]["Row"];
+export type ShippingAddress = Database["public"]["Tables"]["shipping_addresses"]["Row"];
 export type Music = Database["public"]["Tables"]["music"]["Row"];
 export type LiveStreaming = Database["public"]["Tables"]["live_streaming"]["Row"];
 export type WeddingFrame = Database["public"]["Tables"]["wedding_frame"]["Row"];
@@ -27,6 +28,7 @@ export interface InvitationPageData {
   quotes: Quote[];
   bankAccounts: BankAccount[];
   qris: QRIS | null;
+  shippingAddresses: ShippingAddress[];
   music: Music | null;
   liveStreaming: LiveStreaming | null;
   weddingFrame: WeddingFrame | null;
