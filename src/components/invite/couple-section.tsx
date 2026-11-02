@@ -7,20 +7,20 @@ import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 function ProfileImage({ photo_url, full_name }: { photo_url: string | null; full_name: string }) {
   return (
-    <div className="relative w-full aspect-[2/3] max-w-[145px] mx-auto">
+    <div className="relative mx-auto aspect-[4/5] w-full max-w-[220px]">
       <div className="relative h-full w-full">
         {photo_url ? (
-          <div className="absolute left-1/2 top-1/2 w-[150px] h-[198px] -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-[50%] shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+          <div className="absolute inset-x-[5%] top-[2%] bottom-[1%] overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
             <img
               src={photo_url}
               alt={full_name}
-              className="w-full h-full object-cover"
+              className="w-full h-full rounded-2xl object-cover object-top"
             />
-            <div className="absolute inset-0 ring-1 ring-inset ring-black/5 rounded-[50%]" />
+            <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/5" />
           </div>
         ) : (
           <div
-            className="absolute left-1/2 top-1/2 w-[104px] h-[152px] -translate-x-1/2 -translate-y-1/2 flex items-center justify-center rounded-[50%]"
+            className="absolute inset-x-[5%] top-[2%] bottom-[1%] flex items-center justify-center rounded-xl"
             style={{ background: `linear-gradient(135deg, ${themeColors.blush}, ${themeColors.surface})` }}
           >
             <svg className="w-10 h-10" style={{ color: `${themeColors.secondary}80` }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
@@ -29,7 +29,7 @@ function ProfileImage({ photo_url, full_name }: { photo_url: string | null; full
           </div>
         )}
         <img
-          src="/images/framemempelai.png"
+          src="/images/framemempelai.png?v=2"
           alt="Frame mempelai"
           className="pointer-events-none absolute inset-0 z-10 h-full w-full object-contain"
         />
