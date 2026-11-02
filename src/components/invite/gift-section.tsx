@@ -242,7 +242,7 @@ export default function GiftSection({ bankAccounts, qris, shippingAddresses, set
                     transition={{ duration: 0.5, delay: 0.2 }}
                     className="space-y-3"
                   >
-                    <p className="font-display text-lg italic" style={{ color: themeColors.charcoal }}>
+                    <p className="font-display text-xl italic" style={{ color: themeColors.charcoal }}>
                       Alamat Pengiriman
                     </p>
                     {shippingAddresses.map((shipping) => (

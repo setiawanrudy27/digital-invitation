@@ -270,14 +270,14 @@ export default function EventSection({
               />
             </div>
 
-            <div className="flex flex-col items-center justify-center gap-1 pr-9">
+            <div className="-translate-x-2 flex flex-col items-center justify-center gap-1 pr-9">
               {["SAVE", "THE", "DATE!"].map((w, i) => (
                 <motion.span
                   key={w}
                   className="font-display italic leading-none tracking-[0.08em]"
                   style={{
                     color: themeColors.primary,
-                    fontSize: "clamp(2.6rem, 7vw, 4.6rem)",
+                    fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
                     marginLeft: `-${i * 18}px`,
                   }}
                   initial={{ opacity: 0, y: 24, rotate: 8 }}

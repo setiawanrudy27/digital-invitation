@@ -12,7 +12,7 @@ export default function SaveTheDateSection({ data }: { data: InvitationPageData 
   return (
     <section
       id="save-the-date"
-      className="relative px-4 pt-8 pb-16 md:pt-12 md:pb-24 overflow-hidden bg-white"
+      className="relative px-4 pt-4 pb-16 md:pt-8 md:pb-24 overflow-hidden bg-white"
     >
       <FloatingLeaves />
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center text-center">
