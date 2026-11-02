@@ -48,7 +48,7 @@ export default function SaveTheDateSection({ data }: { data: InvitationPageData 
         </motion.h1>
 
         <motion.div
-          className="mt-8 w-full"
+          className="mt-6 w-full"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -65,7 +65,7 @@ export default function SaveTheDateSection({ data }: { data: InvitationPageData 
         </motion.div>
 
         <motion.h2
-          className="mt-10 font-italianno text-4xl sm:text-5xl lg:text-6xl leading-tight"
+          className="mt-8 font-italianno text-4xl sm:text-5xl lg:text-6xl leading-tight"
           style={{ color: themeColors.primary }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -77,7 +77,7 @@ export default function SaveTheDateSection({ data }: { data: InvitationPageData 
 
         {data.quotes[0] && (
           <motion.blockquote
-            className="mt-8 max-w-xl font-display text-xs sm:text-sm lg:text-base leading-relaxed italic"
+            className="mt-6 max-w-xl font-display text-xs sm:text-sm lg:text-base leading-relaxed italic"
             style={{ color: themeColors.charcoal }}
             whileHover={{ scale: 1.02 }}
           >

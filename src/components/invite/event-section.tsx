@@ -277,7 +277,7 @@ export default function EventSection({
                   className="font-display italic leading-none tracking-[0.08em]"
                   style={{
                     color: themeColors.primary,
-                    fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
+                    fontSize: "clamp(2rem, 5.5vw, 3.4rem)",
                     marginLeft: `-${i * 18}px`,
                   }}
                   initial={{ opacity: 0, y: 24, rotate: 8 }}

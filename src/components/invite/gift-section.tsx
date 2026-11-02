@@ -87,7 +87,7 @@ export default function GiftSection({ bankAccounts, qris, shippingAddresses, set
                   className="font-display italic leading-none tracking-[0.05em]"
                   style={{
                     color: themeColors.primary,
-                    fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
+                    fontSize: "clamp(2rem, 5.5vw, 3.4rem)",
                     marginLeft: `-${i * 8}px`,
                   }}
                   initial={{ opacity: 0, y: 24, rotate: 8 }}
