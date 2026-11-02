@@ -10,7 +10,7 @@ function ProfileImage({ photo_url, full_name }: { photo_url: string | null; full
     <div className="relative mx-auto aspect-[4/5] w-full max-w-[220px]">
       <div className="relative h-full w-full">
         {photo_url ? (
-          <div className="absolute inset-x-[5%] top-[2%] bottom-[1%] overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
+          <div className="absolute inset-x-[7%] top-[2%] bottom-[1%] overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
             <img
               src={photo_url}
               alt={full_name}
@@ -20,7 +20,7 @@ function ProfileImage({ photo_url, full_name }: { photo_url: string | null; full
           </div>
         ) : (
           <div
-            className="absolute inset-x-[5%] top-[2%] bottom-[1%] flex items-center justify-center rounded-xl"
+            className="absolute inset-x-[7%] top-[2%] bottom-[1%] flex items-center justify-center rounded-xl"
             style={{ background: `linear-gradient(135deg, ${themeColors.blush}, ${themeColors.surface})` }}
           >
             <svg className="w-10 h-10" style={{ color: `${themeColors.secondary}80` }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
