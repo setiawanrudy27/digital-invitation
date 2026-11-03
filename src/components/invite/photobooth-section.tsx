@@ -22,7 +22,7 @@ export default function PhotoboothSection({ groom, bride }: Props) {
           className="mt-20 w-[42%] shrink-0 self-start translate-x-[1.25rem] text-right font-display leading-[0.85] italic sm:mt-24 sm:translate-x-[3.25rem] md:mt-28 md:translate-x-[5.25rem]"
           style={{ color: themeColors.primary, fontSize: "clamp(2rem, 6vw, 4rem)", textAlign: "right" }}
         >
-          <span className="block whitespace-nowrap">We can&apos;t</span>
+          <span className="block whitespace-nowrap">We can't</span>
           <span className="block whitespace-nowrap">wait to</span>
           <span className="block whitespace-nowrap">celebrate</span>
           <span className="block whitespace-nowrap">with you!</span>

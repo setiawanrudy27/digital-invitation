@@ -7,7 +7,7 @@ import { themeColors, FloatingLeaves } from "@/components/invite/decoratives";
 
 function ProfileImage({ photo_url, full_name }: { photo_url: string | null; full_name: string }) {
   return (
-    <div className="relative mx-auto aspect-[4/5] w-full max-w-[220px]">
+    <div className="relative mx-auto aspect-[4/5] w-full max-w-[180px]">
       <div className="relative h-full w-full">
         {photo_url ? (
           <div className="absolute inset-x-[7%] top-[2%] bottom-[1%] overflow-hidden rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
