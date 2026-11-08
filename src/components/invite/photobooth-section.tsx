@@ -35,12 +35,12 @@ export default function PhotoboothSection({ groom, bride }: Props) {
           className="relative w-[62%] max-w-[320px] shrink-0 translate-x-[4.25rem] sm:translate-x-[5.25rem] md:translate-x-[6.25rem]"
         >
           <Image
-            src="/images/photobooth.png?v=2"
+            src="/images/photobooth.png?v=4"
             alt="Photo Booth"
-            width={1291}
-            height={2512}
+            width={2000}
+            height={3500}
             sizes="(max-width: 640px) 62vw, 320px"
-            className="h-auto w-full object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.06)]"
+            className="h-auto w-full scale-110 object-contain drop-shadow-[0_8px_20px_rgba(0,0,0,0.06)]"
           />
         </motion.div>
       </div>
